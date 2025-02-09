@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\App;
 
 class RegisterController extends Controller{
@@ -20,15 +21,17 @@ class RegisterController extends Controller{
             'email' => 'required',
             'password' => 'required'
         ]);
-        $fullname = $request->input('fullname');
-        $username = $request->input('username');
-        $email = $request->input('email');
-        $password = $request->input('password');
-        
-        if(DB::insert('insert into users (fullname, username, email, password) values(?, ?, ?, ?)', [$fullname, $username, $email, $password])){
-            return redirect()->route('registerUser')->with('success', 'Registered successfully');
+
+        $user = new User();
+        $user->full_name = $request->fullname;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        try {
+            $user->save();
+            return redirect()->route('login')->with('successCreateAccount', __('language.success_register'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('errorAccount1', __('language.error_user_email'));
         }
-        //session()->put('testSession', $request->input('fullname'));
-        return view ('register');
     }
 }

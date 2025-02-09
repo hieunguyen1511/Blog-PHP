@@ -8,12 +8,26 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    
     <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
         <!-- Heading -->
         <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">
-            Đăng ký tài khoản Blog
+            {{__('language.title_register')}}
         </h1>
-
+        <div class="flex items-center justify-center">
+            @if (session('errorAccount1'))
+            <div id="toast-danger" class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-800 bg-red-100 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800" role="alert">
+                <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+                    </svg>
+                    <span class="sr-only">Error icon</span>
+                </div>
+                <div class="ms-3 text-sm font-bold">{{session('errorAccount1')}}</div>
+            </div>
+            @endif
+           
+             </div>
         <!-- Registration Form -->
         <form class="space-y-4" method="post" action="{{ route('registerUser') }}">
             @csrf
@@ -23,7 +37,7 @@
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                     </svg>
                 </div>
-                <input type="text" name="fullname" required placeholder="Họ và tên" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <input type="text" name="fullname" required placeholder="{{ __('language.placeholder_fullname') }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
             </div>
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -32,7 +46,7 @@
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                     </svg>
                 </div>
-                <input type="email" name="email" required placeholder="Email" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <input type="email" name="email" required placeholder="{{ __('language.placeholder_email') }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
             </div>
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -40,7 +54,7 @@
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                     </svg>
                 </div>
-                <input type="text" name="username" required placeholder="Tên đăng nhập" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <input type="text" name="username" required placeholder="{{ __('language.placeholder_username') }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
             </div>
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -48,7 +62,7 @@
                         <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                     </svg>
                 </div>
-                <input type="password" name="password" required placeholder="Mật khẩu" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <input type="password" id="password" name="password" required placeholder="{{ __('language.placeholder_password') }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
             </div>
             <p class="italic text-red-600 text-sm" id="alert-password-1">
                 
@@ -59,14 +73,14 @@
                         <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                     </svg>
                 </div>
-                <input type="password" name="re-password" required placeholder="Xác nhận mật khẩu" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <input type="password" id="re-password" name="re-password" required placeholder="{{ __('language.placeholder_repassword') }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
             </div>
             <p class="italic text-red-600 text-sm" id="alert-password-2">
-                {{__('pagination.previous')}}
+            
             </p>
             <!-- Register Button -->
             <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                Đăng ký
+                {{ __('language.btn_register') }}
             </button>
         </form>
 
@@ -77,7 +91,7 @@
             </div>
             <div class="relative flex justify-center text-sm">
                 <span class="px-2 bg-white text-gray-500">
-                    Hoặc đăng ký bằng
+                    {{ __('language.title_register_with') }}
                 </span>
             </div>
         </div>
@@ -106,7 +120,7 @@
         <div class="mt-6 text-center">
             <span class="text-sm text-gray-600">Đã có tài khoản? </span>
             <a href="#" class="text-sm text-blue-600 hover:text-blue-500">
-                Đăng nhập
+                {{__('language.login')}}
             </a>
         </div>
     </div>
@@ -115,18 +129,21 @@
 
 <script>
     document.querySelector('form').addEventListener('submit', function (event) {
-        const password = document.querySelector('input[name="password"]').value;
-        const rePassword = document.querySelector('input[name="re-password"]').value;
-
+        const password = document.getElementById('password').value;
+        const rePassword = document.getElementById('re-password').value;
+        var alertPassword1 = '{{ __('language.password_alert_1') }}';
+        var alertPassword2 = '{{ __('language.password_alert_2') }}';
+        console.log(password);
+        console.log(rePassword);
         if (password.length < 8) {
             event.preventDefault();
-            document.getElementById('alert-password-1').innerText = 'Mật khẩu phải có ít nhất 8 ký tự';
+            document.getElementById('alert-password-1').innerText = alertPassword1;
         }
         else {
             document.getElementById('alert-password-1').innerText = '';
             if (password !== rePassword) {
             event.preventDefault();
-            document.getElementById('alert-password-2').innerText = 'Mật khẩu không khớp';
+            document.getElementById('alert-password-2').innerText = alertPassword2;
             }
             else {
                 document.getElementById('alert-password-2').innerText = '';

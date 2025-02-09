@@ -14,3 +14,9 @@ Route::get('/about', function () {
 
 Route::get('/register', [RegisterController::class, 'register']);
 Route::post('/register', [RegisterController::class, 'registerUser']) -> name('registerUser');
+
+
+
+Route::get('/login', function () {
+    return view('login');
+});
