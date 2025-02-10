@@ -8,6 +8,7 @@ use App\Http\Controllers;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller{
     public function register(){
@@ -26,7 +27,7 @@ class RegisterController extends Controller{
         $user->full_name = $request->fullname;
         $user->username = $request->username;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         try {
             $user->save();
             return redirect()->route('login')->with('successCreateAccount', __('language.success_register'));

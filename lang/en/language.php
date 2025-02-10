@@ -31,4 +31,19 @@ return [
     'error_user_email' => 'Username or email already exists',
     'success_register' => 'Account created successfully',
 
+
+
+    // page Login
+    'title_login' => 'Login Account Blog',
+    'placeholder_username_email' => 'Your username or email',
+    'placeholder_password' => 'Your password',
+    'btn_login' => 'Login',
+    'title_login_with' => 'Or Login with',
+    'forgot_password' => 'Forgot password?',
+    'create_account' => 'Create an account',
+    
+    'error_login' => 'Username or password is incorrect',
+
+
+
 ];

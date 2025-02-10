@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Đăng kí tài khoản Blog</title>
+    <title>{{__('language.title_register')}}</title>
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
@@ -14,6 +14,7 @@
         <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">
             {{__('language.title_register')}}
         </h1>
+
         <div class="flex items-center justify-center">
             @if (session('errorAccount1'))
             <div id="toast-danger" class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-800 bg-red-100 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800" role="alert">
@@ -118,8 +119,8 @@
 
         <!-- Login Link -->
         <div class="mt-6 text-center">
-            <span class="text-sm text-gray-600">Đã có tài khoản? </span>
-            <a href="#" class="text-sm text-blue-600 hover:text-blue-500">
+            <span class="text-sm text-gray-600">{{__('language.have_account')}} </span>
+            <a href="{{route('login')}}" class="text-sm text-blue-600 hover:text-blue-500">
                 {{__('language.login')}}
             </a>
         </div>
