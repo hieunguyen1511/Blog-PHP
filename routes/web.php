@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/about', function () {
@@ -21,3 +21,9 @@ Route::post('/register', [RegisterController::class, 'registerUser']) -> name('r
 // page Login
 Route::get('/login', [LoginController::class, 'login']) -> name('login');
 Route::post('/login', [LoginController::class, 'loginUser']) -> name('loginUser');
+
+
+// page Home
+Route::get('/home', function () {
+    return view('home');
+});
