@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Layout</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/css/app.css')
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -52,6 +52,23 @@
                 notificationPopup.classList.add('hidden');
             }
         });
+
+        const profileButton = document.getElementById('profile-button');
+        const profilePopup = document.getElementById('profile-popup');
+
+        profileButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profilePopup.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!profilePopup.contains(e.target) && e.target !== profileButton) {
+                profilePopup.classList.add('hidden');
+            }
+        });
+
+
+
     </script>
 </body>
 

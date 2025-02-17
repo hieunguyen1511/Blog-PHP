@@ -47,43 +47,7 @@
                 </div>
 
                 <!-- Notification Container -->
-                <div class="relative inline-block">
-                    <!-- Notification Icon -->
-                    <button
-                        class="relative p-1 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        id="notification-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
-                        <span
-                            class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
-                    </button>
 
-                    <!-- Notification Popup -->
-                    <div class="absolute left-1/2 top-full transform -translate-x-1/2 mt-2 w-80 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden"
-                        id="notification-popup">
-                        <div class="py-2">
-                            <h3 class="text-lg font-semibold px-4 py-2 border-b">Notifications</h3>
-                            <div class="max-h-64 overflow-y-auto">
-                                <a href="#"
-                                    class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
-                                    <p class="text-sm font-medium text-gray-900">New comment on your post</p>
-                                    <p class="text-xs text-gray-500">1 hour ago</p>
-                                </a>
-                                <a href="#"
-                                    class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
-                                    <p class="text-sm font-medium text-gray-900">You have a new follower</p>
-                                    <p class="text-xs text-gray-500">3 hours ago</p>
-                                </a>
-                            </div>
-                            <a href="/notifications"
-                                class="block bg-gray-50 text-sm font-medium text-center text-blue-600 py-2">View
-                                all</a>
-                        </div>
-                    </div>
-                </div>
 
 
                 {{-- <!-- Notification Icon -->
@@ -113,15 +77,89 @@
                 </div> --}}
 
                 <!-- Login/Register Buttons (hidden on mobile) -->
-                <div class="hidden md:flex space-x-2">
-                    <button
-                        class="px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">Login</button>
-                    <button
-                        class="px-3 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">Register</button>
-                </div>
+                @if (session('userid') == null)
+                    <div class="hidden md:flex space-x-2">
+
+                        <button
+                            class="px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">Login</button>
+                        <button
+                            class="px-3 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">Register</button>
+                    </div>
+                @else
+                    <div class="relative inline-block">
+                        <!-- Notification Icon -->
+                        <button
+                            class="relative p-1 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="notification-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                            <span
+                                class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
+                        </button>
+
+                        <!-- Notification Popup -->
+                        <div class="absolute left-1/2 top-full transform -translate-x-1/2 mt-2 w-80 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden"
+                            id="notification-popup">
+                            <div class="py-2">
+                                <h3 class="text-lg font-semibold px-4 py-2 border-b">Notifications</h3>
+                                <div class="max-h-64 overflow-y-auto">
+                                    <a href="#"
+                                        class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
+                                        <p class="text-sm font-medium text-gray-900">New comment on your post</p>
+                                        <p class="text-xs text-gray-500">1 hour ago</p>
+                                    </a>
+                                    <a href="#"
+                                        class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
+                                        <p class="text-sm font-medium text-gray-900">You have a new follower</p>
+                                        <p class="text-xs text-gray-500">3 hours ago</p>
+                                    </a>
+                                </div>
+                                <a href="/notifications"
+                                    class="block bg-gray-50 text-sm font-medium text-center text-blue-600 py-2">View
+                                    all</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-2">
+                        <img class="h-8 w-8 rounded-full"
+                            src="https://as1.ftcdn.net/v2/jpg/00/65/75/68/1000_F_65756860_GUZwzOKNMUU3HldFoIA44qss7ZIrCG8I.jpg"
+                            alt="User avatar" />
+                        <div class="relative inline-block">
+                            <button id="profile-button" class="text-sm font-medium text-gray-700">Hieu Nguyen</button>
+                            <div class="absolute left-1/2 top-full transform -translate-x-1/2 mt-2 w-40 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden"
+                                id="profile-popup">
+                                <div class="py-2">
+                                    {{-- <h3 class="text-lg font-semibold px-4 py-2 border-b">Profile</h3> --}}
+                                    <div class="max-h-64 overflow-y-auto">
+                                        <a href="#"
+                                            class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
+                                            <p class="text-sm font-medium text-gray-900">New Post</p>
+                                        </a>
+                                        <a href="#"
+                                            class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
+                                            <p class="text-sm font-medium text-gray-900">Info</p>
+                                        </a>
+                                        <a href="#"
+                                            class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
+                                            <p class="text-sm font-medium text-gray-900">Change Password</p>
+                                        </a>
+
+                                    </div>
+                                    <a href="{{ route('logout') }}"
+                                        class="block bg-gray-50 text-sm font-medium text-center text-red-600 py-2">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden">
+
                     <button id="mobile-menu-button"
                         class="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

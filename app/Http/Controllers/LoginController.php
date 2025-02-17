@@ -27,7 +27,7 @@ class LoginController extends Controller{
         
         if($data){
             if(Hash::check($password, $data->password)){
-                $request->session()->put('loginId', $data->id);
+                $request->session()->put('userid', $data->id);
                 return redirect('/home');
             }
             else{
