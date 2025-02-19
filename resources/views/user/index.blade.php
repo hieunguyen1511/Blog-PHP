@@ -468,10 +468,7 @@
         calendarIcon.addEventListener("click", function () {
             fp.open();
         });
-
-        
     });
-
 </script>
 
 @endsection
