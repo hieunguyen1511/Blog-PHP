@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('category', function (Blueprint $table) {
             $table->id();
+<<<<<<< Updated upstream
             $table->string('name');
             $table->string('photo')->nullable();
+=======
+            $table->string('name')->unique('name');
+>>>>>>> Stashed changes
             $table->timestamps();
         });
     }
