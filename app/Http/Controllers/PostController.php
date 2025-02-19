@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller{
     public function index(){
-        $post = DB::table('post')->where('id', 1)->first();
+        $post = DB::table('post')->where('id', 3)->first();
         return view('post', ['post' => $post]);
     }
     public function getAll(){

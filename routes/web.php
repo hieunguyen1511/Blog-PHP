@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -7,9 +8,12 @@ use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\checkLogin;
-Route::get('/', function () {
-    return view('home');
-});
+
+Route::get('/', [HomeController::class, 'index']);
+
+// page Home
+Route::get('/home', [HomeController::class, 'index']) -> name('home');
+
 
 Route::get('/about', function () {
     return view('about');
@@ -30,10 +34,6 @@ Route::get('/login', [LoginController::class, 'login']) -> name('login');
 Route::post('/login', [LoginController::class, 'loginUser']) -> name('loginUser');
 
 
-// page Home
-Route::get('/home', function () {
-    return view('home');
-}) -> name('home');
 
 // Route::get('/{test}', function ($test) {
 //     return view('test');
@@ -59,6 +59,7 @@ Route::get('/post', [PostController::class, 'index']) -> name('post');
 
 Route::get('/logout', function(){
     session()->forget('userid');
+    session()->forget('user');
     return redirect()->route('home');
 }) -> name('logout');    
 
@@ -67,3 +68,13 @@ Route::get('/logout', function(){
 Route::get('/test2', function () {
     return view('test2');
 });
+
+
+Route::get('/test3', function () {
+    return view('test3');
+});
+
+
+
+// post by category
+Route::get('/category/{name}', [HomeController::class, 'post_category']);

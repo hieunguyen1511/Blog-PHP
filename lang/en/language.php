@@ -44,6 +44,24 @@ return [
     
     'error_login' => 'Username or password is incorrect',
 
+    // Header
+    'header_Post' => 'Post',
+    'header_Categories' => 'Categories',
+    'header_Placeholder_search' => 'Search...',
+    'header_login' => 'Login',
+    'header_register' => 'Register',
+
+
+    'header_user_new_post' => 'New Post',
+    'header_user_profile' => 'My profile',
+    'header_user_setting' => 'Settings',
+    'header_user_change_password' => 'Change password',
+    'header_user_logout' => 'Logout',
+
+    'header_notifications' => 'Notifications',
+    'header_notifications_empty' => 'No notifications',
+    'header_notifications_all' => 'View all',
+
 
 
 ];

@@ -6,12 +6,15 @@
         <!-- Blog posts -->
         <div class="lg:col-span-7">
             <div class="bg-white shadow rounded-lg overflow-hidden">
+                @if($post != null)
                 <h1 class="text-3xl font-bold mb-8">{{$post->title}}</h1>
 
                 <div class="p-6">
                     <?php echo htmlspecialchars_decode(stripslashes($post->content));  ?>
                     
                 </div>
+                @endif
+                
             </div>
         </div>
     </div>
