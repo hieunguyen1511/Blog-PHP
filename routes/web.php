@@ -2,14 +2,13 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-<<<<<<< Updated upstream
-=======
 use App\Http\Middleware\checkLogin;
 use App\Models\Category;
->>>>>>> Stashed changes
 
 Route::get('/', function () {
     return view('home');
@@ -33,10 +32,6 @@ Route::post('/login', [LoginController::class, 'loginUser']) -> name('loginUser'
 Route::get('/home', function () {
     return view('home');
 });
-<<<<<<< Updated upstream
-=======
-
-
 
 Route::get('/create-post', [UserController::class, 'create_post']) ->middleware(checkLogin::class) -> name('create_post');
 
@@ -83,4 +78,4 @@ Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.
 Route::delete('/user/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
 Route::post('/user/delete-items', [UserController::class, 'deleteItems'])->name('user.deleteItems');
 Route::get('/user/{id}', [UserController::class, 'get'])->name('user.get');
->>>>>>> Stashed changes
+
