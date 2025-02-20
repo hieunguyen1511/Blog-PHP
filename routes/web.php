@@ -1,14 +1,18 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\App;
+use App\Http\Middleware\changeLanguage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\checkLogin;
-use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('home');
@@ -56,7 +60,7 @@ Route::get('/test2', function () {
 
 
 // page Category admin
-Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+Route::get('/admin/category', [CategoryController::class, 'index'])->name('category.indexAdmin');
 Route::get('/category/data', [CategoryController::class, 'getAll']) -> name('category.getAll');
 Route::post('/category/create', [CategoryController::class, 'create'])->name('category.create');
 Route::delete('/category/{id}/delete', [CategoryController::class, 'delete'])->name('category.delete');
@@ -66,16 +70,18 @@ Route::post('/category/{id}/update', [CategoryController::class, 'update'])->nam
 
 
 // page Post admin
-Route::get('/post/indexAdmin', [PostController::class, 'indexAdmin'])->name('post.indexAdmin');
+Route::get('/admin/post', [PostController::class, 'indexAdmin'])->name('post.indexAdmin');
 Route::get('/post/data', [PostController::class, 'getAll']) -> name('post.getAll');
 Route::delete('/post/{id}/delete', [PostController::class, 'delete'])->name('post.delete');
 Route::post('/post/delete-items', [PostController::class, 'deleteItems'])->name('post.deleteItems');
 
 
-Route::get('/user', [UserController::class, 'indexAdmin'])->name('user.indexAdmin');
+Route::get('admin/user', [UserController::class, 'indexAdmin'])->name('user.indexAdmin');
 Route::get('/user/data', [UserController::class, 'getAll']) -> name('user.getAll');
 Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
 Route::delete('/user/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
 Route::post('/user/delete-items', [UserController::class, 'deleteItems'])->name('user.deleteItems');
 Route::get('/user/{id}', [UserController::class, 'get'])->name('user.get');
 
+
+Route::post('/change-language', [LanguageController::class, 'changeLanguage']);

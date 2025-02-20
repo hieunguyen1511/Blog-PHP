@@ -82,6 +82,9 @@ return [
     'placeholder_fullname_user' => 'Enter full name user',
     'title_edit_user' => 'Edit info user',
 
+    
+    'error_change_language' => 'Error change language',
+
     'change_picture' => 'Change image',
     'created_item_success' => 'Item created successfully',
     'create_item_fail' => 'Failed to create item! Please try again.',
@@ -110,4 +113,9 @@ return [
     'message_warning' => 'Warning!',
     'message_info' => 'Information!',
     'error_fetching_data' => 'Error fetching data.',
+
+    'sidebar_posts' => 'Posts',
+    'sidebar_categories' => 'Categories',
+    'sidebar_users' => 'Users',
+    'sidebar_settings' => 'Settings',
 ];

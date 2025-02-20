@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
@@ -17,8 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 dark:bg-gray-900">
     <!-- Mobile Menu Button (Fixed Position) -->
     <div class="lg:hidden fixed bottom-4 right-4 z-50">
         <button onclick="toggleSidebar()" class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-200">
@@ -50,27 +52,27 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group">
+                        <a href="{{ route('post.indexAdmin') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group">
                             <svg class="w-6 h-6 mr-3 text-gray-400 group-hover:text-green-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
                             </svg>
-                            <span class="group-hover:text-green-400 transition-colors duration-200">Posts</span>
+                            <span class="group-hover:text-green-400 transition-colors duration-200">{{__('language.sidebar_posts')}}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group">
+                        <a href="{{ route('category.indexAdmin') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group">
                             <svg class="w-6 h-6 mr-3 text-gray-400 group-hover:text-yellow-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                             </svg>
-                            <span class="group-hover:text-yellow-400 transition-colors duration-200">Categories</span>
+                            <span class="group-hover:text-yellow-400 transition-colors duration-200">{{__('language.sidebar_categories')}}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group">
+                        <a href="{{ route('user.indexAdmin') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group">
                             <svg class="w-6 h-6 mr-3 text-gray-400 group-hover:text-purple-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                             </svg>
-                            <span class="group-hover:text-purple-400 transition-colors duration-200">Users</span>
+                            <span class="group-hover:text-purple-400 transition-colors duration-200">{{__('language.sidebar_users')}}</span>
                         </a>
                     </li>
                     <li>
@@ -79,7 +81,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
-                            <span class="group-hover:text-pink-400 transition-colors duration-200">Settings</span>
+                            <span class="group-hover:text-pink-400 transition-colors duration-200">{{__('language.sidebar_settings')}}</span>
                         </a>
                     </li>
                 </ul>
@@ -92,20 +94,66 @@
         <!-- Main Content -->
         <div class="flex-1 flex flex-col min-h-screen">
             <!-- Top Header -->
-            <header class="bg-white shadow-sm border-b border-gray-200">
+            <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
                 <div class="flex justify-between items-center px-4 lg:px-8 py-4 lg:py-5">
-                    <div class="flex items-center">
-                        <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition-colors duration-200 mr-3">
+                    <div class="flex items-center flex-1">
+                        <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus:text-gray-600 transition-colors duration-200 mr-3">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                             </svg>
                         </button>
-                        <div>
-                            <h1 class="text-lg lg:text-xl font-semibold text-gray-800">Welcome Back, Admin</h1>
-                            <p class="text-sm text-gray-600 hidden sm:block">Here's what's happening with your blog today.</p>
-                        </div>
+                        
+                        <!-- Search Bar -->
+                        <!-- Ô tìm kiếm -->
+                        <div class="relative max-w-md w-full lg:max-w-lg mx-4">
+                            <input type="text" id="searchInput" autocomplete="off"
+                                   class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                                   placeholder="Search...">
+                            <div class="absolute left-3 top-2.5 text-gray-400 dark:text-gray-500">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                            </div>
+                            <!-- Danh sách gợi ý tìm kiếm -->
+                            <ul id="searchResults" class="absolute w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg mt-2 hidden text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 z-50"></ul>
+
+                        </div>                        
+                     
                     </div>
+
                     <div class="flex items-center space-x-4">
+                        <!-- Language Selector -->
+                        <div class="relative">
+                            <select onchange="changeLanguage(this.value)" 
+                                    class="appearance-none pl-8 pr-10 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400">
+                                <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
+                                <option value="vi" {{ app()->getLocale() == 'vi' ? 'selected' : '' }}>Tiếng Việt</option>
+                            </select>
+                            <div class="absolute left-2 top-2.5 text-gray-400 dark:text-gray-500 pointer-events-none">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                                </svg>
+                            </div>
+                            <div class="absolute right-2 top-2.5 text-gray-400 dark:text-gray-500 pointer-events-none">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Dark Mode Toggle -->
+                        {{-- <button onclick="toggleDarkMode()" class="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">
+                            <!-- Sun icon -->
+                            <svg class="h-6 w-6 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                            <!-- Moon icon -->
+                            <svg class="h-6 w-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                            </svg>
+                        </button> --}}
+
                         <!-- Notifications -->
                         <div class="relative">
                             <button onclick="toggleNotifications()" class="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200 relative">
@@ -197,6 +245,53 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById("searchInput");
+            const searchResults = document.getElementById("searchResults");
+            const sidebarItems = [...document.querySelectorAll("#sidebar nav ul li a")];
+
+            searchInput.addEventListener("input", function () {
+                const query = this.value.toLowerCase();
+                searchResults.innerHTML = "";
+
+                if (query) {
+                    const matches = sidebarItems.filter(item => {
+                        const text = item.querySelector("span").innerText.toLowerCase();
+                        return text.includes(query);
+                    });
+
+                    if (matches.length > 0) {
+                        matches.forEach(item => {
+                            const li = document.createElement("li");
+                            li.className = "p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer rounded";
+                            li.textContent = item.querySelector("span").innerText;
+                            
+                            li.addEventListener("click", () => {
+                                item.click();
+                                searchResults.classList.add("hidden");
+                                searchInput.value = ""; // Xóa nội dung tìm kiếm sau khi chọn
+                            });
+
+                            searchResults.appendChild(li);
+                        });
+
+                        searchResults.classList.remove("hidden");
+                    } else {
+                        searchResults.classList.add("hidden");
+                    }
+                } else {
+                    searchResults.classList.add("hidden");
+                }
+            });
+
+            // Ẩn danh sách khi click ra ngoài
+            document.addEventListener("click", (e) => {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add("hidden");
+                }
+            });
+        });
+
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
@@ -239,6 +334,81 @@
                 profileDropdown.classList.add('hidden');
             }
         });
+
+        // function toggleDarkMode() {
+        //     document.documentElement.classList.toggle('dark');
+        //     const isDark = document.documentElement.classList.contains('dark');
+        //     localStorage.setItem('darkMode', isDark);
+        // }
+
+
+        function changeLanguage(locale) {
+            $.ajax({
+                url: "/change-language",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    locale: locale
+                },
+                success: function (response) {
+                    setTimeout(() => {
+                        location.reload();
+                    }, 100);
+                },
+                error: function () {
+                    alert("{{ __('language.unknown_error') }}");
+                }
+            });
+        }
+
+
+        // Initialize dark mode from stored preference
+        // if (localStorage.getItem('darkMode') === 'true') {
+        //     document.documentElement.classList.add('dark');
+        // }
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const sidebarList = document.getElementById("sidebarList");
+        const searchResults = document.getElementById("searchResults");
+
+        // Lấy danh sách item trong sidebar
+        const sidebarItems = [...sidebarList.querySelectorAll("li a")].map(item => ({
+            text: item.innerText.trim(),
+            element: item
+        }));
+
+        searchInput.addEventListener("input", function () {
+            const query = this.value.toLowerCase();
+            searchResults.innerHTML = "";
+
+            if (query) {
+                const matches = sidebarItems.filter(item => item.text.toLowerCase().includes(query));
+                matches.forEach(item => {
+                    const li = document.createElement("li");
+                    li.className = "p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer rounded";
+                    li.textContent = item.text;
+                    li.addEventListener("click", () => {
+                        item.element.click();
+                        searchResults.classList.add("hidden");
+                    });
+                    searchResults.appendChild(li);
+                });
+
+                searchResults.classList.remove("hidden");
+            } else {
+                searchResults.classList.add("hidden");
+            }
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.classList.add("hidden");
+            }
+        });
+    });
+
+        
     </script>
 </body>
 </html>

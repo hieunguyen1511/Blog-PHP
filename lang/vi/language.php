@@ -71,6 +71,8 @@ return [
     'placeholder_fullname_user' => 'Điền họ tên người dùng',
     'title_edit_user' => 'Chỉnh sửa thông tin người dùng',
 
+    'error_change_language' => 'Lỗi khi thay đổi ngôn ngữ',
+
     'change_picture' => 'Thay đổi ảnh',
     'created_item_success' => 'Thêm mới item thành công',
     'create_item_fail' => 'Thêm mới item thất bại! Vui lòng thử lại.',
@@ -99,4 +101,9 @@ return [
     'message_warning' => 'Cảnh báo!',
     'message_info' => 'Thông báo!',
     'error_fetching_data' => 'Lỗi fetch dữ liệu.',
+
+    'sidebar_posts' => 'Bài post',
+    'sidebar_categories' => 'Danh mục',
+    'sidebar_users' => 'Người dùng',
+    'sidebar_settings' => 'Cài đặt',
 ];
