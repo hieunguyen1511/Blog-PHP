@@ -32,7 +32,7 @@ class RegisterController extends Controller{
             $user->save();
             return redirect()->route('login')->with('successCreateAccount', __('language.success_register'));
         } catch (\Exception $e) {
-            return redirect()->back()->with('errorAccount1', __('language.error_user_email'));
+            return redirect()->back()->with('errorAccount1', __('language.error_user_email'))->withInput($request->except('password'));
         }
     }
 }

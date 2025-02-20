@@ -31,5 +31,13 @@ return [
     'error_user_email' => 'Tên người dùng hoặc email đã tồn tại',
     'success_register' => 'Đăng ký tài khoản thành công',
 
+    //page Login
+    'title_login' => 'Đăng nhập tài khoản Blog',
+    'placeholder_username_email' => 'Tên người dùng hoặc email',
+    'placeholder_password' => 'Mật khẩu',
+    'btn_login' => 'Đăng nhập',
+    'title_login_with' => 'Hoặc đăng nhập với',
+    'forgot_password' => 'Quên mật khẩu?',
+    'create_account' => 'Tạo tài khoản',
 
 ];
