@@ -52,7 +52,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('post.indexAdmin') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group">
+                        <a href="{{ route('post.indexAdmin') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group
+                        {{ request()->routeIs('post.indexAdmin') ? 'bg-gray-700/70 text-green-400' : '' }}">
                             <svg class="w-6 h-6 mr-3 text-gray-400 group-hover:text-green-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
                             </svg>
@@ -60,7 +61,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('category.indexAdmin') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group">
+                        <a href="{{ route('category.indexAdmin') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group
+                        {{ request()->routeIs('category.indexAdmin') ? 'bg-gray-700/70 text-green-400' : '' }}">
                             <svg class="w-6 h-6 mr-3 text-gray-400 group-hover:text-yellow-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                             </svg>
@@ -68,7 +70,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user.indexAdmin') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group">
+                        <a href="{{ route('user.indexAdmin') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group
+                            {{ request()->routeIs('user.indexAdmin') ? 'bg-gray-700/70 text-green-400' : '' }}">
                             <svg class="w-6 h-6 mr-3 text-gray-400 group-hover:text-purple-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                             </svg>
