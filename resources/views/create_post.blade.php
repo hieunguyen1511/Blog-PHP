@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<script src="https://cdn.tiny.cloud/1/{{ env('TINY_MCE_API_KEY') }}/tinymce/7/tinymce.min.js" referrerpolicy="origin">
+<script src="https://cdn.tiny.cloud/1/{{ config('services.tinymce.key') }}/tinymce/7/tinymce.min.js" referrerpolicy="origin">
 </script>
 <script>
     tinymce.init({

@@ -1,5 +1,6 @@
 @extends('layouts.adminLayout')
 @section('content')
+
 <!-- Flatpickr CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <!-- Flatpickr JS -->
@@ -123,7 +124,7 @@
     $(document).ready(function() {
         let table = $('#userTable').DataTable({
             processing: true,
-            serverSide: false,
+            serverSide: true,
             ajax: {
                 url: "{{ route('user.getAll') }}",
                 dataSrc: 'users' // Dữ liệu từ API
@@ -193,7 +194,7 @@
             //lấy ảnh nữa
 
             $.ajax({
-                url: `/user/${userId}/update`,
+                url: `{{ route('user.update', ':id') }}`.replace(':id', userId),
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -249,7 +250,7 @@
                 if (result.isConfirmed) {
                     // Gọi hàm xóa nếu người dùng xác nhận
                     $.ajax({
-                        url: `/user/${userId}/delete`,
+                        url: `{{ route('user.delete', ':id') }}`.replace(':id', userId),
                         type: 'DELETE',
                         data: {
                             _token: "{{ csrf_token() }}" // Laravel CSRF token để bảo mật
@@ -321,7 +322,7 @@
                 if (result.isConfirmed) {
                     // Gọi hàm xóa nếu người dùng xác nhận
                     $.ajax({
-                        url: "/user/delete-items",
+                        url: "{{ route('user.deleteItems') }}",
                         type: "POST",
                         data: {
                             ids: selectedIds,
@@ -367,7 +368,7 @@
     function openEditModal(userId) {
             // Gửi request AJAX để lấy thông tin category
         $.ajax({
-            url: `/user/${userId}`, // Đường dẫn API lấy thông tin
+            url: `{{ route('user.get', ':id') }}`.replace(':id', userId), // Đường dẫn API lấy thông tin
             type: "GET",
             success: function(response) {
                 if (response.status === '200') {
