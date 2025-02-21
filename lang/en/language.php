@@ -114,8 +114,12 @@ return [
     'message_info' => 'Information!',
     'error_fetching_data' => 'Error fetching data.',
 
+    'sidebar_dashboard' => 'Dashboard',
     'sidebar_posts' => 'Posts',
     'sidebar_categories' => 'Categories',
     'sidebar_users' => 'Users',
     'sidebar_settings' => 'Settings',
+
+    'admin_panel' => 'Admin Panel',
+    'title_admin_page' => 'Blog Management Dashboard',
 ];

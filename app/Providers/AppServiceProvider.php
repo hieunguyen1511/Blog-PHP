@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,7 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
+        $categories = Category::all();
+        View::share('categories', $categories);
     }
 }
 

@@ -102,8 +102,12 @@ return [
     'message_info' => 'Thông báo!',
     'error_fetching_data' => 'Lỗi fetch dữ liệu.',
 
+    'sidebar_dashboard' => 'Bảng điều khiển',
     'sidebar_posts' => 'Bài post',
     'sidebar_categories' => 'Danh mục',
     'sidebar_users' => 'Người dùng',
     'sidebar_settings' => 'Cài đặt',
+
+    'admin_panel' => 'Bảng quản trị',
+    'title_admin_page' => 'Hệ thống quản lý Blog',
 ];
