@@ -26,29 +26,30 @@ class LoginController extends Controller{
                                 ->first();
         
 
-        $user = [
-            'username' => $data->username,
-            'email' => $data->email,
-            'date' => $data->date,
-            'bio' => $data->bio,
-            'full_name' => $data->full_name,
-            'profile_picture' => $data->profile_picture,
-            'cover_photo' => $data->cover_photo,
-            'created_at' => $data->created_at,
-            'updated_at' => $data->updated_at  
-        ];
+      
 
         if($data){
             if(Hash::check($password, $data->password)){
+                $user = [
+                    'username' => $data->username,
+                    'email' => $data->email,
+                    'date' => $data->date,
+                    'bio' => $data->bio,
+                    'full_name' => $data->full_name,
+                    'profile_picture' => $data->profile_picture,
+                    'cover_photo' => $data->cover_photo,
+                    'created_at' => $data->created_at,
+                    'updated_at' => $data->updated_at  
+                ];
                 $request->session()->put('userid', $data->id);
                 $request->session()->put('user', $user);
-                return redirect('/home');
+                return redirect()->route('home');
             }
             else{
-                return redirect()->back()->with('errorLogin1', __('language.error_login'));
+                return redirect()->back()->with('errorLogin1', __('language.error_login'))->withInput($request->except('password'));
             }
         }else{
-            return redirect()->back()->with('errorLogin1', __('language.error_login'));
+            return redirect()->back()->with('errorLogin1', __('language.error_login'))->withInput($request->except('password'));
         }
     }
    

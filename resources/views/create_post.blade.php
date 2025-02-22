@@ -5,17 +5,30 @@
         <!-- Blog posts -->
         <div class="lg:col-span-7">
             <div class="bg-white shadow rounded-lg overflow-hidden">
-                <div class="p-6">
+                {{-- <div class="p-6">
                     <h1 class="text-3xl font-bold mb-8">Create Post</h1>
-                </div>
+                </div> --}}
                 <div class="p-6">
                     <form action="{{route('create_post_submit')}}" method="POST">
                         @csrf
                         <div class="mb-4">
+                            <label for="content" class="block text-xl font-medium text-gray-700">Title</label>
                             <input type="text" id="title" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type your title" required />
                         </div>
                         <div class="mb-4">
-                            <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
+                            <label for="content" class="block text-xl font-medium text-gray-700">Category</label>
+                            <select name="category" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                @foreach ($categories as $item )
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="content" class="block text-xl font-medium text-gray-700">Description</label>
+                            <textarea type="text" id="description" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type your description" required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="content" class="block text-xl font-medium text-gray-700">Content</label>
                             <textarea id="editor" name="content" class="w-full h-full"></textarea>
                         </div>
                         <div class="mb-4">
@@ -28,7 +41,7 @@
     </div>
 </div>
 
-<script src="https://cdn.tiny.cloud/1/{{ env('TINY_MCE_API_KEY') }}/tinymce/7/tinymce.min.js" referrerpolicy="origin">
+<script src="https://cdn.tiny.cloud/1/{{config('services.tinymce.key')}}/tinymce/7/tinymce.min.js" referrerpolicy="origin">
 </script>
 <script>
     tinymce.init({

@@ -62,6 +62,10 @@ return [
     'header_notifications_empty' => 'No notifications',
     'header_notifications_all' => 'View all',
 
-
+    // Content home
+    'home_pagination_show' => 'Showing',
+    'home_pagination_to' => 'to',
+    'home_pagination_of' => 'of',
+    'home_pagination_result' => 'results',
 
 ];

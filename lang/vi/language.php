@@ -40,4 +40,12 @@ return [
     'forgot_password' => 'Quên mật khẩu?',
     'create_account' => 'Tạo tài khoản',
 
+
+
+    // Content home
+    'home_pagination_show' => 'Hiển thị',
+    'home_pagination_to' => 'trên',
+    'home_pagination_of' =>  'của',
+    'home_pagination_result' => 'kết quả',
+
 ];

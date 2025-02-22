@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
@@ -26,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
         //
         $categories = Category::all();
         View::share('categories', $categories);
+        Paginator::useTailwind();
     }
 }

@@ -50,13 +50,12 @@ Route::middleware(localization::class)->group(function(){
         \UniSharp\LaravelFilemanager\Lfm::routes();
     });
     
+    Route::middleware(checkLogin::class)->group(function(){
+        Route::get('/create-post', [UserController::class, 'create_post'])->name('create_post');
+        Route::post('/create-post', [UserController::class, 'create_post_submit'])->name('create_post_submit');
+    });
     
-    
-    Route::get('/create-post', [UserController::class, 'create_post'])->middleware(checkLogin::class)->name('create_post');
-    
-    Route::post('/create-post', [UserController::class, 'create_post_submit'])->name('create_post_submit');
-    
-    
+  
     
     Route::get('/post', [PostController::class, 'index'])->name('post');
     
@@ -89,5 +88,11 @@ Route::middleware(localization::class)->group(function(){
         Session::put('language', $language);
         return redirect()->back();
     });
+
+
+    //Post link
+
+    Route::get('/post/{link}', [HomeController::class, 'post'])->name('post-detail');
+
 });
 

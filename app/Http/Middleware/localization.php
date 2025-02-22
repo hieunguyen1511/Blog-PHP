@@ -20,7 +20,7 @@ class localization
     public function handle(Request $request, Closure $next): Response
     {
         if (Session::has('language')) {
-            $lang = Session::get('language');
+            $lang = Session::get('language', App::getLocale());
             App::setLocale($lang);
         }
         return $next($request);

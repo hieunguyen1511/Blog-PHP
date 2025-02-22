@@ -52,9 +52,9 @@
                 <div class="hidden md:block">
                     <select onchange="window.location.href=this.value"
                         class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option value="{{ url('locale/en') }}" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>
+                        <option value="{{ url('/lang/en') }}" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>
                             English</option>
-                        <option value="{{ url('locale/vi') }}" {{ app()->getLocale() == 'vi' ? 'selected' : '' }}>Tiếng
+                        <option value="{{ url('/lang/vi') }}" {{ app()->getLocale() == 'vi' ? 'selected' : '' }}>Tiếng
                             Việt</option>
                     </select>
                 </div>
@@ -127,7 +127,7 @@
 
                                     <!-- Menu Items -->
                                     <div class="py-1">
-                                        <a href="#"
+                                        <a href="{{route('create_post')}}"
                                             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
                                             <svg class="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
