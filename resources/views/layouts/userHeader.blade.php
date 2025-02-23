@@ -57,7 +57,7 @@
                         <div class="py-2">
                             <!-- Posts Section -->
                             <div id="related-posts" class="border-b border-gray-100">
-                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Related Posts</h3>
+                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">{{__('language.header_related_post')}}</h3>
                                 <div class="max-h-48 overflow-y-auto" id="posts-container">
                                     <!-- Posts will be dynamically inserted here -->
                                 </div>
@@ -65,7 +65,7 @@
 
                             <!-- Categories Section -->
                             <div id="related-categories">
-                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Related Categories
+                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">{{__('language.header_related_category')}}
                                 </h3>
                                 <div class="max-h-32 overflow-y-auto" id="categories-container">
                                     <!-- Categories will be dynamically inserted here -->

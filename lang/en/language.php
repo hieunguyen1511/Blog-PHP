@@ -62,6 +62,10 @@ return [
     'header_notifications_empty' => 'No notifications',
     'header_notifications_all' => 'View all',
 
+    'header_related_post' => 'Related Post',
+    'header_related_category' => 'Related Category',
+
+
     // Content home
     'home_pagination_show' => 'Showing',
     'home_pagination_to' => 'to',
@@ -69,6 +73,7 @@ return [
     'home_pagination_result' => 'results',
 
     'home_popular_categories' => 'Popular Categories',
-
+    'home_suggested_post' => 'Suggested Posts',
+    'home_recommend_user' => 'Recommended Users',
 
 ];
