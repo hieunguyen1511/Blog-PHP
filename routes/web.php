@@ -53,6 +53,8 @@ Route::middleware(localization::class)->group(function(){
     Route::middleware(checkLogin::class)->group(function(){
         Route::get('/create-post', [UserController::class, 'create_post'])->name('create_post');
         Route::post('/create-post', [UserController::class, 'create_post_submit'])->name('create_post_submit');
+        Route::get('/user/{username}/settings', [UserController::class, 'setting'])->name('setting');
+        
     });
     
   

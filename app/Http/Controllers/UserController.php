@@ -87,8 +87,11 @@ class UserController extends Controller{
         ]
         );
     }
-
-
+    
+    public function setting(){
+        
+        return view('user_setting.setting');
+    }
 
 
 
