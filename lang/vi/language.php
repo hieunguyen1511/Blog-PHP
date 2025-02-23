@@ -71,6 +71,14 @@ return [
     'placeholder_fullname_user' => 'Điền họ tên người dùng',
     'title_edit_user' => 'Chỉnh sửa thông tin người dùng',
 
+    //page setting admin
+    'email_alert' => 'Email không đúng định dạng',
+    'error_setting_email' => 'Email không tồn tại',
+    'success_save_setting' => 'Lưu cài đặt thành công',
+    'title_password' => 'Mật khẩu',
+    'title_authentication_user_setting' => 'Email để xác thực người dùng',
+    'btn_update' => 'Cập nhật',
+
     'error_change_language' => 'Lỗi khi thay đổi ngôn ngữ',
 
     'change_picture' => 'Thay đổi ảnh',

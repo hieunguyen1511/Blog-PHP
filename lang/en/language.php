@@ -82,6 +82,14 @@ return [
     'placeholder_fullname_user' => 'Enter full name user',
     'title_edit_user' => 'Edit info user',
 
+    //page setting admin
+    'email_alert' => 'Email is not in the correct format',
+    'error_setting_email' => 'Email is not exists',
+    'success_save_setting' => 'Setting saved successfully',
+    'title_password' => 'Password',
+    'title_authentication_user_setting' => 'Email authentication user',
+    'btn_update' => 'Save changes',
+
     
     'error_change_language' => 'Error change language',
 

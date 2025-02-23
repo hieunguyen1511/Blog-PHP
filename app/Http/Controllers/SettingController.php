@@ -4,122 +4,47 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminSettings;
 use App\Models\Category;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
-    public function settings() {
-        return view('setting.index');
-    }
-
-    public function getAll(){
-        $admin_settings = AdminSettings::all();
-        return response()->json([
-            'status' => '200',
-            'admin_settings' => $admin_settings
-        ]
-        );
-    }
-
-    public function get($id){
-        $admin_settings = AdminSettings::find($id);
-        return response()->json([
-            'status' => '200',
-            'admin_settings' => $admin_settings
-        ]
-        );
-    }
-
-
-    public function create(Request $request)
-    {
-        try {
-            // Tạo danh mục mới và lưu vào cơ sở dữ liệu
-            $category = new Category();
-            $category->name = $request->name;
-            $category->save();
-
-            return response()->json([
-                'status' => '200',
-                'message' => __('language.created_item_success')
-            ]);
-        } catch (\Exception $e) {
-            // Xử lý lỗi nếu có
-            return response()->json([
-                'status' => '500',
-                'message' => __('language.create_item_fail')
-            ], 500);
+    public function setting() {
+        $setting = Setting::first();
+        if (!$setting) {
+            $setting = new Setting();
+            $setting -> email = null;
+            $setting -> password = null;
+            $setting->save();
         }
+        return view('setting.index')->with('email', $setting -> email)->with('hadPassword', $setting -> password != null);
     }
 
-
-    public function update(Request $request) {
-        $category = Category::find($request->id);  // Lấy category theo ID
-    
-        if (!$category) {
-            return response()->json([
-                'status' => '400',
-                'message' => __('language.error_no_item_selected')
-            ], 400);
-        }
-    
-        $category->name = $request->name;  // Cập nhật tên mới
-        $category->save();  // Lưu thay đổi
-    
-        return response()->json([
-            'status' => '200',
-            'message' => __('language.updated_item_success')  // Thành công
-        ]);
-    }
-    
-    public function delete(Request $request)
+    public function update(Request $request)
     {
-        $category = Category::find($request->id);
-
-        if (!$category) {
-            return response()->json([
-                'status' => '400',
-                'message' => __('language.error_no_item_selected')
-            ], 400);
+        $setting = Setting::first();
+        $setting->email = $request->email;
+        if ($request->password != '') {
+            $setting->password = Hash::make($request->password);
+        }
+        else {
+            $setting->password = null;
         }
 
         try {
-            $category->delete();
+            $setting->update();
             return response()->json([
                 'status' => '200',
-                'message' => __('language.deleted_item_success')
+                'message' => __('language.success_save_setting')
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => '500',
-                'message' => __('language.delete_item_fail')
-            ], 500);
-        }
-    }
-
-
-    public function deleteItems(Request $request)
-    {
-        if (!isset($request->ids) || count($request->ids) === 0) {
-            return response()->json([
-                'status' => '400',
-                'message' => __('language.error_no_item_selected')
-            ], 400);
-        }
-
-        try {
-            Category::whereIn('id', $request->ids)->delete();
-
-            return response()->json([
-                'status' => '200',
-                'message' => __('language.deleted_items_success')
+                'message' => __('language.error_setting_email')
             ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => '500',
-                'message' => __('language.delete_items_fail')
-            ], 500);
         }
     }
-
 }

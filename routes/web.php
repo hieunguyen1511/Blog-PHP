@@ -5,6 +5,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\changeLanguage;
 use App\Http\Middleware\localization;
@@ -77,7 +78,8 @@ Route::middleware(localization::class)->group(function(){
         
         //Page Setting admin
         
-        Route::get('/settings', [UserController::class, 'settings'])->name('setting.settings');
+        Route::get('/setting', [SettingController::class, 'setting'])->name('setting.index');
+        Route::post('/setting/update', [SettingController::class, 'update'])->name('setting.update');
     });
     
     Route::get('/lang/{language}', function () {

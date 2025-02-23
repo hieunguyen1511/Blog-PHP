@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_settings', function (Blueprint $table) {
+        Schema::create('setting', function (Blueprint $table) {
             $table->id();
-            $table->text('email');
+            $table->text('email')->nullable();
             $table->string('password')->nullable();
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_settings');
+        Schema::dropIfExists('setting');
     }
 };

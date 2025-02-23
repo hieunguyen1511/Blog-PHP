@@ -1,403 +1,189 @@
 @extends('layouts.adminLayout')
+
 @section('content')
+<div class="container mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <h2 class="text-2xl font-semibold mb-4">{{__('language.sidebar_settings')}}</h2>
 
-<div class="max-w-6xl mx-auto p-4 bg-white shadow-md rounded-lg">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-semibold">{{ __('language.title_category_index') }}</h2>
-        <div class="flex space-x-2">
-            <!-- Nút Thêm danh mục -->
-            <button id="openAddModal" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-                + {{ __('language.btn_add_category') }}
-            </button>
-            <!-- Nút Xóa danh mục đã chọn -->
-            <button id="deleteSelected" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                {{ __('language.btn_delete_items') }}
-            </button>
+    <!-- Nhóm 1: Cài đặt tài khoản -->
+    <form id="settingsForm" action="{{ route('setting.update') }}" method="post" class="space-y-4">
+        @csrf
+        <h3 class="text-xl font-medium mb-2">{{__('language.title_authentication_user_setting')}}</h3>
+        <div class="flex items-center justify-center">
+            @if (session('errorSetting'))
+                <div id="toast-danger" class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-800 bg-red-100 rounded-lg shadow-sm" role="alert">
+                    <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+                    </svg>
+                        <span class="sr-only">Error icon</span>
+                    </div>
+                    <div class="ms-3 text-sm font-bold">{{session('errorSetting')}}</div>
+            </div>
+            @endif
+            @if (session('successSetting'))
+                <div id="toast-success" class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-800 bg-green-100 rounded-lg shadow-sm" role="alert">
+                    <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 6.793a1 1 0 0 0-1.414-1.414L9 9.172 7.707 7.879A1 1 0 0 0 6.293 9.293L9 12l4.707-4.707Z"/>
+                        </svg>
+                        <span class="sr-only">Success icon</span>
+                    </div>
+                    <div class="ms-3 text-sm font-bold">{{ session('successSetting') }}</div>
+                </div>
+            @endif
+
+
+
         </div>
-    </div>
 
-    <table id="categoryTable" class="min-w-full bg-white border border-gray-300">
-        <thead>
-            <tr class="bg-gray-100 border-b">
-                <th class="p-2"><input type="checkbox" id="selectAll" class="w-4 h-4"></th>
-                <th class="p-2">ID</th>
-                <th class="p-2">{{__('language.title_name_category')}}</th>
-                <th class="p-2">{{__('language.title_action')}}</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+            </div>
+            <input type="email" id="email" name="email" value="{{ old('email', $email) }}" placeholder="{{ __('language.placeholder_email') }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <p class="italic text-red-600 text-sm" id="alert-email"></p>
+        <div class="relative">
+            <!-- Icon bên trái -->
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                </svg>
+            </div>
+        
+            <!-- Input -->
+            <input type="password" id="password" name="password" placeholder="{{ __('language.placeholder_password') }}"
+                   class="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        
+            <!-- Icon bên phải để toggle password -->
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                <i class="fas fa-eye cursor-pointer text-gray-500 toggle-password"></i>
+            </div>
+        </div>
+        <p class="italic text-red-600 text-sm" id="alert-password"></p>
+        <div id="alert-had-password">
+            @if ($hadPassword != null)
+                <div class="flex items-center p-3 text-green-700 bg-green-100 rounded-lg shadow-md">
+                    <svg class="w-5 h-5 mr-2 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L9 11.586 6.707 9.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l7-7a1 1 0 000-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                    <p class="text-sm font-medium">Đã có mật khẩu</p>
+                </div>
+            @else
+                <div class="flex items-center p-3 text-red-700 bg-red-100 rounded-lg shadow-md">
+                    <svg class="w-5 h-5 mr-2 text-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-14a6 6 0 100 12A6 6 0 0010 4zm1 3a1 1 0 10-2 0v4a1 1 0 002 0V7zm-1 6a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"/>
+                    </svg>
+                    <p class="text-sm font-medium">Chưa có mật khẩu</p>
+                </div>
+            @endif
+        </div>
+
+
+        <button type="submit" class="bg-blue-500 text-white px-8 py-2 text-lg rounded-lg hover:bg-blue-600">
+            {{ __('language.btn_update') }}
+        </button>
+        
+    </form>
 </div>
 
-<!-- Modal để thêm danh mục -->
-<div id="addCategoryModal" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white rounded-lg shadow-xl p-6 w-96">
-        <h2 class="text-2xl font-semibold mb-4"> {{__('language.title_add_category') }}</h2>
-        <form id="addCategoryForm">
-            @csrf
-            <div class="mb-4">
-                <label for="addCategoryName" class="block text-sm font-medium text-gray-700">{{__('language.title_name_category')}}</label>
-                <input type="text" id="addCategoryName" name="addCategoryName" class="w-full mt-1 p-2 border rounded" placeholder="{{__('language.placeholder_name_category')}}">
-            </div>
-            <div class="flex justify-end space-x-2">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">{{__('language.btn_create')}}</button>
-                <button type="button" id="closeAddModal" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">{{__('language.btn_cancel')}}</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-  <!-- Modal để sửa danh mục -->
-<!-- Edit Category Modal -->
-<div id="editCategoryModal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
-        <h2 class="text-xl font-semibold mb-4">{{ __('language.title_edit_category') }}</h2>
-        <form id="editCategoryForm">
-            @csrf
-            <input type="hidden" id="editCategoryId">
-            
-            <div class="mb-4">
-                <label for="editCategoryName" class="block text-sm font-medium text-gray-700">{{ __('language.title_name_category') }}</label>
-                <input type="text" id="editCategoryName" class="w-full p-2 border rounded" placeholder="{{__('language.placeholder_name_category')}}">
-            </div>
-
-            <div class="flex justify-end space-x-2">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">{{ __('language.btn_edit') }}</button>
-                <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">{{ __('language.btn_cancel') }}</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
+<!-- JavaScript -->
 <script>
-    var currentLocale = "{{ app()->getLocale() }}";  // Lấy locale từ Laravel
-    $(document).ready(function() {
-        let table = $('#categoryTable').DataTable({
-            processing: true,
-            serverSide: false,
-            ajax: {
-                url: "{{ route('category.getAll') }}",
-                dataSrc: 'categories' // Dữ liệu từ API
-            },
-            columns: [
-                { 
-                    data: null,
-                    orderable: false,
-                    searchable: false,
-                    render: function(data, type, row) {
-                        return `<input type="checkbox" class="rowCheckbox w-4 h-4 text-blue-600 border-gray-300 rounded" value="${row.id}">`;
-                    }
-                },
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { 
-                    data: null,
-                    name: 'action',
-                    orderable: false,
-                    searchable: false,
-                    render: function(data, type, row) {
-                        return `<div class="flex space-x-2">
-                            <button onclick="openEditModal(${row.id})" class="px-3 py-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">{{ __('language.btn_edit') }}</button>
-                            <button class="delete-btn px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600" data-id="${row.id}">
-                                {{ __('language.btn_delete') }}
-                            </button>
-                        </div>`;
-                    }
-                }
-            ],
-            language: {
-                url: `//cdn.datatables.net/plug-ins/1.13.6/i18n/${currentLocale}.json`
+    $(document).ready(function () {
+        $("#settingsForm").submit(function (event) {
+            event.preventDefault(); // Ngăn form submit mặc định
+            const email = document.getElementById('email').value;
+            var alertEmail = '{{ __('language.email_alert') }}';
+            var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            var password = document.getElementById('password').value;
+            let valid = true;
+            if (email.trim() != '' && !emailRegex.test(email)) {
+                event.preventDefault();
+                document.getElementById('alert-email').innerText = alertEmail;
+                valid = false;
+            } 
+            else {
+                document.getElementById('alert-email').innerText = '';
             }
-        });
-
-        // Sự kiện chọn tất cả checkbox
-        $('#selectAll').on('change', function() {
-            $('.rowCheckbox').prop('checked', this.checked);
-        });
-
-        // Kiểm tra trạng thái của checkbox khi chọn từng hàng
-        $(document).on('change', '.rowCheckbox', function() {
-            if ($('.rowCheckbox:checked').length === $('.rowCheckbox').length) {
-                $('#selectAll').prop('checked', true);
-            } else {
-                $('#selectAll').prop('checked', false);
-            }
-        });
-
-
-
-        //Thêm category
-        $('#openAddModal').on('click', function() {
-            $('#addCategoryModal').removeClass('hidden');
-        });
-        $('#closeAddModal').on('click', function() {
-            $('#addCategoryModal').addClass('hidden');
-        });
-        
-        $('#addCategoryForm').on('submit', function(e) {
-            e.preventDefault();
-            let categoryName = $('#addCategoryName').val();
-            
-            if (categoryName === "") {
-                toastr.warning("{{__('language.error_category_name')}}", "{{__('language.message_warning')}}", {
-                    closeButton: true,
-                    progressBar: true,
-                    timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                    positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                });
-                return;
-            }
-
-            $.ajax({
-                url: "{{ route('category.create') }}",
-                type: 'POST',
-                data: {
-                    name: categoryName,
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function(response) {
-                    if (response.status == '200') {
-                        $('#addCategoryModal').addClass('hidden');  // Đóng Modal
-                        $('#addCategoryName').val('');  // Xóa dữ liệu trong form
-                        table.ajax.reload(function() {
-                            toastr.success(response.message, "{{__('language.message_success')}}", {
-                                closeButton: true,
-                                progressBar: true,
-                                timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                                positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                            });
-                        });
-                    } else {
-                        toastr.error(response.message, "{{__('language.message_fail')}}", {
-                            closeButton: true,
-                            progressBar: true,
-                            timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                            positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
-                        closeButton: true,
-                        progressBar: true,
-                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                    });
-                }
-            });
-        });
-
-        // Xử lý submit form sửa category
-        $("#editCategoryForm").submit(function(e) {
-            e.preventDefault();
-
-            let categoryId = $("#editCategoryId").val();
-            let categoryName = $("#editCategoryName").val();
-
-            $.ajax({
-                url: `/category/${categoryId}/update`,
-                type: "POST",
-                data: {
+            if (valid) {
+                let formData = {
                     _token: "{{ csrf_token() }}",
-                    name: categoryName
-                },
-                success: function(response) {
-                    if (response.status === '200') {
-                        $("#editCategoryModal").addClass("hidden");
-                        table.ajax.reload(function() {
-                            toastr.success(response.message, "{{__('language.message_success')}}", {
+                    email: $("#email").val(),
+                    password: $("#password").val(),
+                };
+
+                $.ajax({
+                    url: "{{ route('setting.update') }}",
+                    type: "POST",
+                    data: formData,
+                    success: function (response) {
+                        if (response.status === '200') {
+                            $("#password").val('');
+                            if (password != '') {
+                                $("#alert-had-password").html(`
+                                    <div class="flex items-center p-3 text-green-700 bg-green-100 rounded-lg shadow-md">
+                                        <svg class="w-5 h-5 mr-2 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L9 11.586 6.707 9.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l7-7a1 1 0 000-1.414z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <p class="text-sm font-medium">Đã có mật khẩu</p>
+                                    </div>
+                                `);
+                            }
+                            else {
+                                $("#alert-had-password").html(`
+                                    <div class="flex items-center p-3 text-red-700 bg-red-100 rounded-lg shadow-md">
+                                        <svg class="w-5 h-5 mr-2 text-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-14a6 6 0 100 12A6 6 0 0010 4zm1 3a1 1 0 10-2 0v4a1 1 0 002 0V7zm-1 6a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <p class="text-sm font-medium">Chưa có mật khẩu</p>
+                                    </div>
+                                `);
+                            }
+                            toastr.success(response.message, "{{ __('language.message_success') }}", {
                                 closeButton: true,
                                 progressBar: true,
-                                timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                                positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
+                                timeOut: 3000,
+                                positionClass: 'toast-top-right',
                             });
-                        }); // Reload DataTable
-                        
-                    } else {
-                        toastr.error(response.message, "{{__('language.message_fail')}}", {
+                        } else {
+                            toastr.error(response.message, "{{ __('language.message_fail') }}", {
+                                closeButton: true,
+                                progressBar: true,
+                                timeOut: 3000,
+                                positionClass: 'toast-top-right',
+                            });
+                        }
+                    },
+                    error: function (xhr) {
+                        toastr.error(xhr.responseJSON?.message || "{{ __('language.unknown_error') }}", "{{ __('language.message_fail') }}", {
                             closeButton: true,
                             progressBar: true,
-                            timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                            positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
+                            timeOut: 3000,
+                            positionClass: 'toast-top-right',
                         });
                     }
-                },
-                error: function(xhr) {
-                    toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
-                        closeButton: true,
-                        progressBar: true,
-                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                    });
-                }
-            });
-        });
-        
-
-        function deleteCategory(categoryId) {
-            Swal.fire({
-                title: "{{__('language.title_confirm_delete')}}",
-                text: "{{__('language.confirm_delete_item')}}",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: "{{__('language.confirm_yes')}}",
-                cancelButtonText: "{{__('language.btn_cancel')}}",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Gọi hàm xóa nếu người dùng xác nhận
-                    $.ajax({
-                        url: `/category/${categoryId}/delete`,
-                        type: 'DELETE',
-                        data: {
-                            _token: "{{ csrf_token() }}" // Laravel CSRF token để bảo mật
-                        },
-                        success: function(response) {
-                            if (response.status == '200') {
-                                table.ajax.reload(function() {
-                                    toastr.success(response.message, "{{__('language.message_success')}}", {
-                                        closeButton: true,
-                                        progressBar: true,
-                                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                                    });
-                                });  // Làm mới bảng dữ liệu
-                            } else {
-                                toastr.error(response.message, "{{__('language.message_fail')}}", {
-                                    closeButton: true,
-                                    progressBar: true,
-                                    timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                                    positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                                });
-                            }
-                            
-                        },
-                        error: function(xhr) {
-                            toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
-                                closeButton: true,
-                                progressBar: true,
-                                timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                                positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                            });
-                            alert();
-                        }
-                    });
-                }
-            });
-        }
-
-        $('#categoryTable').on('click', '.delete-btn', function() {
-            var categoryId = $(this).data('id'); // Lấy id từ data-id của button
-            deleteCategory(categoryId);  // Gọi hàm deleteCategory với ID
-        });
-
-
-        // Xóa nhiều danh mục
-        $('#deleteSelected').on('click', function() {
-            let selectedIds = [];
-            $('.rowCheckbox:checked').each(function() {
-                selectedIds.push($(this).val());
-            });
-        
-            if (selectedIds.length === 0) {
-                toastr.warning("{{__('language.error_no_item_selected')}}", "{{__('language.message_warning')}}", {
-                    closeButton: true,
-                    progressBar: true,
-                    timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                    positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
                 });
-                return;
             }
-
-            Swal.fire({
-                title: "{{__('language.title_confirm_delete')}}",
-                text: "{{__('language.confirm_delete_items')}}",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: "{{__('language.confirm_yes')}}",
-                cancelButtonText: "{{__('language.btn_cancel')}}",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Gọi hàm xóa nếu người dùng xác nhận
-                    $.ajax({
-                        url: "/category/delete-items",
-                        type: "POST",
-                        data: {
-                            ids: selectedIds,
-                            _token: "{{ csrf_token() }}"
-                        },
-                        success: function(response) {
-                            if (response.status == '200') {
-                                table.ajax.reload(function() {
-                                    toastr.success(response.message, "{{__('language.message_success')}}", {
-                                        closeButton: true,
-                                        progressBar: true,
-                                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                                    });
-                                });
-                            } else {
-                                table.ajax.reload(function() {
-                                    toastr.error(response.message, "{{__('language.message_fail')}}", {
-                                        closeButton: true,
-                                        progressBar: true,
-                                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                                    });
-                                });
-                            }
-                            
-                        },
-                        error: function(xhr) {
-                            toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
-                                closeButton: true,
-                                progressBar: true,
-                                timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                                positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                            });
-                        }
-                    });
-                }
-            });
+            
         });
     });
+    document.addEventListener("DOMContentLoaded", function () {
+        let togglePassword = document.querySelector(".toggle-password");
+        togglePassword.addEventListener("click", function () {
 
-
-    //Cập nhật category
-    function openEditModal(categoryId) {
-            // Gửi request AJAX để lấy thông tin category
-        $.ajax({
-            url: `/category/${categoryId}`, // Đường dẫn API lấy thông tin
-            type: "GET",
-            success: function(response) {
-                if (response.status === '200') {
-                    $("#editCategoryId").val(response.category.id);
-                    $("#editCategoryName").val(response.category.name);
-                    $("#editCategoryModal").removeClass("hidden");
-                } else {
-                    toastr.error("{{ __('language.error_fetching_data') }}", "{{__('language.message_fail')}}", {
-                        closeButton: true,
-                        progressBar: true,
-                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                    });
-                }
-            },
-            error: function() {
-                toastr.error("{{ __('language.error_fetching_data') }}", "{{__('language.message_fail')}}", {
-                    closeButton: true,
-                    progressBar: true,
-                    timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                    positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                });
+            let passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                this.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                this.classList.replace("fa-eye-slash", "fa-eye");
             }
         });
-    }
-    // Đóng modal
-    function closeEditModal() {
-        $("#editCategoryModal").addClass("hidden");
-    }
-    
+    });
 </script>
 
 @endsection
