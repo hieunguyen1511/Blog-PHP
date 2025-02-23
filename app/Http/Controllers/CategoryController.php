@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -36,6 +37,7 @@ class CategoryController extends Controller
             // Tạo danh mục mới và lưu vào cơ sở dữ liệu
             $category = new Category();
             $category->name = $request->name;
+            $category->link = Str::slug($request->name);
             $category->save();
 
             return response()->json([
