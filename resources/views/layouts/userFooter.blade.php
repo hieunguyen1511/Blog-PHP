@@ -3,9 +3,9 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
                 <h3 class="text-lg font-semibold mb-4">About Us</h3>
-                <p class="text-gray-300">A brief description of your blog and its mission.</p>
+                <p class="text-gray-300">Blog-PHP</p>
             </div>
-            <div>
+            {{-- <div>
                 <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                 <ul class="space-y-2">
                     <li><a href="/about" class="text-gray-300 hover:text-white">About</a></li>
@@ -36,10 +36,10 @@
                         </svg>
                     </a>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="mt-8 border-t border-gray-700 pt-8 text-center">
-            <p class="text-gray-300">© 2023 Your Blog Name. All rights reserved.</p>
+            <p class="text-gray-300">© 2023 BLOG-PHP, FOSS.</p>
         </div>
     </div>
 </footer>

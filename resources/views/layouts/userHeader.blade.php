@@ -14,7 +14,7 @@
 
                 <!-- Navigation (hidden on mobile) -->
                 <nav class="hidden md:flex space-x-4">
-                    <a href="/post" class="text-gray-500 hover:text-gray-900 transition-colors duration-200">Post</a>
+                    {{-- <a href="/post" class="text-gray-500 hover:text-gray-900 transition-colors duration-200">Post</a> --}}
                     <div class="relative group">
                         <button
                             class="text-gray-500 hover:text-gray-900 flex items-center transition-colors duration-200">
@@ -43,9 +43,36 @@
             </div>
             <div class="flex items-center space-x-4">
                 <!-- Search Field (hidden on mobile) -->
-                <div class="hidden md:block">
-                    <input type="text" placeholder="{{ __('language.header_Placeholder_search') }}"
-                        class="w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <div class="hidden md:block relative">
+                    <form method="post" action="{{route('search')}}">
+                        @csrf
+                        <input type="text" name="search" id="search-input" placeholder="{{ __('language.header_Placeholder_search') }}"
+                        class="w-96 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </form>
+                    
+
+                    <!-- Search Results Dropdown -->
+                    <div id="search-results"
+                        class="absolute left-0 mt-2 w-full bg-white rounded-lg shadow-lg opacity-0 invisible transition-all duration-200 transform origin-top scale-95 z-50">
+                        <div class="py-2">
+                            <!-- Posts Section -->
+                            <div id="related-posts" class="border-b border-gray-100">
+                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Related Posts</h3>
+                                <div class="max-h-48 overflow-y-auto" id="posts-container">
+                                    <!-- Posts will be dynamically inserted here -->
+                                </div>
+                            </div>
+
+                            <!-- Categories Section -->
+                            <div id="related-categories">
+                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Related Categories
+                                </h3>
+                                <div class="max-h-32 overflow-y-auto" id="categories-container">
+                                    <!-- Categories will be dynamically inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Language Switcher -->
@@ -127,7 +154,7 @@
 
                                     <!-- Menu Items -->
                                     <div class="py-1">
-                                        <a href="{{route('create_post')}}"
+                                        <a href="{{ route('create_post') }}"
                                             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
                                             <svg class="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -139,8 +166,8 @@
                                         </a>
                                         <a href="#"
                                             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-                                            <svg class="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
+                                            <svg class="w-5 h-5 mr-3 text-gray-500" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
                                                 </path>
@@ -210,6 +237,36 @@
         <!-- Mobile menu (hidden by default) -->
         <div id="mobile-menu" class="md:hidden hidden">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <!-- Search container for mobile -->
+                <div class="relative mb-3">
+                    <input type="text" id="mobile-search-input"
+                        placeholder="{{ __('language.header_Placeholder_search') }}"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+
+                    <!-- Mobile Search Results Dropdown -->
+                    <div id="mobile-search-results"
+                        class="absolute left-0 right-0 mt-2 bg-white rounded-lg shadow-lg opacity-0 invisible transition-all duration-200 transform origin-top scale-95 z-50">
+                        <div class="py-2">
+                            <!-- Posts Section -->
+                            <div id="mobile-related-posts" class="border-b border-gray-100">
+                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Related Posts</h3>
+                                <div class="max-h-48 overflow-y-auto" id="mobile-posts-container">
+                                    <!-- Posts will be dynamically inserted here -->
+                                </div>
+                            </div>
+
+                            <!-- Categories Section -->
+                            <div id="mobile-related-categories">
+                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Related Categories
+                                </h3>
+                                <div class="max-h-32 overflow-y-auto" id="mobile-categories-container">
+                                    <!-- Categories will be dynamically inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <a href="/post"
                     class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Post</a>
                 <a href="/categories"
@@ -226,10 +283,99 @@
                         Việt</option>
                 </select>
             </div>
-            <div class="px-2 pt-2 pb-3">
-                <input type="text" placeholder="Search..."
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-            </div>
         </div>
     </div>
 </header>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#search-input').on('keyup', function() {
+            let query = $(this).val();
+            if (query.length > 1) {
+                document.getElementById('search-results').classList.remove('opacity-0', 'invisible',
+                    'scale-95');
+                document.getElementById('search-results').classList.add('opacity-100', 'visible',
+                    'scale-100');
+                const searchInput = document.getElementById('search-input');
+                const searchResults = document.getElementById('search-results');
+                $.ajax({
+                    url: `/api/search/${query}`,
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.status === '200') {
+                            document.getElementById('posts-container').innerHTML = response
+                                .posts.map(
+                                    post => ` <a href="/post/${post.link}" class="block px-4 py-2 hover:bg-blue-50">
+                                                <div class="text-sm font-medium text-gray-900">${post.title}</div>
+                                                <div class="text-xs text-gray-500">${truncateText(post.description,20)}</div>
+                                            </a>`
+                                ).join('');
+                            document.getElementById('categories-container').innerHTML =
+                                response.categories.map(
+                                    category => `
+                                                <a href="/category/${category.name}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">
+                                                    ${category.name}
+                                                </a>`
+                                ).join('');
+
+                        } else {
+
+                        }
+                    }
+                });
+            } else {
+                document.getElementById('search-results').classList.remove('opacity-100', 'visible',
+                    'scale-100');
+                document.getElementById('search-results').classList.add('opacity-0', 'invisible',
+                    'scale-95');
+            }
+        });
+        $('#mobile-search-input').on('keyup', function() {
+            let query = $(this).val();
+            if (query.length > 1) {
+                document.getElementById('mobile-search-results').classList.remove('opacity-0',
+                    'invisible', 'scale-95');
+                document.getElementById('mobile-search-results').classList.add('opacity-100', 'visible',
+                    'scale-100');
+                const mobileSearchInput = document.getElementById('mobile-search-input');
+                const mobileSearchResults = document.getElementById('mobile-search-results');
+                $.ajax({
+                    url: `/api/search/${query}`,
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.status === '200') {
+                            document.getElementById('mobile-posts-container').innerHTML = response
+                                .posts.map(
+                                    post => ` <a href="/post/${post.link}" class="block px-4 py-2 hover:bg-blue-50">
+                                                <div class="text-sm font-medium text-gray-900">${post.title}</div>
+                                                <div class="text-xs text-gray-500">${truncateText(post.description,20)}</div>
+                                            </a>`
+                                ).join('');
+                            document.getElementById('mobile-categories-container').innerHTML =
+                                response.categories.map(
+                                    category => `
+                                                <a href="/category/${category.name}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">
+                                                    ${category.name}
+                                                </a>`
+                                ).join('');
+                        } else {
+
+                        }
+                    }
+                });
+            } else {
+                document.getElementById('mobile-search-results').classList.remove('opacity-100',
+                    'visible', 'scale-100');
+                document.getElementById('mobile-search-results').classList.add('opacity-0', 'invisible',
+                    'scale-95');
+            }
+        });
+    });
+
+
+    function truncateText(text, wordLimit) {
+        let words = text.split(' ');
+        return words.length > wordLimit ? words.slice(0, wordLimit).join(' ') + '...' : text;
+    }
+</script>

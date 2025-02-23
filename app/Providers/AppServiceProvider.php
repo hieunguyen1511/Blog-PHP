@@ -25,8 +25,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        $categories = Category::all();
-        View::share('categories', $categories);
+        try{
+            $categories = Category::all();
+            View::share('categories', $categories);
+        }
+        catch(\Exception $e){
+
+        }
+        
         Paginator::useTailwind();
     }
 }

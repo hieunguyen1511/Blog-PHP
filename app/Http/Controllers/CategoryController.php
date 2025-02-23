@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Str;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -28,6 +28,7 @@ class CategoryController extends Controller
     public function create(Request $request){
         $category = new Category();
         $category->name = $request->name;
+        $category->link = Str::slug($request->name);
         $category->save();
         return response()->json([
             'status' => '200',

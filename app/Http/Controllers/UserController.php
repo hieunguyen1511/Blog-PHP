@@ -39,7 +39,7 @@ class UserController extends Controller{
 
         $post->save();
 
-        return redirect()->route('post');
+        return redirect()->route('post', ['link' => $link]);
     }
 
 

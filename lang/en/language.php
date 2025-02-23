@@ -68,4 +68,7 @@ return [
     'home_pagination_of' => 'of',
     'home_pagination_result' => 'results',
 
+    'home_popular_categories' => 'Popular Categories',
+
+
 ];

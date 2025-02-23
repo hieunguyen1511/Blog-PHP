@@ -81,7 +81,7 @@ Route::middleware(localization::class)->group(function(){
     
     
     // post by category
-    Route::get('/category/{name}', [HomeController::class, 'post_category']);
+    Route::get('/category/{link}', [HomeController::class, 'post_category']) -> name('category.post');
     
     Route::get('/lang/{language}', function () {
         $language = request()->language;
@@ -91,8 +91,15 @@ Route::middleware(localization::class)->group(function(){
 
 
     //Post link
-
     Route::get('/post/{link}', [HomeController::class, 'post'])->name('post-detail');
 
+
+    //search key
+    Route::post('/search', [HomeController::class, 'search_post'])->name('search');
+
+
 });
+
+//api
+Route::get('/api/search/{key}', [HomeController::class, 'search']);
 
