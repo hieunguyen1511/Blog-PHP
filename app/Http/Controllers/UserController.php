@@ -89,9 +89,21 @@ class UserController extends Controller{
     }
     
     public function setting(){
-        
-        return view('user_setting.setting');
+        $user = User::withCount('posts')->find(session('userid'));
+        return view('user_setting.setting', ['user' => $user]);
     }
+
+    public function partial_edit_profile(){
+        return view('user_setting.partial_edit_profile');
+    }
+    public function edit_profile(){
+        return view('user_setting.setting',[
+            'user' => User::find(session('userid')),
+            'section' => 'partial_edit_profile'
+        ]);
+    }
+
+
 
 
 

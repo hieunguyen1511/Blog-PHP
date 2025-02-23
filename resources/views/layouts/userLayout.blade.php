@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{env('APP_NAME')}}</title>
+    <title>{{ env('APP_NAME') }}</title>
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     <style>
@@ -14,6 +14,8 @@
             font-family: 'Inter', sans-serif;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
 
 <body class="min-h-screen flex flex-col bg-gray-100">
@@ -67,9 +69,6 @@
                 profilePopup.classList.add('hidden');
             }
         });
-
-
-
     </script>
 </body>
 

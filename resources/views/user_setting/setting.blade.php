@@ -1,6 +1,8 @@
 @extends('layouts.userLayout')
+
 @section('content')
-    <?php $user = (object) session('user') ?>
+    <?php #$user = (object) session('user')
+    ?>
     <div class="container mx-auto px-4 lg:px-8 py-8">
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Left Sidebar -->
@@ -17,7 +19,8 @@
                         </h3>
                     </div>
                     <div class="p-2">
-                        <a href="/user/profile"
+                        <a id="load-content" href="{{ route('edit_profile', ['username' => $user->username]) }}"
+                            data-url="{{ route('partial_edit_profile', ['username' => $user->username]) }}" href="#"
                             class="flex items-center px-3 py-2 rounded-md hover:bg-orange-50 text-gray-700 hover:text-orange-600 transition-colors duration-200">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -178,58 +181,84 @@
             </div>
 
             <!-- Main Content Area -->
-            <div class="lg:w-3/4">
-                <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
-                    <h1 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
-                        <svg class="w-7 h-7 mr-3 text-blue-500" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                        User Settings
-                    </h1>
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
-                        <div class="relative h-64">
-                            <div class="w-full h-full overflow-hidden">
-                                <img src="{{ $user->cover_photo }}" alt="Cover Photo"
-                                    class="w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                            </div>
-                        </div>
-                        <div class="px-6 py-4">
-                            <div class="flex items-start">
-                                <div class="relative">
-                                    <img class="h-24 w-24 rounded-full border-4 border-white bg-white"
-                                        src="{{ $user->profile_picture }}" alt="Profile">
-                                </div>
-                                <div class="ml-4">
-                                    <h1 class="text-2xl font-bold text-gray-900">{{ $user->full_name }}</h1>
-                                    <p class="text-gray-600 mt-1">{{'@'.$user->username}}</p>
-                                    
+            <div id="main-content" class="lg:w-3/4">
+                @if (!empty($section))
+                    @include('user_setting.' . $section)
+                @else
+                    <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                        <h1 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
+                            <svg class="w-7 h-7 mr-3 text-blue-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            User Settings
+                        </h1>
+                        <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
+                            <div class="relative h-64">
+                                <div class="w-full h-full overflow-hidden">
+                                    <img src="{{ $user->cover_photo }}" alt="Cover Photo"
+                                        class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="border-t border-gray-100 px-6 py-4">
-                            <div class="flex space-x-8">
-                                <div class="flex-1">
-                                    <div class="text-2xl font-bold text-gray-900">42</div>
-                                    <div class="text-sm text-gray-500">Posts</div>
+                            <div class="px-6 py-4">
+                                <div class="flex items-start">
+                                    <div class="relative">
+                                        <img class="h-24 w-24 rounded-full border-4 border-white bg-white"
+                                            src="{{ $user->profile_picture }}" alt="Profile">
+                                    </div>
+                                    <div class="ml-4">
+                                        <h1 class="text-2xl font-bold text-gray-900">{{ $user->full_name }}</h1>
+                                        <p class="text-gray-600 mt-1">{{ '@' . $user->username }}</p>
+
+                                    </div>
                                 </div>
-                                <div class="flex-1">
-                                    <div class="text-2xl font-bold text-gray-900">1.2k</div>
-                                    <div class="text-sm text-gray-500">Followers</div>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="text-2xl font-bold text-gray-900">238</div>
-                                    <div class="text-sm text-gray-500">Following</div>
+                            </div>
+                            <div class="border-t border-gray-100 px-6 py-4">
+                                <div class="flex space-x-8">
+                                    <div class="flex-1">
+                                        <div class="text-2xl font-bold text-gray-900">{{ $user->posts->count() }}</div>
+                                        <div class="text-sm text-gray-500">Posts</div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-2xl font-bold text-gray-900">{{ $user->posts->sum('view_count') }}
+                                        </div>
+                                        <div class="text-sm text-gray-500">Views</div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-2xl font-bold text-gray-900">{{ $user->posts->sum('like_count') }}
+                                        </div>
+                                        <div class="text-sm text-gray-500">Likes</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
+                @endif
 
-
-                </div>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#load-content').on('click', function(e) {
+                e.preventDefault();
+                let url_load = $(this).data('url');
+                let url_show = $(this).attr('href');
+                $.ajax({
+                    url: url_load,
+                    type: 'GET',
+                    success: function(response) {
+                        window.history.pushState({
+                            path: url_show
+                        }, '', url_show);
+                        $('#main-content').html(response);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
