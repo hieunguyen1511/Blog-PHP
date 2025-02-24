@@ -75,5 +75,14 @@ return [
     'home_popular_categories' => 'Popular Categories',
     'home_suggested_post' => 'Suggested Posts',
     'home_recommend_user' => 'Recommended Users',
+    'home_following' => 'Following',
+
+
+    // User Profile
+    'profile_posts' => 'Posts',
+    'profile_views' => 'Views',
+    'profile_likes' => 'Likes',
+    'profile_allPosts' => 'All Posts',
+
 
 ];

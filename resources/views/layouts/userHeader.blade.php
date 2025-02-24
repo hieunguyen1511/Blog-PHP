@@ -164,7 +164,7 @@
                                             </svg>
                                             {{ __('language.header_user_new_post') }}
                                         </a>
-                                        <a href="#"
+                                        <a href="{{route('get-profile',['username'=>$user->username])}}"
                                             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
                                             <svg class="w-5 h-5 mr-3 text-gray-500" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">
@@ -174,7 +174,7 @@
                                             </svg>
                                             {{ __('language.header_user_profile') }}
                                         </a>
-                                        <a href="{{route('setting',['username'=>$user->username])}}"
+                                        <a href="{{route('setting')}}"
                                             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
                                             <svg class="w-5 h-5 mr-3 text-gray-500" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">

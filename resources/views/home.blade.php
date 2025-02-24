@@ -107,38 +107,44 @@
                                 <div class="p-6">
                                     <h3 class="text-xl font-semibold mb-4">{{ __('language.home_recommend_user') }}</h3>
                                     <ul class="space-y-4">
-                                        <li
-                                            class="flex items-start space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors duration-150">
-                                            <img class="h-10 w-10 rounded-full"
-                                                src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson">
-                                            <div class="flex-1 min-w-0">
-                                                <p class="text-sm font-medium text-gray-900">Sarah Johnson</p>
-                                                <p class="text-xs text-gray-500">Tech Enthusiast</p>
-                                                <div class="flex items-center gap-3 mt-1">
-                                                    <span class="text-xs text-gray-500 flex items-center">
-                                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
-                                                            </path>
-                                                        </svg>
-                                                        23 posts
-                                                    </span>
-                                                    <span class="text-xs text-gray-500 flex items-center">
-                                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                        </svg>
-                                                        15.2k views
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        @foreach ($recommended_users as $item)
+                                            <li>
+                                                <a href="{{route('get-profile',['username'=>$item->username])}}" class="flex items-start space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors duration-150" >
+                                                    <img class="h-10 w-10 rounded-full" src="{{ $item->profile_picture }}"
+                                                        alt="{{ $item->full_name }}">
+                                                    <div class="flex-1 min-w-0">
+                                                        <p class="text-sm font-medium text-gray-900">{{ $item->full_name }}
+                                                        </p>
+                                                        {{-- <p class="text-xs text-gray-500">Tech Enthusiast</p> --}}
+                                                        <div class="flex items-center gap-3 mt-1">
+                                                            <span class="text-xs text-gray-500 flex items-center">
+                                                                <svg class="w-3 h-3 mr-1" fill="none"
+                                                                    stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        stroke-width="2"
+                                                                        d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
+                                                                    </path>
+                                                                </svg>
+                                                                {{ $item->posts->count() }} posts
+                                                            </span>
+                                                            <span class="text-xs text-gray-500 flex items-center">
+                                                                <svg class="w-3 h-3 mr-1" fill="none"
+                                                                    stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        stroke-width="2"
+                                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        stroke-width="2"
+                                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                                </svg>
+                                                                {{ $item->posts->sum('view_count') }} views
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>    
+                                        @endforeach
+
                                     </ul>
                                 </div>
                             </div>

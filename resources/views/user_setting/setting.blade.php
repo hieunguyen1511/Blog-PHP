@@ -19,8 +19,8 @@
                         </h3>
                     </div>
                     <div class="p-2">
-                        <a id="load-content" href="{{ route('edit_profile', ['username' => $user->username]) }}"
-                            data-url="{{ route('partial_edit_profile', ['username' => $user->username]) }}" href="#"
+                        <a id="load-content" href="{{ route('edit_profile') }}"
+                            data-url="{{ route('partial_edit_profile') }}" href="#"
                             class="flex items-center px-3 py-2 rounded-md hover:bg-orange-50 text-gray-700 hover:text-orange-600 transition-colors duration-200">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
