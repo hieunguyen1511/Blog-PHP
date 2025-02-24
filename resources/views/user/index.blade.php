@@ -154,7 +154,9 @@
                 { data: 'email', name: 'email' },
                 { data: 'date', name: 'date' },
                 { data: 'phone', name: 'phone' },
-                { data: 'bio', name: 'bio' },
+                { data: 'bio', name: 'bio', render: function(data) {
+                    return truncateText(data, 10);
+                }  },
                 { data: 'full_name', name: 'full_name' },
                 { 
                     data: null,

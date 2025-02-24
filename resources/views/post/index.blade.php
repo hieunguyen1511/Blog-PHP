@@ -54,9 +54,15 @@
                 { data: 'id', name: 'id' },
                 { data: 'user_id', name: 'user_id' },
                 { data: 'category_id', name: 'category_id' },
-                { data: 'title', name: 'title' },
-                { data: 'description', name: 'description' },
-                { data: 'content', name: 'content' },
+                { data: 'title', name: 'title', render: function(data) {
+                    return truncateText(data, 10);
+                }  },
+                { data: 'description', name: 'description', render: function(data) {
+                    return truncateText(data, 10);
+                }  },
+                { data: 'content', name: 'content', render: function(data) {
+                    return truncateText(data, 10);
+                }  },
                 { data: 'like_count', name: 'like_count' },
                 { data: 'view_count', name: 'view_count' },
                 { 

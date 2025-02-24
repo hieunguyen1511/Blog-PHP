@@ -372,47 +372,49 @@
         // }
 
         document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.getElementById("searchInput");
-        const sidebarList = document.getElementById("sidebarList");
-        const searchResults = document.getElementById("searchResults");
+            const searchInput = document.getElementById("searchInput");
+            const sidebarList = document.getElementById("sidebarList");
+            const searchResults = document.getElementById("searchResults");
 
-        // Lấy danh sách item trong sidebar
-        const sidebarItems = [...sidebarList.querySelectorAll("li a")].map(item => ({
-            text: item.innerText.trim(),
-            element: item
-        }));
+            // Lấy danh sách item trong sidebar
+            const sidebarItems = [...sidebarList.querySelectorAll("li a")].map(item => ({
+                text: item.innerText.trim(),
+                element: item
+            }));
 
-        searchInput.addEventListener("input", function () {
-            const query = this.value.toLowerCase();
-            searchResults.innerHTML = "";
+            searchInput.addEventListener("input", function () {
+                const query = this.value.toLowerCase();
+                searchResults.innerHTML = "";
 
-            if (query) {
-                const matches = sidebarItems.filter(item => item.text.toLowerCase().includes(query));
-                matches.forEach(item => {
-                    const li = document.createElement("li");
-                    li.className = "p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer rounded";
-                    li.textContent = item.text;
-                    li.addEventListener("click", () => {
-                        item.element.click();
-                        searchResults.classList.add("hidden");
+                if (query) {
+                    const matches = sidebarItems.filter(item => item.text.toLowerCase().includes(query));
+                    matches.forEach(item => {
+                        const li = document.createElement("li");
+                        li.className = "p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer rounded";
+                        li.textContent = item.text;
+                        li.addEventListener("click", () => {
+                            item.element.click();
+                            searchResults.classList.add("hidden");
+                        });
+                        searchResults.appendChild(li);
                     });
-                    searchResults.appendChild(li);
-                });
 
-                searchResults.classList.remove("hidden");
-            } else {
-                searchResults.classList.add("hidden");
-            }
+                    searchResults.classList.remove("hidden");
+                } else {
+                    searchResults.classList.add("hidden");
+                }
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.add("hidden");
+                }
+            });
         });
-
-        document.addEventListener("click", (e) => {
-            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-                searchResults.classList.add("hidden");
-            }
-        });
-    });
-
-        
+        function truncateText(text, maxLength = 100) {
+            if (!text) return ''; // Nếu không có dữ liệu, trả về rỗng
+            return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        }
     </script>
 </body>
 </html>
