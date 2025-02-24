@@ -39,8 +39,8 @@
 <!-- Modal để sửa user -->
 <!-- Edit User Modal -->
 <div id="editUserModal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
-        <h2 class="text-xl font-semibold mb-4">{{ __('language.title_edit_user') }}</h2>
+    <div class="bg-white p-6 rounded-lg shadow-lg w-2/3 h-7/8 overflow-y-auto">
+        <h2 class="text-xl font-semibold text-blue-500 mb-4">{{ __('language.title_edit_user') }}</h2>
         <form id="editUserForm">
             @csrf
             <input type="hidden" id="editUserId">
@@ -95,11 +95,20 @@
                     <input type="tel" pattern="[0-9]{10}" id="editPhone" class="w-full p-3 border rounded" placeholder="{{ __('language.placeholder_phone_user') }}">
                 </div>
                 
-                <div class="mb-4">
-                    <label for="editNewPassword" class="block text-sm font-medium text-gray-700">{{ __('language.title_new_password_user') }}</label>
-                    <input type="password" id="editNewPassword" class="w-full p-3 border rounded" placeholder="{{__('language.placeholder_new_password_user')}}">
+                <div class="mb-4 relative">
+                    <label for="editNewPassword" class="block text-sm font-medium text-gray-700">
+                        {{ __('language.title_new_password_user') }}
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="editNewPassword"
+                            class="w-full p-3 pr-10 border rounded"
+                            placeholder="{{ __('language.placeholder_new_password_user') }}">
+                        <i class="toggle-password fa fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500"></i>
+                    </div>
                     <p class="italic text-red-600 text-sm" id="alert-password"></p>
                 </div>
+                
+                
                 
             </div>
 
@@ -524,6 +533,20 @@
         // Khi click icon thì mở lịch
         calendarIcon.addEventListener("click", function () {
             fp.open();
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        let togglePassword = document.querySelector(".toggle-password");
+        togglePassword.addEventListener("click", function () {
+
+            let passwordField = document.getElementById("editNewPassword");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                this.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                this.classList.replace("fa-eye-slash", "fa-eye");
+            }
         });
     });
 </script>
