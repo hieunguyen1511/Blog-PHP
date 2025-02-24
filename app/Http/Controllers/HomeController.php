@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +12,7 @@ class HomeController extends Controller
 {
 
     public function index(){
-        $posts = Post::with('user')->with('category')->paginate(10);
+        $posts = Post::with('user')->with('category')->paginate(1);
         //take 5 most popular category
         $popular_category = Category::withCount('posts')->orderBy('posts_count', 'desc')->take(5)->get();
         $suggested_post = Post::with('user')->with('category')->orderBy('view_count', 'desc')->take(5)->get();
@@ -37,13 +38,35 @@ class HomeController extends Controller
     }
 
 
-    public function post($link){
+    public function post($link,Request $request){
+       
         $post = Post::where('link', $link)->first();
+        $comments = Comment::with('user')->where('post_id', $post->id)->orderBy('created_at','desc')->paginate(10);
+        
+        if($request->ajax()){
+            return response()->json([
+                'status' => '200',
+                'comments' => $comments,
+            ]);
+        }
         if(session('userid') != null){
             $post->view_count = $post->view_count + 1;
             $post->save();
         }
-        return view('post', ['post' => $post]);
+        $related_posts = Post::with('user')->with('category')->with('comments')->where('category_id', $post->category_id)->where('id', '!=', $post->id)->orderBy('view_count', 'desc')->take(5)->get();
+        return view('post', ['post' => $post,'comments' => $comments, 'related_posts' => $related_posts]);
+    }
+
+    public function post_comment(Request $request){
+        $request->validate([
+            'content' => 'required',
+        ]);
+        $comment = new Comment();
+        $comment->user_id = session('userid');
+        $comment->post_id = $request->post_id;
+        $comment->content = $request->content;
+        $comment->save();
+        return redirect()->back();
     }
 
 

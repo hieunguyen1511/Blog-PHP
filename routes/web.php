@@ -61,6 +61,10 @@ Route::middleware(localization::class)->group(function(){
         Route::get('/user/settings/edit-profile', [UserController::class, 'edit_profile'])->name('edit_profile');
         //Route api
         Route::get('/user/edit-profile', [UserController::class, 'partial_edit_profile'])->name('partial_edit_profile');
+
+        Route::post('post/comment', [HomeController::class, 'post_comment'])->name('post_comment');
+
+
     });
     
   
@@ -115,7 +119,7 @@ Route::middleware(localization::class)->group(function(){
 
 Route::get('/test5',function(){ return view('userprofile');});
 Route::get('/test6',function(){ return view('layouts.post_1');});
-
+Route::get('/lfm',function(){ return view('testlfm');});
 
 
 //api
