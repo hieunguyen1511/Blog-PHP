@@ -85,4 +85,18 @@ return [
     'profile_allPosts' => 'All Posts',
 
 
+
+    // Detail Post
+    'detail_post_about_author' => 'About Author',
+    'detail_post_view_profile' => 'View Profile',
+    'detail_post_posts' => 'Posts',
+    'detail_post_like' => 'Likes',
+    'detail_post_comment' => 'Comment',
+    'detail_post_view' => 'View',
+    'detail_post_related_post' => 'Related Post',
+    'detail_post_load_more' => 'Load more comments',
+    'detail_post_submit_comment' => 'Submit Comment',
+    'detail_post_comment_placeholder' => 'Write a comment...',
+
+
 ];

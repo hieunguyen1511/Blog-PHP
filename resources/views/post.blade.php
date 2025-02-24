@@ -45,7 +45,7 @@
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
                                 </svg>
-                                Like
+                                {{__('language.detail_post_like')}}
                             </button>
                             {{-- <button class="flex items-center text-gray-500 hover:text-blue-600">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,7 +55,7 @@
                             </button> --}}
                         </div>
                         <div class="flex items-center">
-                            <span class="text-sm text-gray-500">{{$post->view_count}} Views</span>
+                            <span class="text-sm text-gray-500">{{$post->view_count}} {{__('language.detail_post_view')}}</span>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
             <!-- Comments Section -->
             <div class="mt-8 bg-white rounded-lg shadow-sm overflow-hidden">
                 <div class="p-6 border-b border-gray-100">
-                    <h2 class="text-xl font-semibold text-gray-900">Comments</h2>
+                    <h2 class="text-xl font-semibold text-gray-900">{{__('language.detail_post_comment')}}</h2>
                 </div>
                 <div class="p-6">
                     <!-- Add comment form -->
@@ -76,7 +76,7 @@
                             rows="4" 
                             placeholder="Add a comment..." required></textarea>
                         <button type="submit" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            Post Comment
+                            {{__('language.detail_post_submit_comment')}}
                         </button>
                     </form>
 
@@ -101,7 +101,7 @@
                     <div class="text-center mt-6">
                         <button id="load-more-comments" 
                                 class="w-full px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2">
-                            Load More Comments
+                            {{__('language.detail_post_load_more')}}
                         </button>
                     </div>
                     
@@ -114,7 +114,7 @@
             <!-- Author Info -->
             <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
                 <div class="p-6 border-b border-gray-100">
-                    <h2 class="text-xl font-semibold text-gray-900">About Author</h2>
+                    <h2 class="text-xl font-semibold text-gray-900">{{__('language.detail_post_about_author')}}</h2>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center mb-4">
@@ -122,7 +122,7 @@
                         <div class="ml-4">
                             <h3 class="text-lg font-medium text-gray-900">{{$post->user->full_name}}</h3>
                             <div class="flex items-center space-x-4 text-sm text-gray-500">
-                                <span>{{$post->user->posts->count()}} posts</span>
+                                <span>{{$post->user->posts->count().' '.__('language.detail_post_posts')}}</span>
                                 <span class="text-gray-300">•</span>
                                 <div class="flex items-center">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,14 +136,14 @@
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                                     </svg>
-                                    <span>{{$post->user->posts->sum('like_count')}} likes</span>
+                                    <span>{{$post->user->posts->sum('like_count')}} {{__('language.detail_post_like')}}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <p class="text-gray-600">{{$post->user->bio}}</p>
                     <button class="mt-4 w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        <a href="{{route('get-profile',['username'=>$post->user->username])}}">View Profile</a>
+                        <a href="{{route('get-profile',['username'=>$post->user->username])}}">{{__('language.detail_post_view_profile')}}</a>
                     </button>
                 </div>
             </div>
@@ -151,7 +151,7 @@
             <!-- Related Posts -->
             <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                 <div class="p-6 border-b border-gray-100">
-                    <h2 class="text-xl font-semibold text-gray-900">Related Posts</h2>
+                    <h2 class="text-xl font-semibold text-gray-900">{{__('language.detail_post_related_post')}}</h2>
                 </div>
                 <div class="divide-y divide-gray-100">
                     @foreach ($related_posts as $item)
@@ -164,19 +164,19 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>
-                                <span>{{$item->view_count}} views</span>
+                                <span>{{$item->view_count.' '.__('language.detail_post_like')}}</span>
                             </div>
                             <div class="flex items-center">
                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                                 </svg>
-                                <span>{{$item->like_count}} likes</span>
+                                <span>{{$item->like_count.' '.__('language.detail_post_like')}}</span>
                             </div>
                             <div class="flex items-center">
                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                                 </svg>
-                                <span>{{$item->comments->count()}} comments</span>
+                                <span>{{$item->comments->count().' '.__('language.detail_post_comment')}}</span>
                             </div>
                         </div>
                         
