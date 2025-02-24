@@ -20,8 +20,8 @@ return [
     'placeholder_email' => 'Your email',
     'placeholder_repassword' => 'Confirm password',
     'btn_register' => 'Register',
-    'password_alert_1' => 'Password must be at least 8 characters',
-    'password_alert_2' => 'Password does not match',
+    'error_wrong_format_password' => 'Password must be at least 8 characters',
+    'error_not_match_repassword' => 'Password does not match',
     'title_register_with' => 'Or Register with',
 
     'have_account' => 'Already have an account?',

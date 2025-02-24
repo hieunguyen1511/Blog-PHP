@@ -48,9 +48,17 @@
             <!-- Ảnh Profile & Cover -->
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div class="relative group flex flex-col items-center">
-                    <img id="editProfilePic" alt="Profile Picture" class="w-28 h-28 rounded-full border-2 border-gray-300 object-cover cursor-pointer">
+                    <!-- Ảnh đại diện căn giữa -->
+                    <img id="editProfilePic" alt="Profile Picture"
+                        class="absolute inset-0 m-auto w-28 h-28 rounded-full border-2 border-gray-300 object-cover cursor-pointer">
+                
+                    <!-- Input ẩn để chọn ảnh -->
                     <input type="file" id="fileInputProfilePic" accept="image/*" class="hidden">
-                    <div id="profilePicOverlay" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                
+                    <!-- Overlay giữ nguyên -->
+                    <div id="profilePicOverlay"
+                        class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 
+                        group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
                         <span class="text-white text-sm font-semibold">{{ __('language.change_picture') }}</span>
                     </div>
                 </div>
@@ -68,10 +76,6 @@
 
             <!-- Các input -->
             <div class="grid grid-cols-2 gap-4">
-                <div class="mb-4">
-                    <label for="editUsername" class="block text-sm font-medium text-gray-700">{{ __('language.title_username_user') }}</label>
-                    <input type="text" id="editUsername" class="w-full p-3 border rounded" placeholder="{{__('language.placeholder_username')}}">
-                </div>
 
                 <div class="mb-4">
                     <label for="editFullname" class="block text-sm font-medium text-gray-700">{{ __('language.title_fullname_user') }}</label>
@@ -88,16 +92,20 @@
 
                 <div class="mb-4">
                     <label for="editPhone" class="block text-sm font-medium text-gray-700">{{ __('language.title_phone_user') }}</label>
-                    <input type="text" id="editPhone" class="w-full p-3 border rounded" placeholder="{{ __('language.placeholder_phone_user') }}" maxlength="10">
+                    <input type="tel" pattern="[0-9]{10}" id="editPhone" class="w-full p-3 border rounded" placeholder="{{ __('language.placeholder_phone_user') }}">
                 </div>
                 
                 <div class="mb-4">
                     <label for="editNewPassword" class="block text-sm font-medium text-gray-700">{{ __('language.title_new_password_user') }}</label>
                     <input type="password" id="editNewPassword" class="w-full p-3 border rounded" placeholder="{{__('language.placeholder_new_password_user')}}">
+                    <p class="italic text-red-600 text-sm" id="alert-password"></p>
                 </div>
+                
             </div>
 
-
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">{{ __('language.title_username_user') }}: <span id="editUsername" class="text-blue-500 font-semibold text-sm"></span></label>
+            </div>
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700">{{ __('language.title_email_user') }}: <span id="editEmail" class="text-blue-500 font-semibold text-sm"></span></label>
             </div>
@@ -117,14 +125,17 @@
 </div>
 
 
+<script src="https://cdn.tiny.cloud/1/{{ config('services.tinymce.key') }}/tinymce/7/tinymce.min.js" referrerpolicy="origin">
+</script>
 
-
+  
 <script>
+    
     var currentLocale = "{{ app()->getLocale() }}";  // Lấy locale từ Laravel
     $(document).ready(function() {
         let table = $('#userTable').DataTable({
             processing: true,
-            serverSide: true,
+            serverSide: false,
             ajax: {
                 url: "{{ route('user.getAll') }}",
                 dataSrc: 'users' // Dữ liệu từ API
@@ -184,29 +195,38 @@
         $("#editUserForm").submit(function(e) {
             e.preventDefault();
 
-            let userId = $("#editCategoryId").val();
-            let username = $("#editUsername").val();
+            let userId = $("#editUserId").val();
             let new_password = $("#editNewPassword").val();
             let date = $("#editDate").val();
             let phone = $("#editPhone").val();
             let bio = $("#editBio").val();
-            let fullname = $("#editFullname").val();
-            //lấy ảnh nữa
+            let full_name = $("#editFullname").val();
+            let profile_picture = $('#fileInputProfilePic').val();
+            let cover_photo = $('#fileInputCoverPhoto').val();
+            
+            var alertPassword = '{{ __('language.error_wrong_format_password') }}';
 
+            if (new_password != '' && new_password.length < 8) {
+                document.getElementById('alert-password').innerText = alertPassword;
+                return;
+            }
             $.ajax({
                 url: `{{ route('user.update', ':id') }}`.replace(':id', userId),
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
-                    username: username,
                     new_password: new_password,
                     date: date,
                     phone: phone,
                     bio: bio,
-                    fullname: fullname,
+                    full_name: full_name,
+                    profile_picture: profile_picture,
+                    cover_photo: cover_photo
                 },
                 success: function(response) {
                     if (response.status === '200') {
+                        
+                    
                         $("#editUserModal").addClass("hidden");
                         table.ajax.reload(function() {
                             toastr.success(response.message, "{{__('language.message_success')}}", {
@@ -366,20 +386,34 @@
 
 
     function openEditModal(userId) {
-            // Gửi request AJAX để lấy thông tin category
+        document.getElementById('alert-password').innerText = '';
+        $('#editNewPassword').val('')
         $.ajax({
             url: `{{ route('user.get', ':id') }}`.replace(':id', userId), // Đường dẫn API lấy thông tin
             type: "GET",
             success: function(response) {
                 if (response.status === '200') {
                     $("#editUserId").val(response.user.id);
-                    $("#editUsername").val(response.user.username);
-                    $("#editEmail").text(response.user.email);
                     $("#editDate").val(response.user.date);
                     $("#editPhone").val(response.user.phone);
                     $("#editBio").val(response.user.bio);
-                    $("#editFullname").val(response.user.fullname);
-                    //hình ảnh nữa
+                    $("#editFullname").val(response.user.full_name);
+                    $("#editUsername").text(response.user.username);
+                    $("#editEmail").text(response.user.email);
+
+                    if (response.user.profile_picture) {
+                        let imageUrl = response.user.profile_picture;
+                        $("#editProfilePic").attr("src", imageUrl).removeClass("hidden");
+                    } else {
+                        $("#editProfilePic").attr("src", "/default_avatar.jpg").removeClass("hidden");
+                    }
+
+                    if (response.user.cover_photo) {
+                        let imageUrl = response.user.cover_photo;
+                        $("#editCoverPhoto").attr("src", imageUrl).removeClass("hidden");
+                    } else {
+                        $("#editCoverPhoto").attr("src", "/default_cover_photo.jpg").removeClass("hidden");
+                    }
                     $("#editUserModal").removeClass("hidden");
                 } else {
                     toastr.error("{{ __('language.error_fetching_data') }}", "{{__('language.message_fail')}}", {
@@ -405,6 +439,39 @@
         $("#editUserModal").addClass("hidden");
     }
 
+    function openTinyMCEFilePicker(img, input) {
+        let cmsurl = '/laravel-filemanager?editor=tinymce5&type=Images'; // Đường dẫn đến file manager
+        // Nếu chưa có editor nào, tạo một editor ẩn để kích hoạt file manager
+
+        // Kiểm tra nếu editor ẩn đã tồn tại thì xóa trước
+        if (tinymce.get("hiddenEditor")) {
+            tinymce.get("hiddenEditor").remove();
+        }
+
+        tinymce.init({
+            selector: 'textarea#hiddenEditor', // Một textarea ẩn để kích hoạt TinyMCE
+            menubar: false,
+            toolbar: false,
+            statusbar: false,
+            setup: function(editor) {
+                editor.on('init', function() {
+                    // Mở file manager ngay khi editor khởi động
+                    editor.windowManager.openUrl({
+                        url: cmsurl,
+                        title: 'File Manager',
+                        width: window.innerWidth * 0.8,
+                        height: window.innerHeight,
+                        onMessage: (api, message) => {
+                            img.src = message.content; // Cập nhật ảnh đại diện
+                            input.value = message.content; // Lưu đường dẫn vào input hidden
+                            editor.remove(); // Xóa editor sau khi chọn ảnh
+                        }
+                    });
+                });
+            }
+        });
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
         let profilePic = document.getElementById("editProfilePic");
         let fileInputProfilePic = document.getElementById("fileInputProfilePic");
@@ -416,25 +483,12 @@
         
         // Khi nhấn vào ảnh -> mở chọn file
         profilePicOverlay.addEventListener("click", function() {
-            fileInputProfilePic.click();
-        });
-
-        // Khi người dùng chọn ảnh mới
-        fileInputProfilePic.addEventListener("change", function (event) {
-            let file = event.target.files[0];
-
-            if (file) {
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    profilePic.src = e.target.result; // Hiển thị ảnh mới
-                };
-                reader.readAsDataURL(file);
-            }
+            openTinyMCEFilePicker(profilePic, fileInputProfilePic);
         });
 
         // Khi nhấn vào ảnh -> mở chọn file
         coverPhotoOverlay.addEventListener("click", function () {
-            fileInputCoverPhoto.click();
+            openTinyMCEFilePicker(coverPhoto, fileInputCoverPhoto);
         });
 
         // Khi người dùng chọn ảnh mới
@@ -460,7 +514,7 @@
 
         // Khởi tạo Flatpickr cho input
         const fp = flatpickr(dateInput, {
-            dateFormat: "d/m/Y", // Định dạng ngày tháng
+            dateFormat: "Y-m-d", // Định dạng ngày tháng
             allowInput: false, // Cho phép nhập tay
             defaultDate: new Date(), // Hiển thị ngày hiện tại
         });
@@ -471,5 +525,5 @@
         });
     });
 </script>
-
+<textarea id="hiddenEditor" style="display: none;"></textarea>
 @endsection

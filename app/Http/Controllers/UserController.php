@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller{
@@ -58,20 +59,46 @@ class UserController extends Controller{
     }
 
     public function update(Request $request){
+        
+        $request->validate([
+            'full_name' => 'required',
+        ]);
+
         $user = User::find($request->id);
-        $user->password = Hash::make($request->password);
-        $user->date = $request->date;
+        if (!$user) {
+            return response()->json([
+                'status' => '400',
+                'message' => __('language.error_no_item_selected')
+            ], 400);
+        }
+        if ($request->new_password != null) {
+            $user->password = Hash::make($request->new_password);
+        }
+        $user -> full_name = $request->full_name;
+        $user->date = $request -> date;
+        
         $user->phone = $request->phone;
         $user->bio = $request->bio;
-        $user->profile_picture = $request->profile_picture;
-        $user->cover_photo = $request->cover_photo;
+        if ($request->profile_picture != null) {
+            $user->profile_picture = $request->profile_picture;
+        }
+        if ($request->cover_photo != null) {
+            $user->cover_photo = $request->cover_photo;
+        }
         $user->full_name = $request->full_name;
-        $user->save();
-        return response()->json([
-            'status' => '200',
-            'message' => 'User updated successfully'
-        ]
-        );
+        try {
+            
+            $user->save();
+            return response()->json([
+                'status' => '200',
+                'message' => __('language.updated_item_success')  // Thành công
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '500',
+                'message' => __($e)
+            ], 500);
+        }
     }
 
     public function delete(Request $request)

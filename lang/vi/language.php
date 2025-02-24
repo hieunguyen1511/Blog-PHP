@@ -21,8 +21,8 @@ return [
     'placeholder_password' => 'Mật khẩu',
     'placeholder_repassword' => 'Xác nhận mật khẩu',
     'btn_register' => 'Đăng ký',
-    'password_alert_1' => 'Mật khẩu phải có ít nhất 8 ký tự',
-    'password_alert_2' => 'Mật khẩu không khớp',
+    'error_wrong_format_password' => 'Mật khẩu phải có ít nhất 8 ký tự',
+    'error_not_match_repassword' => 'Mật khẩu không khớp',
     'title_register_with' => 'Hoặc đăng ký với',
 
     'have_account' => 'Đã có tài khoản?',

@@ -196,7 +196,8 @@
             let categoryName = $("#editCategoryName").val();
 
             $.ajax({
-                url: `/category/${categoryId}/update`,
+                
+                url: `{{ route('category.update', ':id') }}`.replace(':id', categoryId),
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -247,7 +248,7 @@
                 if (result.isConfirmed) {
                     // Gọi hàm xóa nếu người dùng xác nhận
                     $.ajax({
-                        url: `/category/${categoryId}/delete`,
+                        url: `{{ route('category.delete', ':id') }}`.replace(':id', categoryId),
                         type: 'DELETE',
                         data: {
                             _token: "{{ csrf_token() }}" // Laravel CSRF token để bảo mật
@@ -320,7 +321,7 @@
                 if (result.isConfirmed) {
                     // Gọi hàm xóa nếu người dùng xác nhận
                     $.ajax({
-                        url: "/category/delete-items",
+                        url: `{{ route('category.deleteItems') }}`,
                         type: "POST",
                         data: {
                             ids: selectedIds,
@@ -367,7 +368,7 @@
     function openEditModal(categoryId) {
             // Gửi request AJAX để lấy thông tin category
         $.ajax({
-            url: `/category/${categoryId}`, // Đường dẫn API lấy thông tin
+            url: `{{ route('category.get', ':id') }}`.replace(':id', categoryId),
             type: "GET",
             success: function(response) {
                 if (response.status === '200') {

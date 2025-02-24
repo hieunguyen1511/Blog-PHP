@@ -65,12 +65,20 @@ class CategoryController extends Controller
         }
     
         $category->name = $request->name;  // Cập nhật tên mới
-        $category->save();  // Lưu thay đổi
     
-        return response()->json([
-            'status' => '200',
-            'message' => __('language.updated_item_success')  // Thành công
-        ]);
+        
+        try {
+            $category->save();  // Lưu thay đổi
+            return response()->json([
+                'status' => '200',
+                'message' => __('language.updated_item_success')  // Thành công
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '500',
+                'message' => __('language.update_item_fail')
+            ], 500);
+        }
     }
     
     public function delete(Request $request)
