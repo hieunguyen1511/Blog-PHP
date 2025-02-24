@@ -89,6 +89,7 @@ return [
     'title_password' => 'Password',
     'title_authentication_user_setting' => 'Email authentication user',
     'btn_update' => 'Save changes',
+    'placeholder_new_password' => 'Enter new password',
 
     
     'error_change_language' => 'Error change language',
