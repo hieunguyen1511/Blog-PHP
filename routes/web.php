@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\NotificationTypeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SettingController;
@@ -80,6 +83,36 @@ Route::middleware(localization::class)->group(function(){
         
         Route::get('/setting', [SettingController::class, 'setting'])->name('setting.index');
         Route::post('/setting/update', [SettingController::class, 'update'])->name('setting.update');
+
+        //Page Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/dashboard/get-total-users', [DashboardController::class, 'getTotalUsers'])->name('dashboard.getTotalUsers');
+        Route::get('/dashboard/get-total-posts', [DashboardController::class, 'getTotalPosts'])->name('dashboard.getTotalPosts');
+        Route::get('/dashboard/get-total-views', [DashboardController::class, 'getTotalViews'])->name('dashboard.getTotalViews');
+    
+        Route::get('/dashboard/get-total-comments', [DashboardController::class, 'getTotalComments'])->name('dashboard.getTotalComments');
+        Route::get('/dashboard/get-published-posts-statistics', [DashboardController::class, 'getPublishedPostsStatistics'])->name('dashboard.getPublishedPostsStatistics');
+        Route::get('/dashboard/get-recent-activity', [DashboardController::class, 'getRecentActivity'])->name('dashboard.getRecentActivity');
+    
+        //Page Notification
+        Route::get('/notification', [NotificationController::class, 'index'])->name('notification.index');
+        Route::get('/notification/data', [NotificationController::class, 'getAll']) -> name('notification.getAll');
+        Route::post('/notification/create', [NotificationController::class, 'create'])->name('notification.create');
+        Route::delete('/notification/{id}/delete', [NotificationController::class, 'delete'])->name('notification.delete');
+        Route::post('/notification/delete-items', [NotificationController::class, 'deleteItems'])->name('notification.deleteItems');
+        Route::get('/notification/{id}', [NotificationController::class, 'get'])->name('notification.get');
+        Route::post('/notification/{id}/update', [NotificationController::class, 'update'])->name('notification.update');
+        
+
+        //Page Notification Type
+        Route::get('/notification-type', [NotificationTypeController::class, 'index'])->name('notificationType.index');
+        Route::get('/notification-type/data', [NotificationTypeController::class, 'getAll']) -> name('notificationType.getAll');
+        Route::post('/notification-type/create', [NotificationTypeController::class, 'create'])->name('notificationType.create');
+        Route::delete('/notification-type/{id}/delete', [NotificationTypeController::class, 'delete'])->name('notificationType.delete');
+        Route::post('/notification-type/delete-items', [NotificationTypeController::class, 'deleteItems'])->name('notificationType.deleteItems');
+        Route::get('/notification-type/{id}', [NotificationTypeController::class, 'get'])->name('notificationType.get');
+        Route::post('/notification-type/{id}/update', [NotificationTypeController::class, 'update'])->name('notificationType.update');
+        
     });
     
     Route::get('/lang/{language}', function () {

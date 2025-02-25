@@ -17,7 +17,6 @@
             <tr class="bg-gray-100 border-b">
                 <th class="p-2"><input type="checkbox" id="selectAll" class="w-4 h-4"></th>
                 <th class="p-2">ID</th>
-                <th class="p-2">{{__('language.title_post')}}</th>
                 <th class="p-2">{{__('language.title_user_id_post')}}</th>
                 <th class="p-2">{{__('language.title_category_id_post')}}</th>
                 <th class="p-2">{{__('language.title_post')}}</th>
@@ -61,8 +60,8 @@
                     return truncateText(data, 10);
                 }  },
                 { data: 'content', name: 'content', render: function(data) {
-                    return truncateText(data, 10);
-                }  },
+                    return truncateText($('<div/>').html(data).text(), 10);
+                }},
                 { data: 'like_count', name: 'like_count' },
                 { data: 'view_count', name: 'view_count' },
                 { 

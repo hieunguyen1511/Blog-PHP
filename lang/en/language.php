@@ -91,6 +91,31 @@ return [
     'btn_update' => 'Save changes',
     'placeholder_new_password' => 'Enter new password',
 
+    //page dashboard
+    'published_a_new_post' => 'Published a new post',
+    'commented_on' => 'Commented on',
+    'updated_their_profile_information' => 'Updated their profile information',
+    'total_users' => 'Total Users',
+    'from_last_month' => 'from last month',
+    'total_posts' => 'Total Posts',
+    'total_views' => 'Total Views',
+    'total_comments' => 'Total Comments',
+    'published_posts_statistics' => 'Published Posts Statistics',
+    'week' => 'Week',
+    'month' => 'Month',
+    'recent_activity' => 'Recent Activity',
+    'view_all_activity' => 'View all activity',
+    'Mon' => 'Mon',
+    'Tue' => 'Tue',
+    'Wed' => 'Wed',
+    'Thu' => 'Thu',
+    'Fri' => 'Fri',
+    'Sat' => 'Sat',
+    'Sun' => 'Sun',
+    'published_posts' => 'Published Posts',
+    'count_published_posts' => 'Count Published Posts',
+
+
     
     'error_change_language' => 'Error change language',
 
@@ -123,12 +148,16 @@ return [
     'message_info' => 'Information!',
     'error_fetching_data' => 'Error fetching data.',
 
+    //Sidebar
     'sidebar_dashboard' => 'Dashboard',
     'sidebar_posts' => 'Posts',
     'sidebar_categories' => 'Categories',
     'sidebar_users' => 'Users',
+    'sidebar_notifications' => 'Notification',
+    'sidebar_notification_types' => 'Notification Type',
     'sidebar_settings' => 'Settings',
 
     'admin_panel' => 'Admin Panel',
     'title_admin_page' => 'Blog Management Dashboard',
+
 ];

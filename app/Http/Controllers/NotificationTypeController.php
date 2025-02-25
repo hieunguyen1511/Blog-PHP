@@ -1,41 +1,46 @@
 <?php
-namespace App\Http\Controllers;
-use App\Models\Post;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class PostController extends Controller{
-    public function index(){
-        $post = DB::table('post')->where('id', 1)->first();
-        return view('post', ['post' => $post]);
+namespace App\Http\Controllers;
+
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Notification;
+use App\Models\NotificationType;
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+
+class NotificationTypeController extends Controller
+{
+
+    public function index() {
+        return view('notificationType.index');
     }
     
-    public function indexAdmin(){
-        return view('post.index');
-    }
-
     public function getAll(){
-        $posts = Post::all();
+        $notificationTypes = NotificationType::all();
         return response()->json([
             'status' => '200',
-            'posts' => $posts
+            'notificationTypes' => $notificationTypes
         ]);
     }
 
     public function get($id){
-        $post = Post::find($id);
+        $notificationType = NotificationType::find($id);
         return response()->json([
             'status' => '200',
-            'post' => $post
+            'notificationType' => $notificationType
         ]
         );
     }
 
     public function delete(Request $request)
     {
-        $post = Post::find($request->id);
+        $notificationType = NotificationType::find($request->id);
 
-        if (!$post) {
+        if (!$notificationType) {
             return response()->json([
                 'status' => '400',
                 'message' => __('language.error_no_item_selected')
@@ -43,7 +48,7 @@ class PostController extends Controller{
         }
 
         try {
-            $post->delete();
+            $notificationType->delete();
             return response()->json([
                 'status' => '200',
                 'message' => __('language.deleted_item_success')
@@ -67,7 +72,7 @@ class PostController extends Controller{
         }
 
         try {
-            Post::whereIn('id', $request->ids)->delete();
+            NotificationType::whereIn('id', $request->ids)->delete();
 
             return response()->json([
                 'status' => '200',
@@ -79,7 +84,5 @@ class PostController extends Controller{
                 'message' => __('language.delete_items_fail')
             ], 500);
         }
-        
     }
 }
-?>

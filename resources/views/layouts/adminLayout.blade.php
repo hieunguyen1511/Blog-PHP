@@ -45,7 +45,8 @@
             <nav class="flex-1 p-4">
                 <ul class="space-y-3">
                     <li>
-                        <a href="#" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group">
+                        <a href="{{ route('dashboard.index') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group
+                        {{ request()->routeIs('dashboard.index') ? 'bg-gray-700/70 text-green-400' : '' }}">
                             <svg class="w-6 h-6 mr-3 text-gray-400 group-hover:text-blue-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                             </svg>
@@ -77,6 +78,26 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                             </svg>
                             <span class="group-hover:text-purple-400 transition-colors duration-200">{{__('language.sidebar_users')}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('notification.index') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group
+                            {{ request()->routeIs('notification.index') ? 'bg-gray-700/70 text-green-400' : '' }}">
+                            <svg class="w-6 h-6 mr-3 text-gray-400 group-hover:text-purple-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
+                            <span class="group-hover:text-purple-400 transition-colors duration-200">{{__('language.sidebar_notifications')}}</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="{{ route('notificationType.index') }}" class="flex items-center p-3 rounded-xl transition-all duration-200 hover:bg-gray-700/50 hover:shadow-lg group
+                            {{ request()->routeIs('notificationType.index') ? 'bg-gray-700/70 text-green-400' : '' }}">
+                            
+                            <svg class="w-6 h-6 mr-3 text-gray-400 group-hover:text-purple-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
+                            <span class="group-hover:text-purple-400 transition-colors duration-200">{{__('language.sidebar_notification_types')}}</span>
                         </a>
                     </li>
                     <li>

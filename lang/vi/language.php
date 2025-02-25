@@ -78,6 +78,32 @@ return [
     'title_password' => 'Mật khẩu',
     'title_authentication_user_setting' => 'Email để xác thực người dùng',
     'btn_update' => 'Cập nhật',
+    'placeholder_new_password' => 'Điền mật khẩu mới',
+
+    //page dashboard
+    'published_a_new_post' => 'Đã đăng một bài viết mới',
+    'commented_on' => 'Đã bình luận trong bài viết',
+    'updated_their_profile_information' => 'Đã cập nhật trang cá nhân của họ',
+    'total_users' => 'Số lượng người dùng',
+    'from_last_month' => 'so với tháng trước',
+    'total_posts' => 'Số lượng bài đăng',
+    'total_views' => 'Tổng lượt xem',
+    'total_comments' => 'Số lượng bình luận',
+    'published_posts_statistics' => 'Thống kê các bài viết',
+    'week' => 'Tuần',
+    'month' => 'Tháng',
+    'recent_activity' => 'Hoạt động gần đây',
+    'view_all_activity' => 'Xem tất cả hoạt động',
+    'Mon' => 'T2',
+    'Tue' => 'T3',
+    'Wed' => 'T4',
+    'Thu' => 'T5',
+    'Fri' => 'T6',
+    'Sat' => 'T7',
+    'Sun' => 'CN',
+    'published_posts' => 'Các bài đăng',
+    'count_published_posts' => 'Số bài đăng',
+
 
     'error_change_language' => 'Lỗi khi thay đổi ngôn ngữ',
 
@@ -110,10 +136,13 @@ return [
     'message_info' => 'Thông báo!',
     'error_fetching_data' => 'Lỗi fetch dữ liệu.',
 
+    //Sidebar
     'sidebar_dashboard' => 'Bảng điều khiển',
     'sidebar_posts' => 'Bài post',
     'sidebar_categories' => 'Danh mục',
     'sidebar_users' => 'Người dùng',
+    'sidebar_notifications' => 'Thông báo',
+    'sidebar_notification_types' => 'Loại thông báo',
     'sidebar_settings' => 'Cài đặt',
 
     'admin_panel' => 'Bảng quản trị',

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('post', function (Blueprint $table) {
             $table->id();
+            $table->string('link')->unique();
             $table->foreignId('user_id')->references('id')->on('user')->onDelete('cascade');
             $table->foreignId('category_id')->references('id')->on('category')->onDelete('cascade');
             $table->string('title');
-            $table->string('description_image')->nullable();
+            $table->text('description');
             $table->text('content');
-            $table->string('media_url')->nullable();
             $table->integer('like_count')->default(0);
             $table->integer('view_count')->default(0);
             $table->timestamps();

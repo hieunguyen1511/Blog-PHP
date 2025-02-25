@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller{
     public function index(){
@@ -24,19 +25,26 @@ class UserController extends Controller{
     public function create_post_submit(Request $request){
         $request->validate([
             'title' => 'required',
+            'category' => 'required',
+            'content' => 'required',
+            'description' => 'required'
         ]);
         $post = new Post();
-
         $post->title = $request->title;
         $post->user_id = session('userid');
         $post->content = $request->content;
-        $post->category_id = 1;
-        $post->description = $request->title;
+        $post->category_id = $request->category;
+        $post->description = $request->description;
         $post->like_count = 0;
         $post->view_count = 0;
+
+        $link = Str::slug($request->title);
+        $link = $link . '-' . Str::random(10);
+        $post->link = $link;
+
         $post->save();
 
-        return redirect()->route('post');
+        return redirect()->route('post', ['link' => $link]);
     }
 
 
