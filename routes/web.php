@@ -53,7 +53,7 @@ Route::middleware(localization::class)->group(function(){
     Route::middleware(checkLogin::class)->group(function(){
         
         Route::get('/create-post', [UserController::class, 'create_post'])->name('create_post');
-    Route::post('/create-post', [UserController::class, 'create_post_submit'])->name('create_post_submit');
+        Route::post('/create-post', [UserController::class, 'create_post_submit'])->name('create_post_submit');
         //User setting
         Route::get('/user/settings', [UserController::class, 'setting'])->name('setting');
         
@@ -63,6 +63,8 @@ Route::middleware(localization::class)->group(function(){
         Route::get('/user/edit-profile', [UserController::class, 'partial_edit_profile'])->name('partial_edit_profile');
 
         Route::post('post/comment', [HomeController::class, 'post_comment'])->name('post_comment');
+
+        Route::get('/post/{post_id}/like', [HomeController::class, 'like_post'])->name('post_like');
 
 
     });

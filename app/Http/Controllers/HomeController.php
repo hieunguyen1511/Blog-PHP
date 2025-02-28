@@ -117,5 +117,24 @@ class HomeController extends Controller
     }
 
 
+    public function like_post(Request $request){
+        $like = PostLikes::where('user_id', session('userid'))->where('post_id', $request->post_id)->first();
+        if($like == null){
+            $like = new PostLikes();
+            $like->user_id = session('userid');
+            $like->post_id = $request->post_id;
+            $like->save();
+        }else{
+            $like->delete();
+        }
+        $likeCount = PostLikes::where('post_id', $request->post_id)->count();
+
+        return response()->json([
+            'status' => '200',
+            'like_count' => $likeCount,
+        ]);
+    }
+
+
 
 }

@@ -41,15 +41,17 @@
                 <div class="px-6 py-4 bg-gray-50 border-t border-gray-100">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-4">
-                            @if($is_like == false)
-                            @else
-                            @endif
-                            <button class="flex items-center text-gray-500 hover:text-blue-600">
+                            <button data-post-id="{{$post->id}}" id="like-button" class="flex items-center  {{ $is_like ? 'text-blue-600' : 'text-gray-500' }}">
+                                
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
                                 </svg>
-                                {{__('language.detail_post_like')}}
                             </button>
+                            <div class="flex items-center">
+                                <span class="text-sm text-gray-500">
+                                    <span class="like-count">{{ $post->likes->count() }}</span> {{__('language.detail_post_like')}}
+                                </span>
+                            </div>
                             {{-- <button class="flex items-center text-gray-500 hover:text-blue-600">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
@@ -93,7 +95,7 @@
                             <div class="flex-1">
                                 <div class="flex items-center mb-1">
                                     <span class="font-medium text-gray-900">{{$item->user->full_name}}</span>
-                                    <span class="ml-2 text-sm text-gray-500">{{$item->created_at->setTimezone('Asia/Ho_Chi_Minh')->format('Y/m/d H:i')}}</span>
+                                    <span class="ml-2 text-sm text-gray-500">{{$item->created_at->format('Y/m/d H:i')}}</span>
                                 </div>
                                 <p class="text-gray-700">{{$item->content}}</p>
                             </div>
@@ -139,7 +141,7 @@
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                                     </svg>
-                                    <span>{{$post->user->posts->sum('like_count')}} {{__('language.detail_post_like')}}</span>
+                                    <span class="like-count">{{$post->user->posts->sum('like_count')}} {{__('language.detail_post_like')}}</span>
                                 </div>
                             </div>
                         </div>
@@ -223,6 +225,40 @@
             }
         });
     });
+
+    $(document).ready(function () {
+        $('#like-button').on('click', function () {
+            var button = $(this);
+            var postId = button.data('post-id');
+
+            $.ajax({
+                url: "/post/" + postId + "/like",
+                type: "GET",
+                success: function (response) {
+                    if (response.status === '200') {
+                        //var likeText = button.find('.like-text');
+                        var likeCount = $('.like-count');
+                        var currentLikes = parseInt(likeCount.text());
+
+                        // Toggle màu sắc và text của nút Like
+                        if (button.hasClass('text-blue-600')) {
+                            button.removeClass('text-blue-600').addClass('text-gray-500');
+                            //likeText.text('Thích');
+                            likeCount.text(response.like_count);
+                        } else {
+                            button.removeClass('text-gray-500').addClass('text-blue-600');
+                            //likeText.text('Đã thích');
+                            likeCount.text(response.like_count);
+                        }
+                    }
+                },
+                error: function () {
+                    alert("Lỗi khi xử lý yêu cầu!");
+                }
+            });
+        });
+    });
+
 
     function formatDate(date){
         var d = new Date(date);
