@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('user')->onDelete('cascade');
             $table->text('content');
             $table->foreignId('noti_type')->references('id')->on('notificationtype')->onDelete('cascade');
-            $table->text('description');
             $table->string('direct_url')->nullable();
             $table->timestamps();
         });

@@ -46,7 +46,7 @@ return [
 
     // page Category index
     'title_category_index' => 'Category list',
-    'btn_add_category' => 'Add Category',
+    'btn_add_category' => 'Add category',
     'title_add_category' => 'Add new category',
     'title_edit_category' => 'Edit category',
     'title_name_category' => 'Name category',
@@ -115,7 +115,27 @@ return [
     'published_posts' => 'Published Posts',
     'count_published_posts' => 'Count Published Posts',
 
+    //page Notification admin
+    'title_notification_index' => 'Notification list',
+    'title_edit_notification' => 'Edit notification',
+    'title_user_notification' => 'User',
+    'title_content_notification' => 'Content notification',
+    'placeholder_content_notification' => 'Enter content notification',
+    'title_notification_type' => 'Notification type',
+    'error_content_notification' => 'Please enter content notification',
+    
+    //page Notification type admin
+    'title_notification_type_index' => 'Notification type list',
+    'btn_add_notification_type' => 'Add notification type',
+    'title_add_notification_type' => 'Add new notification type',
+    'title_edit_notification_type' => 'Edit notification type',
+    'title_name_notification_type' => 'Name notification type',
+    'placeholder_name_notification_type' => 'Enter notification type name',
+    'title_code_notification_type' => 'Code notification type',
+    'error_notification_name_type' => 'Please enter notification type name',
 
+
+    'title_create_at' => 'Create at',
     
     'error_change_language' => 'Error change language',
 
@@ -147,6 +167,7 @@ return [
     'message_warning' => 'Warning!',
     'message_info' => 'Information!',
     'error_fetching_data' => 'Error fetching data.',
+    'error_unknow' => 'Unknow',
 
     //Sidebar
     'sidebar_dashboard' => 'Dashboard',

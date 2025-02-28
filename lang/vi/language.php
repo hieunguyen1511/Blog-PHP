@@ -104,6 +104,26 @@ return [
     'published_posts' => 'Các bài đăng',
     'count_published_posts' => 'Số bài đăng',
 
+    //page Notification admin
+    'title_notification_index' => 'Danh sách thông báo',
+    'title_edit_notification' => 'Cập nhật thông báo',
+    'title_user_notification' => 'Người dùng',
+    'title_content_notification' => 'Nội dung thông báo',
+    'placeholder_content_notification' => 'Điền nội dung thông báo',
+    'title_notification_type' => 'Loại thông báo',
+    'error_content_notification' => 'Vui lòng điền nội dung thông báo',
+    
+    //page Notification type admin
+    'title_notification_type_index' => 'Danh sách loại thông báo',
+    'btn_add_notification_type' => 'Thêm loại thông báo',
+    'title_add_notification_type' => 'Thêm mới loại thông báo',
+    'title_edit_notification_type' => 'Cập nhật loại thông báo',
+    'title_name_notification_type' => 'Tên loại thông báo',
+    'placeholder_name_notification_type' => 'Điền tên loại thông báo',
+    'title_code_notification_type' => 'Mã loại thông báo',
+    'error_notification_name_type' => 'Vui lòng điền tên loại thông báo',
+
+    'title_create_at' => 'Ngày tạo',
 
     'error_change_language' => 'Lỗi khi thay đổi ngôn ngữ',
 
@@ -135,6 +155,7 @@ return [
     'message_warning' => 'Cảnh báo!',
     'message_info' => 'Thông báo!',
     'error_fetching_data' => 'Lỗi fetch dữ liệu.',
+    'error_unknow' => 'Không rõ',
 
     //Sidebar
     'sidebar_dashboard' => 'Bảng điều khiển',

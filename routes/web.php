@@ -97,11 +97,11 @@ Route::middleware(localization::class)->group(function(){
         //Page Notification
         Route::get('/notification', [NotificationController::class, 'index'])->name('notification.index');
         Route::get('/notification/data', [NotificationController::class, 'getAll']) -> name('notification.getAll');
-        Route::post('/notification/create', [NotificationController::class, 'create'])->name('notification.create');
         Route::delete('/notification/{id}/delete', [NotificationController::class, 'delete'])->name('notification.delete');
         Route::post('/notification/delete-items', [NotificationController::class, 'deleteItems'])->name('notification.deleteItems');
         Route::get('/notification/{id}', [NotificationController::class, 'get'])->name('notification.get');
         Route::post('/notification/{id}/update', [NotificationController::class, 'update'])->name('notification.update');
+        Route::post('/notification/get-data', [NotificationController::class, 'getData'])->name('notification.getData');
         
 
         //Page Notification Type
@@ -112,6 +112,7 @@ Route::middleware(localization::class)->group(function(){
         Route::post('/notification-type/delete-items', [NotificationTypeController::class, 'deleteItems'])->name('notificationType.deleteItems');
         Route::get('/notification-type/{id}', [NotificationTypeController::class, 'get'])->name('notificationType.get');
         Route::post('/notification-type/{id}/update', [NotificationTypeController::class, 'update'])->name('notificationType.update');
+        Route::post('/notification-type/get-data', [NotificationTypeController::class, 'getData'])->name('notificationType.getData');
         
     });
     
