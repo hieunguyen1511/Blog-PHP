@@ -6,6 +6,8 @@ use App\Http\Requests;
 use App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
+use DateTime;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
@@ -93,17 +95,37 @@ class UserController extends Controller{
         return view('user_setting.setting', ['user' => $user]);
     }
 
+
+
+
     public function partial_edit_profile(){
         return view('user_setting.partial_edit_profile');
     }
     public function edit_profile(){
+        $user = User::find(session('userid'));
+        session()->forget('user');
+        session()->put('user', $user);
         return view('user_setting.setting',[
-            'user' => User::find(session('userid')),
+            'user' => $user,
             'section' => 'partial_edit_profile'
         ]);
     }
 
+    public function edit_profile_submit(Request $request){
+        $user = User::find(session('userid'));
+        $user->full_name = $request->full_name;
+        $user->bio = $request->bio;
+        $user->phone = $request->phone;
+        $user->profile_picture = $request->profile_photo_url;
+        $user->cover_photo = $request->cover_photo_url;
 
+        $date = Carbon::createFromFormat('m/d/Y', $request->date)->format('Y-m-d');
+        $user->date = $date;
+
+        $user->save();
+
+        return redirect()->route('edit_profile')->with('edit_profile_success', __('language.setting_edit_profile_success_noti'));
+    }
 
 
 

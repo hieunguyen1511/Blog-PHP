@@ -59,12 +59,17 @@ Route::middleware(localization::class)->group(function(){
         
         //Route web
         Route::get('/user/settings/edit-profile', [UserController::class, 'edit_profile'])->name('edit_profile');
+        Route::post('/user/settings/edit-profile', [UserController::class, 'edit_profile_submit'])->name('edit_profile_submit');
+        
+        
         //Route api
         Route::get('/user/edit-profile', [UserController::class, 'partial_edit_profile'])->name('partial_edit_profile');
 
         Route::post('post/comment', [HomeController::class, 'post_comment'])->name('post_comment');
 
         Route::get('/post/{post_id}/like', [HomeController::class, 'like_post'])->name('post_like');
+
+
 
 
     });
@@ -78,6 +83,7 @@ Route::middleware(localization::class)->group(function(){
     Route::get('/logout', function () {
         session()->forget('userid');
         session()->forget('user');
+        session()->forget('previous_url');
         return redirect()->route('home');
     })->name('logout');
     

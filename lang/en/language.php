@@ -99,4 +99,17 @@ return [
     'detail_post_comment_placeholder' => 'Write a comment...',
 
 
+    // setting edit profile
+    'setting_edit_profile' => 'Edit Profile',
+    'setting_edit_profile_change_photo' => 'Change Photo',
+    'setting_edit_profile_change_cover' => 'Change Cover',
+    'setting_edit_profile_fullname' => 'Full Name',
+    'setting_edit_profile_bio' => 'Bio',
+    'setting_edit_profile_phone' => 'Phone',
+    'setting_edit_profile_date' => 'Date of Birth',
+    'setting_edit_profile_save' => 'Save Changes',
+
+    'setting_edit_profile_success_noti' => 'Profile updated successfully',
+
+
 ];
