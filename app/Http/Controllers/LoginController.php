@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\DB;
 use App\Employee;
 use Illuminate\Http\Request;
@@ -10,11 +12,14 @@ use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 
-class LoginController extends Controller{
-    public function login(){
+class LoginController extends Controller
+{
+    public function login()
+    {
         return view('login');
     }
-    public function loginUser(Request $request){
+    public function loginUser(Request $request)
+    {
         $request->validate([
             'username' => 'required',
             'password' => 'required'
@@ -22,14 +27,14 @@ class LoginController extends Controller{
         $username = $request->input('username');
         $password = $request->input('password');
         $data = DB::table('user')->where('username', $username)
-                                ->orWhere('email',$username)
-                                ->first();
-        
+            ->orWhere('email', $username)
+            ->first();
 
-      
 
-        if($data){
-            if(Hash::check($password, $data->password)){
+
+
+        if ($data) {
+            if (Hash::check($password, $data->password)) {
                 $user = [
                     'username' => $data->username,
                     'email' => $data->email,
@@ -39,18 +44,19 @@ class LoginController extends Controller{
                     'profile_picture' => $data->profile_picture,
                     'cover_photo' => $data->cover_photo,
                     'created_at' => $data->created_at,
-                    'updated_at' => $data->updated_at  
+                    'updated_at' => $data->updated_at
                 ];
                 $request->session()->put('userid', $data->id);
                 $request->session()->put('user', $user);
                 return redirect()->to(session('previous_url'));
-            }
-            else{
+            } else {
                 return redirect()->back()->with('errorLogin1', __('language.error_login'))->withInput($request->except('password'));
             }
-        }else{
+        } else {
             return redirect()->back()->with('errorLogin1', __('language.error_login'))->withInput($request->except('password'));
         }
     }
+
+
    
 }

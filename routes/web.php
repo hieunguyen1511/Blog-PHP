@@ -61,14 +61,15 @@ Route::middleware(localization::class)->group(function(){
         Route::get('/user/settings/edit-profile', [UserController::class, 'edit_profile'])->name('edit_profile');
         Route::post('/user/settings/edit-profile', [UserController::class, 'edit_profile_submit'])->name('edit_profile_submit');
         
-        
+        Route::get('/user/settings/change-password', [UserController::class, 'change_password'])->name('change_password');
+        Route::post('/user/settings/change-password', [UserController::class, 'change_password_submit'])->name('change_password_submit');
+
         //Route api
         Route::get('/user/edit-profile', [UserController::class, 'partial_edit_profile'])->name('partial_edit_profile');
 
         Route::post('post/comment', [HomeController::class, 'post_comment'])->name('post_comment');
 
         Route::get('/post/{post_id}/like', [HomeController::class, 'like_post'])->name('post_like');
-
 
 
 

@@ -111,5 +111,17 @@ return [
 
     'setting_edit_profile_success_noti' => 'Profile updated successfully',
 
+    // setting change password
+    'setting_change_password' => 'Change Password',
+    'setting_change_password_current' => 'Current Password',
+    'setting_change_password_new' => 'New Password',
+    'setting_change_password_confirm' => 'Confirm Password',
+    'setting_change_password_save' => 'Save Changes',
+    'setting_change_password_alert_current_password' => 'Current password is incorrect',
+    'setting_change_password_alert_new_password' => 'New password must be at least 8 characters',
+    'setting_change_password_alert_confirm_password' => 'Password does not match',
+    'setting_change_password_success_noti' => 'Password changed successfully, please login again',
+
+
 
 ];

@@ -128,6 +128,28 @@ class UserController extends Controller{
     }
 
 
+    public function change_password(){
+        return view('user_setting.setting',[
+            'user' => User::find(session('userid')),
+            'section' => 'partial_change_password'
+        ]);
+    }
+    public function change_password_submit(Request $request)
+    {
+        $new_password = $request->new_password;
+        $old_password = $request->current_password;
+        $user = User::find(session('userid'));
+        if (Hash::check($old_password, $user->password)) {
+            $user->password = Hash::make($new_password);
+            $user->save();
+            session()->forget('user');
+            session()->forget('userid');
+            return redirect()->route('login')->with('change_password_success', __('language.setting_change_password_success_noti'));
+        } else {
+            return redirect()->route('change_password')->with('change_password_error', __('language.setting_change_password_alert_current_password'));
+        }
+    }
+
 
 }
 ?>

@@ -34,7 +34,22 @@
                     <div class="ms-3 text-sm font-bold">{{ session('successCreateAccount') }}</div>
                 </div>
             @endif
-
+            @if (session('change_password_success'))
+                <div id="toast-success"
+                    class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-500 bg-green-100 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800"
+                    role="alert">
+                    <div
+                        class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                        </svg>
+                        <span class="sr-only">Check icon</span>
+                    </div>
+                    <div class="ms-3 text-sm font-bold">{{ session('change_password_success') }}</div>
+                </div>
+            @endif
             @if (session('errorLogin1'))
                 <div id="toast-danger"
                     class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-800 bg-red-100 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800"
@@ -83,6 +98,16 @@
                 <input type="password" required id="password" name="password"
                     placeholder="{{ __('language.placeholder_password') }}"
                     class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <button type="button"
+                    class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600 dark:text-neutral-600 dark:focus:text-blue-500"
+                    onclick="togglePassword('password', this)">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" class="eye-path"></path>
+                        <circle cx="12" cy="12" r="3" class="eye-circle"></circle>
+                        <line x1="2" y1="2" x2="22" y2="22" class="eye-line"></line>
+                    </svg>
+                </button>
             </div>
 
             <button type="submit"
@@ -146,5 +171,19 @@
         </div>
     </div>
 </body>
+<script>
+    function togglePassword(fieldId, button) {
+        const field = document.getElementById(fieldId);
+        const svg = button.querySelector("svg");
+        const line = svg.querySelector(".eye-line");
 
+        if (field.type === "password") {
+            field.type = "text";
+            line.style.display = "none";
+        } else {
+            field.type = "password";
+            line.style.display = "block";
+        }
+    }
+</script>
 </html>

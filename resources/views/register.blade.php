@@ -64,6 +64,16 @@
                     </svg>
                 </div>
                 <input type="password" id="password"  name="password" required placeholder="{{ __('language.placeholder_password') }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <button type="button"
+                class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600 dark:text-neutral-600 dark:focus:text-blue-500"
+                onclick="togglePassword('password', this)">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" class="eye-path"></path>
+                    <circle cx="12" cy="12" r="3" class="eye-circle"></circle>
+                    <line x1="2" y1="2" x2="22" y2="22" class="eye-line"></line>
+                </svg>
+            </button>
             </div>
             <p class="italic text-red-600 text-sm" id="alert-password-1">
                 
@@ -75,6 +85,16 @@
                     </svg>
                 </div>
                 <input type="password" id="re-password" name="re-password" required placeholder="{{ __('language.placeholder_repassword') }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <button type="button"
+                class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600 dark:text-neutral-600 dark:focus:text-blue-500"
+                onclick="togglePassword('re-password', this)">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" class="eye-path"></path>
+                    <circle cx="12" cy="12" r="3" class="eye-circle"></circle>
+                    <line x1="2" y1="2" x2="22" y2="22" class="eye-line"></line>
+                </svg>
+            </button>
             </div>
             <p class="italic text-red-600 text-sm" id="alert-password-2">
             
@@ -129,6 +149,19 @@
 </html>
 
 <script>
+    function togglePassword(fieldId, button) {
+        const field = document.getElementById(fieldId);
+        const svg = button.querySelector("svg");
+        const line = svg.querySelector(".eye-line");
+
+        if (field.type === "password") {
+            field.type = "text";
+            line.style.display = "none";
+        } else {
+            field.type = "password";
+            line.style.display = "block";
+        }
+    }
     document.querySelector('form').addEventListener('submit', function (event) {
         const password = document.getElementById('password').value;
         const rePassword = document.getElementById('re-password').value;
