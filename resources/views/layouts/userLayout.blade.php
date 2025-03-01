@@ -7,6 +7,7 @@
     <title>{{ env('APP_NAME') }}</title>
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -70,6 +71,7 @@
             }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
 
 </html>

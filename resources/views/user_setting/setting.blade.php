@@ -19,17 +19,8 @@
                         </h3>
                     </div>
                     <div class="p-2">
-                        <a id="load-content" href="{{ route('edit_profile') }}"
-                            data-url="{{ route('partial_edit_profile') }}" href="#"
-                            class="flex items-center px-3 py-2 rounded-md hover:bg-orange-50 text-gray-700 hover:text-orange-600 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                            <span class="text-sm">My Profile</span>
-                        </a>
-                        <a href="/user/settings"
-                            class="flex items-center px-3 py-2 rounded-md hover:bg-orange-50 text-gray-700 hover:text-orange-600 transition-colors duration-200">
+                        <a href="{{ route('setting') }}"
+                            class="{{ request()->routeIs('setting') ? 'bg-orange-50 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }} flex items-center px-3 py-2 rounded-md hover:bg-orange-50 text-gray-700 hover:text-orange-600 transition-colors duration-200">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
@@ -39,6 +30,15 @@
                             </svg>
                             <span class="text-sm">Settings</span>
                         </a>
+                        <a href="{{ route('edit_profile') }}"
+                            class="{{ request()->routeIs('edit_profile') ? 'bg-orange-50 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }} flex items-center px-3 py-2 rounded-md hover:bg-orange-50 text-gray-700  transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            <span class="text-sm">My Profile</span>
+                        </a>
+
                         <a href="/user/following"
                             class="flex items-center px-3 py-2 rounded-md hover:bg-orange-50 text-gray-700 hover:text-orange-600 transition-colors duration-200">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -227,7 +227,8 @@
                                         <div class="text-sm text-gray-500">Views</div>
                                     </div>
                                     <div class="flex-1">
-                                        <div class="text-2xl font-bold text-gray-900">{{ $user->posts->sum('like_count') }}
+                                        <div class="text-2xl font-bold text-gray-900">
+                                            {{ $user->posts->sum('like_count') }}
                                         </div>
                                         <div class="text-sm text-gray-500">Likes</div>
                                     </div>
@@ -243,22 +244,38 @@
         </div>
     </div>
     <script>
-        $(document).ready(function() {
-            $('#load-content').on('click', function(e) {
-                e.preventDefault();
-                let url_load = $(this).data('url');
-                let url_show = $(this).attr('href');
-                $.ajax({
-                    url: url_load,
-                    type: 'GET',
-                    success: function(response) {
-                        window.history.pushState({
-                            path: url_show
-                        }, '', url_show);
-                        $('#main-content').html(response);
-                    }
-                });
-            });
-        });
+        // $(document).ready(function() {
+        //     $('#load-content').on('click', function(e) {
+        //         e.preventDefault();
+        //         let url_load = $(this).data('url');
+        //         let url_show = $(this).attr('href');
+        //         $.ajax({
+        //             url: url_load,
+        //             type: 'GET',
+        //             success: function(response) {
+        //                 window.history.pushState({
+        //                     path: url_show
+        //                 }, '', url_show);
+        //                 $('#main-content').html(response);
+        //             }
+        //         });
+        //     });
+        // });
+
+
+        //     document.addEventListener("DOMContentLoaded", function () {
+        //     let currentUrl = window.location.pathname;
+        //     let menuLinks = document.querySelectorAll("#load-content");
+
+        //     menuLinks.forEach(link => {
+        //         let linkUrl = link.getAttribute("data-url"); // Lấy giá trị của data-url
+        //         console.log(linkUrl,"=", currentUrl);
+        //         if (linkUrl === currentUrl) {
+        //             link.classList.add("bg-orange-50", "text-orange-600");
+        //         } else {
+        //             link.classList.add("text-gray-700", "hover:bg-orange-50", "hover:text-orange-600");
+        //         }
+        //     });
+        // });
     </script>
 @endsection

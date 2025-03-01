@@ -43,7 +43,7 @@ class LoginController extends Controller{
                 ];
                 $request->session()->put('userid', $data->id);
                 $request->session()->put('user', $user);
-                return redirect()->route('home');
+                return redirect()->to(session('previous_url'));
             }
             else{
                 return redirect()->back()->with('errorLogin1', __('language.error_login'))->withInput($request->except('password'));

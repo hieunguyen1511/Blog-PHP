@@ -6,66 +6,90 @@
         Edit Profile
     </h1>
 
-    <form class="space-y-6">
-        <!-- Cover Photo -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Cover Photo</label>
-            <div class="relative h-32 w-full bg-gray-100 rounded-lg overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1707343843437-caacff5cfa74"
-                    alt="Cover photo"
-                    class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity opacity-0 hover:opacity-100 flex items-center justify-center">
-                    <button type="button" class="px-4 py-2 bg-white text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+    <form method="POST" class="space-y-6">
+        <div class="grid grid-cols-4 w-full h-full items-center space-x-6">
+            <!-- Profile Picture -->
+            <div class="col-span-1  h-full flex justify-center">
+                <div class="relative">
+                    <img id="profile-img" class="h-64 w-64 rounded-lg object-cover border-4 border-white shadow-lg"
+                        src="https://images.unsplash.com/photo-1707343843437-caacff5cfa74" alt="Current profile photo">
+                    <div class="relative inset-x-0 m-20 mt-10 flex justify-center">
+                        <button id="lfm-btn-avatar" type="button" class="px-5 py-3 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md">
+                            Change Photo
+                        </button>
+                    </div>
+                </div>
+                <input type="hidden" id="profile-photo-url" name="profile_photo_url">
+            </div>
+            <!-- Cover Photo -->
+            <div class="col-span-3 h-full rounded-lg">
+                <img id="cover-img" src="https://images.unsplash.com/photo-1707343843437-caacff5cfa74"
+                    alt="Cover photo" class="h-64 object-cover w-full">
+                <div class="relative inset-x-0 m-20 mt-10 flex justify-center">
+                    <button id="lfm-btn-cover" type="button" class="px-5 py-3 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md">
                         Change Cover Photo
                     </button>
                 </div>
+                <input type="hidden" id="cover-photo-url" name="cover_photo_url">
             </div>
-        </div>
 
-        <!-- Profile Picture -->
-        <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Profile Picture</label>
-            <div class="flex items-center space-x-4">
-                <img class="h-16 w-16 rounded-full" src="https://ui-avatars.com/api/?name=John+Doe" alt="Current profile photo">
-                <button type="button" class="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Change Photo
-                </button>
-            </div>
         </div>
 
         <!-- Basic Information -->
-        <div class="grid grid-cols-1 gap-6 mt-4">
+        <div class="grid grid-cols-1 gap-6 mt-6">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                <input type="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                <input type="text" id="full_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" name="full_name">
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Bio</label>
-                <textarea rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                <textarea rows="4" id="bio" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" name="bio"></textarea>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                <input datepicker id="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" name="date">
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Website</label>
-                <input type="url" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                <input type="tel" id="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" name="phone">
             </div>
         </div>
 
         <!-- Save Button -->
         <div class="flex justify-end mt-6">
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <button type="submit" class="px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md">
                 Save Changes
             </button>
         </div>
     </form>
 </div>
+
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('lfm-btn-avatar').addEventListener('click', function() {
+            var route_prefix = "/laravel-filemanager";
+            window.open(route_prefix + '?type=image', 'FileManager', 'width=900,height=600,titlebar=no,menubar=no,toolbar=no,location=no');
+            window.SetUrl = function(url) {
+                //console.log("Selected image URL:", url[0].url);
+                document.getElementById('profile-img').src = url[0].url;
+                document.getElementById('profile-photo-url').value = url[0].url;
+
+            };
+        });
+        document.getElementById('lfm-btn-cover').addEventListener('click', function() {
+            var route_prefix = "/laravel-filemanager";
+            window.open(route_prefix + '?type=image', 'FileManager', 'width=900,height=600');
+            window.SetUrl = function(url) {
+            //console.log("Selected image URL:", url[0].url);
+            document.getElementById('cover-img').src = url[0].url;
+            document.getElementById('cover-photo-url').value = url[0].url;
+
+        };
+        });
+
+    });
+</script>
