@@ -149,7 +149,7 @@ return [
     'setting_my_post_alert_delete_confirm' => 'Confirm',
     'setting_my_post_alert_delete_cancel' => 'Cancel',
     'setting_my_post_alert_delete_success' => 'Post deleted successfully',
-
+    'setting_my_post_filter_all' => 'Check All',
 
     // setting edit post
     'setting_edit_post_save_changes' => 'Save Changes',

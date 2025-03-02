@@ -55,6 +55,12 @@
                 <div id="filterMenu"
                     class="hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                        <label class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            role="menuitem">
+                            <input value="0" onclick="checkallFilter()" type="checkbox"
+                                class="form-checkbox h-4 w-4 text-blue-600 mr-2" onclick="event.stopPropagation()">
+                            {{ __('language.setting_my_post_filter_all') }}
+                        </label>
                         @foreach ($total_category as $item)
                             <label class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                 role="menuitem">
@@ -72,33 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div class="relative inline-block text-left ml-2">
-                <button type="button" onclick="toggleDropdown('sortMenu')"
-                    class="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
-                    {{ __('language.setting_my_post_sort_by') }}
-                    <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                        fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
-                <div id="sortMenu"
-                    class="hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                    <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                        <button type="button" onclick="applySort('date-desc')"
-                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                            role="menuitem">
-                            Date (Newest First)
-                        </button>
-                        <button type="button" onclick="applySort('date-asc')"
-                            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                            role="menuitem">
-                            Date (Oldest First)
-                        </button>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -178,7 +158,7 @@
                 @foreach ($posts as $item)
                     <!-- Post {ID} -->
                     <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td id="post_with_category_{{ $item->category_id }}" class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
 
                                 <div class="ml-2">
@@ -232,73 +212,6 @@
             </tbody>
         </table>
     </div>
-
-    <!-- Pagination -->
-    {{-- <div class="flex items-center justify-between mt-6">
-        <div class="flex-1 flex justify-between sm:hidden">
-            <a href="#"
-                class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                Previous
-            </a>
-            <a href="#"
-                class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                Next
-            </a>
-        </div>
-        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-            <div>
-                <p class="text-sm text-gray-700">
-                    Showing <span class="font-medium">1</span> to <span class="font-medium">3</span> of <span
-                        class="font-medium">24</span> results
-                </p>
-            </div>
-            <div>
-                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                    <a href="#"
-                        class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                        <span class="sr-only">Previous</span>
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                    <a href="#" aria-current="page"
-                        class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                        1
-                    </a>
-                    <a href="#"
-                        class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                        2
-                    </a>
-                    <a href="#"
-                        class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                        3
-                    </a>
-                    <span
-                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                        ...
-                    </span>
-                    <a href="#"
-                        class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                        8
-                    </a>
-                    <a href="#"
-                        class="relative inline-flex items-center px-2 py-2 rounded                            <a href="#"
-                        class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bgwhite text-sm font-medium text-gray-500 hover:bg-gray-50">
-                        <span class="sr-only">Next</span>
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                </nav>
-            </div>
-        </div>
-    </div> --}}
     {{ $posts->links() }}
 </div>
 
@@ -380,11 +293,29 @@
             .map(checkbox => checkbox.value);
 
         console.log('Applying filter for categories:', checkedCategories);
-        // Here you would typically make an API call or filter the posts based on the selected categories
-
+        const posts = document.querySelectorAll('tbody tr');
+        posts.forEach(post => {
+            post.classList.add('hidden');
+        });
+        for (let i = 0; i < checkedCategories.length; i++) {
+            const categoryId = checkedCategories[i];
+            const posts = document.querySelectorAll(`#post_with_category_${categoryId}`);
+            posts.forEach(post => {
+                post.closest('tr').classList.remove('hidden');
+            });
+        }
         // Close the dropdown after applying the filter
         document.getElementById('filterMenu').classList.add('hidden');
     }
+
+    function checkallFilter() {
+        const checked = document.getElementById('filterMenu').querySelector('input[type="checkbox"]').checked;
+        const checkboxes = document.querySelectorAll('#filterMenu input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = checked;
+        });
+    }
+
 
     // Close dropdowns when clicking outside
     document.addEventListener('click', function(event) {
@@ -402,40 +333,6 @@
     // Search functionality
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('searchResults');
-    const posts = [{
-            title: 'How to Master Tailwind CSS in 30 Days',
-            category: 'CSS'
-        },
-        {
-            title: '10 Essential JavaScript Concepts Every Developer Should Know',
-            category: 'JavaScript'
-        },
-        {
-            title: 'Building Responsive Layouts with CSS Grid',
-            category: 'CSS'
-        },
-        {
-            title: 'Getting Started with React Hooks',
-            category: 'React'
-        },
-        {
-            title: 'Python for Beginners: A Comprehensive Guide',
-            category: 'Python'
-        },
-        {
-            title: 'Advanced TypeScript Techniques',
-            category: 'TypeScript'
-        },
-        {
-            title: 'Introduction to GraphQL',
-            category: 'GraphQL'
-        },
-        {
-            title: 'Mastering Git and GitHub',
-            category: 'Version Control'
-        }
-    ];
-
     searchInput.addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase();
         if (searchTerm.length > 2) {
