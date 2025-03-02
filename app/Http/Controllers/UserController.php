@@ -208,7 +208,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function my_post()
+    public function my_post(Request $request)
     {
         $posts = Post::where('user_id', session('userid'))->paginate(20);
         $total_like = 0;
@@ -224,11 +224,30 @@ class UserController extends Controller
                 ]);
             }
         }
+        $total_post = $posts->count();
+        $total_view = $posts->sum('view_count');
+        if($request->has('searchInput')){
+            $posts = Post::where('user_id', session('userid'))->where('title', 'like', '%'.$request->searchInput.'%')->paginate(20);
+        }
+        
         return view('user_setting.setting', [
             'section' => 'partial_post_management',
             'posts' => $posts,
             'total_like' => $total_like,
-            'total_category' => $total_category
+            'total_category' => $total_category,
+            'total_post' => $total_post,
+            'total_view' => $total_view
         ]);
+    }
+
+    public function api_my_post($query)
+    {
+        $posts = Post::where('user_id', session('userid'))->where('title', 'like', '%'.$query.'%')->get();
+        return response()->json(
+            [
+                'status' => '200',
+                'posts' => $posts
+            ]
+        );
     }
 }

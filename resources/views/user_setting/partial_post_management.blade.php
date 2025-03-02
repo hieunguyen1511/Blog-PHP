@@ -13,14 +13,18 @@
     <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
         <div class="flex items-center w-full sm:w-auto">
             <div class="relative w-96 flex-grow sm:flex-grow-0">
-                <input type="text" id="searchInput" placeholder="Search posts..."
-                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                <button class="absolute right-0 top-0 mt-2 mr-2">
-                    <svg class="w-5 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </button>
+                <form id="searchForm" action="{{ route('my_post_submit') }}" method="POST">
+                    @csrf
+                    <input type="text" name="searchInput" id="searchInput" placeholder="Search posts..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    <button class="absolute right-0 top-0 mt-2 mr-2">
+                        <svg class="w-5 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                </form>
+
                 <div id="searchResults"
                     class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg hidden">
                     <!-- Search results will be populated here -->
@@ -111,7 +115,7 @@
                 </div>
                 <div>
                     <p class="text-sm text-gray-500">{{ __('language.setting_my_post_total_posts') }}</p>
-                    <p class="text-xl font-semibold">{{ $posts->count() }}</p>
+                    <p class="text-xl font-semibold">{{ $total_post }}</p>
                 </div>
             </div>
         </div>
@@ -128,7 +132,7 @@
                 </div>
                 <div>
                     <p class="text-sm text-gray-500">{{ __('language.setting_my_post_total_views') }}</p>
-                    <p class="text-xl font-semibold">{{ $posts->sum('view_count') }}</p>
+                    <p class="text-xl font-semibold">{{ $total_view }}</p>
                 </div>
             </div>
         </div>
@@ -435,38 +439,32 @@
     searchInput.addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase();
         if (searchTerm.length > 2) {
-            const filteredPosts = posts.filter(post =>
-                post.title.toLowerCase().includes(searchTerm) ||
-                post.category.toLowerCase().includes(searchTerm)
-            );
-            displayResults(filteredPosts);
+            $.ajax({
+                url: `/api/my_post/${searchTerm}`,
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === '200') {
+                        console.log(response.posts);
+                        document.getElementById('searchResults').classList.remove('hidden');
+                        document.getElementById('searchResults').innerHTML = response
+                            .posts.map(
+                                post => ` <a onclick="getTitle('${post.title}')" class="block px-4 py-2 hover:bg-blue-50">
+                                                <div class="text-sm font-medium text-gray-900">${post.title}</div>
+                                                <div class="text-xs text-gray-500">${truncateText(post.description,20)}</div>
+                                            </a>`
+                            ).join('');
+                    }
+                }
+            });
+
         } else {
             searchResults.classList.add('hidden');
         }
     });
 
-    function displayResults(results) {
-        searchResults.innerHTML = '';
-        if (results.length > 0) {
-            results.forEach(post => {
-                const div = document.createElement('div');
-                div.className = 'p-2 hover:bg-gray-100 cursor-pointer';
-                div.innerHTML = `
-                        <a href="#" class="block px-4 py-2 hover:bg-blue-50">
-                            <div class="text-sm font-medium text-gray-900">${post.title}</div>
-                            <div class="text-xs text-gray-500">truncateText(post.description,20)</div>
-                                            </a>
-                    `;
-                div.addEventListener('click', () => {
-                    searchInput.value = post.title;
-                    searchResults.classList.add('hidden');
-                });
-                searchResults.appendChild(div);
-            });
-            searchResults.classList.remove('hidden');
-        } else {
-            searchResults.classList.add('hidden');
-        }
+    function getTitle(title) {
+        document.getElementById('searchInput').value = title;
+        document.getElementById('searchForm').submit();
     }
 
     // Close search results when clicking outside

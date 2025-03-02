@@ -73,7 +73,7 @@ Route::middleware(localization::class)->group(function(){
         Route::post('/user/settings/change-password', [UserController::class, 'change_password_submit'])->name('change_password_submit');
         Route::get('/user/settings/media-resource', [UserController::class, 'media_resource'])->name('media_resource');
         Route::get('/user/settings/my-post', [UserController::class, 'my_post'])->name('my_post');
-
+        Route::post('/user/settings/my-post', [UserController::class, 'my_post'])->name('my_post_submit');
 
 
 
@@ -84,6 +84,7 @@ Route::middleware(localization::class)->group(function(){
 
         Route::get('/post/{post_id}/like', [HomeController::class, 'like_post'])->name('post_like');
 
+        Route::get('/api/my_post/{query}', [UserController::class, 'api_my_post'])->name('api_my_post');
 
 
     });
