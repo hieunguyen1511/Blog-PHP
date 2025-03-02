@@ -1,11 +1,6 @@
 @extends('layouts.adminLayout')
 @section('content')
 
-<!-- Flatpickr CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<!-- Flatpickr JS -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
 <div class="max-w-6xl mx-auto p-4 bg-white shadow-md rounded-lg">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-semibold">{{ __('language.title_user_index') }}</h2>
@@ -27,7 +22,7 @@
                 <th class="p-2">{{__('language.title_date_user')}}</th>
                 <th class="p-2">{{__('language.title_phone_user')}}</th>
                 <th class="p-2">{{__('language.title_bio_user')}}</th>
-                <th class="p-2">{{__('language.title_fullname_user')}}</th>
+                <th class="p-2">{{__('language.title_full_name_user')}}</th>
                 <th class="p-2">{{__('language.title_action')}}</th>
             </tr>
         </thead>
@@ -78,7 +73,7 @@
             <div class="grid grid-cols-2 gap-4">
 
                 <div class="mb-4">
-                    <label for="editFullname" class="block text-sm font-medium text-gray-700">{{ __('language.title_fullname_user') }}</label>
+                    <label for="editFullname" class="block text-sm font-medium text-gray-700">{{ __('language.title_full_name_user') }}</label>
                     <input type="text" id="editFullname" class="w-full p-3 border rounded" placeholder="{{ __('language.placeholder_fullname_user') }}">
                 </div>
 
@@ -107,9 +102,6 @@
                     </div>
                     <p class="italic text-red-600 text-sm" id="alert-password"></p>
                 </div>
-                
-                
-                
             </div>
 
             <div class="mb-4">
@@ -212,11 +204,17 @@
             let phone = $("#editPhone").val();
             let bio = $("#editBio").val();
             let full_name = $("#editFullname").val();
-            let profile_picture = $('#fileInputProfilePic').val();
-            let cover_photo = $('#fileInputCoverPhoto').val();
-            
+            let profile_picture = document.getElementById('editProfilePic').src;
+            let cover_photo = document.getElementById('editCoverPhoto').src;
+            let defaultProfilePic = "{{ asset('default_avatar.jpg') }}"; // Đường dẫn ảnh mặc định
+            let defaultCoverPhoto = "{{ asset('default_cover_photo.jpg') }}"; // Đường dẫn ảnh mặc định
+            if (profile_picture == defaultProfilePic) {
+                profile_picture = '';
+            }
+            if (cover_photo == defaultCoverPhoto) {
+                cover_photo = '';
+            }
             var alertPassword = '{{ __('language.error_wrong_format_password') }}';
-
             if (new_password != '' && new_password.length < 8) {
                 document.getElementById('alert-password').innerText = alertPassword;
                 return;
@@ -500,21 +498,6 @@
         // Khi nhấn vào ảnh -> mở chọn file
         coverPhotoOverlay.addEventListener("click", function () {
             openTinyMCEFilePicker(coverPhoto, fileInputCoverPhoto);
-        });
-
-        // Khi người dùng chọn ảnh mới
-        fileInputCoverPhoto.addEventListener("change", function (event) {
-            let file = event.target.files[0];
-
-            if (file) {
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    const img = document.getElementById("editCoverPhoto");
-                    coverPhoto.src = e.target.result; // Hiển thị ảnh mới
-                    img.classList.add("object-contain"); // Đảm bảo ảnh được cắt vừa khung
-                };
-                reader.readAsDataURL(file);
-            }
         });
     });
 

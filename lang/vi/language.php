@@ -73,7 +73,7 @@ return [
 
     //page setting admin
     'email_alert' => 'Email không đúng định dạng',
-    'error_setting_email' => 'Email không tồn tại',
+    'fail_save_setting' => 'Lưu cài đặt thất bại',
     'success_save_setting' => 'Lưu cài đặt thành công',
     'title_password' => 'Mật khẩu',
     'title_authentication_user_setting' => 'Email để xác thực người dùng',
@@ -92,8 +92,6 @@ return [
     'published_posts_statistics' => 'Thống kê các bài viết',
     'week' => 'Tuần',
     'month' => 'Tháng',
-    'recent_activity' => 'Hoạt động gần đây',
-    'view_all_activity' => 'Xem tất cả hoạt động',
     'Mon' => 'T2',
     'Tue' => 'T3',
     'Wed' => 'T4',
@@ -158,6 +156,14 @@ return [
     'message_info' => 'Thông báo!',
     'error_fetching_data' => 'Lỗi fetch dữ liệu.',
     'error_unknow' => 'Không rõ',
+    
+    //Profile
+    'title_profile' => 'Hồ sơ cá nhân',
+    'title_re_new_password' => 'Mật khẩu nhập lại',
+    'success_save_profile' => 'Lưu hồ sơ thành công',
+    'fail_save_profile' => 'Lưu hồ sơ thất bại',
+    'title_old_password' => 'Mật khẩu cũ',
+    'error_wrong_password' => 'Sai mật khẩu',
 
     //Sidebar
     'sidebar_dashboard' => 'Bảng điều khiển',
@@ -170,4 +176,5 @@ return [
 
     'admin_panel' => 'Bảng quản trị',
     'title_admin_page' => 'Hệ thống quản lý Blog',
+    'view_all_activity' => 'Xem tất cả hoạt động',
 ];

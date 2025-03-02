@@ -73,7 +73,7 @@ return [
     'title_bio_user' => 'Bio',
     'title_profile_picture_user' => 'Profile Picture',
     'title_cover_photo_user' => 'Cover photo',
-    'title_fullname_user' => 'Full name',
+    'title_full_name_user' => 'Full name',
     'placeholder_username_user' => 'Enter username user',
     'placeholder_new_password_user' => 'Enter new password user',
     'placeholder_date_user' => 'Enter date birth user',
@@ -84,7 +84,7 @@ return [
 
     //page setting admin
     'email_alert' => 'Email is not in the correct format',
-    'error_setting_email' => 'Email is not exists',
+    'fail_save_setting' => 'Setting saved failed',
     'success_save_setting' => 'Setting saved successfully',
     'title_password' => 'Password',
     'title_authentication_user_setting' => 'Email authentication user',
@@ -103,8 +103,6 @@ return [
     'published_posts_statistics' => 'Published Posts Statistics',
     'week' => 'Week',
     'month' => 'Month',
-    'recent_activity' => 'Recent Activity',
-    'view_all_activity' => 'View all activity',
     'Mon' => 'Mon',
     'Tue' => 'Tue',
     'Wed' => 'Wed',
@@ -170,6 +168,15 @@ return [
     'error_fetching_data' => 'Error fetching data.',
     'error_unknow' => 'Unknow',
 
+
+    //Profile
+    'title_profile' => 'Profile',
+    'title_re_new_password' => 'Re new password',
+    'success_save_profile' => 'Profile saved successfully',
+    'fail_save_profile' => 'Profile saved failed',
+    'title_old_password' => 'Old password',
+    'error_wrong_password' => 'Wrong password',
+
     //Sidebar
     'sidebar_dashboard' => 'Dashboard',
     'sidebar_posts' => 'Posts',
@@ -181,5 +188,8 @@ return [
 
     'admin_panel' => 'Admin Panel',
     'title_admin_page' => 'Blog Management Dashboard',
+
+    'title_notifications' => 'Notifications',
+    'view_all_activity' => 'View all activity',
 
 ];

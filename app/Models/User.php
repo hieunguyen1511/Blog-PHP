@@ -46,4 +46,6 @@ class User extends Authenticatable
     //         'password' => 'hashed',
     //     ];
     // }
+    public static $role_admin = 'Admin';
+    public static $role_user = 'User';
 }

@@ -17,6 +17,29 @@ class NotificationController extends Controller
     public function index() {
         return view('notification.index');
     }
+    
+    public function getNewest(){
+        $notifications = Notification::with('user') // Giả sử có quan hệ user
+        ->latest()
+        ->take(5) // Giới hạn lấy 5 thông báo gần nhất
+        ->get();
+        return response()->json([
+            'status' => '200',
+            'notifications' => $notifications->map(function ($noti) {
+                return [
+                    'id' => $noti->id,
+                    'user' => [
+                        'id' => $noti->user->id ?? null,
+                        'full_name' => $noti->user->full_name ?? __('language.error_unknow'),
+                        'profile_picture' => $noti->user->profile_picture ?? asset('default_avatar.jpg'),
+                    ],
+                    'content' => $noti->content,
+                    'noti_type' => $noti->notificationType,
+                    'created_at' => $noti->created_at->diffForHumans(),
+                ];
+            })
+        ]);
+    }
 
     public function getData() {
         try {
@@ -50,7 +73,7 @@ class NotificationController extends Controller
                         'profile_picture' => $noti->user->profile_picture ?? asset('default_avatar.jpg'),
                     ],
                     'content' => $noti->content,
-                    'noti_type_name' => $noti->notificationType->name ?? __('language.error_unknow'),
+                    'noti_type_tag' => $noti->notificationType->tag ?? __('language.error_unknow'),
                     'created_at' => $noti->created_at->diffForHumans(),
                 ];
             })

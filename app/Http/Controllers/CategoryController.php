@@ -33,11 +33,10 @@ class CategoryController extends Controller
 
     public function create(Request $request)
     {
+        $category = new Category();
+        $category->name = $request->name;
+        $category->link = Str::slug($request->name);
         try {
-            // Tạo danh mục mới và lưu vào cơ sở dữ liệu
-            $category = new Category();
-            $category->name = $request->name;
-            $category->link = Str::slug($request->name);
             $category->save();
 
             return response()->json([
@@ -45,7 +44,6 @@ class CategoryController extends Controller
                 'message' => __('language.created_item_success')
             ]);
         } catch (\Exception $e) {
-            // Xử lý lỗi nếu có
             return response()->json([
                 'status' => '500',
                 'message' => __('language.create_item_fail')

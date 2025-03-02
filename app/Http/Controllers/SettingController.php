@@ -43,7 +43,7 @@ class SettingController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => '500',
-                'message' => __('language.error_setting_email')
+                'message' => __('language.fail_save_setting')
             ]);
         }
     }

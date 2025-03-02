@@ -19,6 +19,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 </head>
 <body class="bg-gray-50 dark:bg-gray-900">
@@ -192,26 +196,19 @@
                             <!-- Notifications Dropdown -->
                             <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg py-2 z-50">
                                 <div class="px-4 py-2 border-b border-gray-100">
-                                    <h3 class="text-sm font-semibold text-gray-900">Notifications</h3>
+                                    <h3 class="text-sm font-semibold text-gray-900">{{__('language.title_notifications')}}</h3>
                                 </div>
                                 <div class="max-h-64 overflow-y-auto">
-                                    <a href="#" class="flex px-4 py-3 hover:bg-gray-50 transition-colors duration-200">
+                                    <div data-id="${id}" class="flex px-4 py-3 hover:bg-gray-50 transition-colors duration-200">
                                         <img class="h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User+1" alt="User 1">
                                         <div class="ml-3">
-                                            <p class="text-sm font-medium text-gray-900">New user registered</p>
+                                            <p class="text-sm font-medium text-gray-900">New user a</p>
                                             <p class="text-xs text-gray-500">2 minutes ago</p>
                                         </div>
-                                    </a>
-                                    <a href="#" class="flex px-4 py-3 hover:bg-gray-50 transition-colors duration-200">
-                                        <img class="h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User+2" alt="User 2">
-                                        <div class="ml-3">
-                                            <p class="text-sm font-medium text-gray-900">New post published</p>
-                                            <p class="text-xs text-gray-500">1 hour ago</p>
-                                        </div>
-                                    </a>
+                                    </div>
                                 </div>
-                                <a href="#" class="block text-center text-sm text-blue-600 font-medium px-4 py-2 border-t border-gray-100 hover:text-blue-700">
-                                    View all notifications
+                                <a href="{{route('notification.index')}}" class="block text-center text-sm text-blue-600 font-medium px-4 py-2 border-t border-gray-100 hover:text-blue-700">
+                                    {{__('language.view_all_activity')}}
                                 </a>
                             </div>
                         </div>
@@ -219,9 +216,12 @@
                         <!-- Admin Profile -->
                         <div class="relative">
                             <button onclick="toggleProfileMenu()" class="flex items-center space-x-3 p-2 rounded-lg transition-colors duration-200 hover:bg-gray-100 group">
-                                <img class="h-9 w-9 rounded-full object-cover ring-2 ring-blue-500" src="https://ui-avatars.com/api/?name=Admin+User&background=3b82f6&color=fff" alt="Admin">
+                                <?php
+                                    $user = (object) session('user');
+                                ?>
+                                <img class="h-9 w-9 rounded-full object-cover ring-2 ring-blue-500" src="{{ $user->profile_picture ?? asset('default_avatar.jpg') }}" alt="Admin">
                                 <div class="text-left hidden sm:block">
-                                    <p class="text-sm font-semibold text-blue-100 group-hover:text-blue-700">Admin</p>
+                                    <p class="text-sm font-semibold text-blue-100 group-hover:text-blue-700">{{$user->full_name}}</p>
 
                                     {{-- <p class="text-xs text-gray-500">Super Admin</p> --}}
                                 </div>
@@ -232,7 +232,7 @@
 
                             <!-- Profile Dropdown -->
                             <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+                                <a href="{{route('profile.index', session('userid'))}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
                                     <div class="flex items-center">
                                         <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -272,6 +272,85 @@
     </div>
 
     <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "{{ route('notification.getNewest') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    if (response.status === '200') {
+                        let dropdown = $('#notifications-dropdown .max-h-64');
+                        dropdown.empty();
+
+                        response.notifications.forEach(notification => {
+                            let seenClass = notification.seen ? 'bg-gray-100 text-gray-500' : 'bg-white text-gray-900 font-bold';
+
+                            let html = `
+                                <a href="${notification.direct_url || ''}" data-id="${notification.id}" 
+                                    class="notification-item flex px-4 py-3 hover:bg-gray-50 transition-colors duration-200 cursor-pointer ${seenClass}">
+                                    
+                                    <img class="h-8 w-8 rounded-full object-cover" src="${notification.user.avatar || 'default_avatar.jpg'}" alt="${notification.user.full_name}">
+                                    
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium">${notification.noti_type.message}</p>
+                                        <p class="text-xs">${notification.created_at}</p>
+                                    </div>
+                                </a>
+                            `;
+                            dropdown.append(html);
+                        });
+
+                        if (response.notifications.length === 0) {
+                            dropdown.append(`<p class="text-center py-2 text-gray-500">No new notifications</p>`);
+                        }
+                    }
+                },
+                error: function(xhr) {
+                    toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
+                        closeButton: true,
+                        progressBar: true,
+                        timeOut: 3000, 
+                        positionClass: 'toast-top-right',
+                    });
+                }
+            });
+
+        });
+        $(document).on('click', '.notification-item', function(e) {
+            e.preventDefault();
+
+            let noti_id = $(this).data('id');
+            let directUrl = $(this).attr('href');
+            let user_id = "{{ session('userid') }}";
+
+            $.ajax({
+                url: "{{ route('seenNotification.create') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    user_id: user_id,
+                    noti_id: noti_id,
+                },
+                success: function(response) {
+                    if (response.status === 200) {
+
+                        if (directUrl) {
+                            window.location.href = directUrl;
+                        }
+                    }
+                },
+                error: function(xhr) {
+                    toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
+                        closeButton: true,
+                        progressBar: true,
+                        timeOut: 3000, 
+                        positionClass: 'toast-top-right',
+                    });
+                }
+            });
+        });
         document.addEventListener("DOMContentLoaded", function () {
             const searchInput = document.getElementById("searchInput");
             const searchResults = document.getElementById("searchResults");
@@ -336,6 +415,7 @@
             
             // Close profile dropdown if open
             document.getElementById('profile-dropdown').classList.add('hidden');
+            
         }
 
         function toggleProfileMenu() {
@@ -431,6 +511,7 @@
                     searchResults.classList.add("hidden");
                 }
             });
+            
         });
         function truncateText(text, maxLength = 100) {
             if (!text) return ''; // Nếu không có dữ liệu, trả về rỗng

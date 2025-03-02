@@ -100,9 +100,7 @@
                 { data: 'content', name: 'content', render: function(data) {
                     return truncateText(data, 10);
                 }  },
-                { data: 'noti_type_name', name: 'noti_type_name', render: function(data) {
-                    return truncateText(data, 10);
-                }  },
+                { data: 'noti_type_tag', name: 'noti_type_tag'},
                 { data: "created_at", name: "created_at" },
                 { 
                     data: null,

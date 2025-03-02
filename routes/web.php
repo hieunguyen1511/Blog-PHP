@@ -7,7 +7,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\NotificationTypeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SeenNotificationController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\changeLanguage;
@@ -54,7 +56,7 @@ Route::middleware(localization::class)->group(function(){
     
     Route::get('/post', [PostController::class, 'index']) -> name('post');
     
-    Route::prefix('/admin') -> group(function() {
+    Route::middleware(checkLogin::class) -> prefix('/admin') -> group(function() {
         //Page Dashboard
         Route::get('', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/dashboard/get-total-users', [DashboardController::class, 'getTotalUsers'])->name('dashboard.getTotalUsers');
@@ -101,7 +103,8 @@ Route::middleware(localization::class)->group(function(){
         Route::get('/notification/{id}', [NotificationController::class, 'get'])->name('notification.get');
         Route::post('/notification/{id}/update', [NotificationController::class, 'update'])->name('notification.update');
         Route::post('/notification/get-data', [NotificationController::class, 'getData'])->name('notification.getData');
-        
+        Route::post('/notification/get-newest', [NotificationController::class, 'getNewest'])->name('notification.getNewest');
+
 
         //Page Notification Type
         Route::get('/notification-type', [NotificationTypeController::class, 'index'])->name('notificationType.index');
@@ -112,6 +115,13 @@ Route::middleware(localization::class)->group(function(){
         Route::get('/notification-type/{id}', [NotificationTypeController::class, 'get'])->name('notificationType.get');
         Route::post('/notification-type/{id}/update', [NotificationTypeController::class, 'update'])->name('notificationType.update');
         
+        //Seen Notification
+        Route::post('/seen-notification/create', [SeenNotificationController::class, 'create'])->name('seenNotification.create');
+    
+        //Page Profile
+        Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
+        Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+
     });
     
     Route::get('/lang/{language}', function () {

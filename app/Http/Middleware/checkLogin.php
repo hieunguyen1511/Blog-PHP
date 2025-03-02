@@ -16,6 +16,8 @@ class checkLogin
     public function handle(Request $request, Closure $next): Response
     {
         if (session('userid') == null) {
+            //session()->forget('previous_url');
+            session()->put('previous_url',url()->current());
             return redirect()->route('login');
         }
         return $next($request);
