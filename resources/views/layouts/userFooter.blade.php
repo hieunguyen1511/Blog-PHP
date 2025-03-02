@@ -39,7 +39,7 @@
             </div> --}}
         </div>
         <div class="mt-8 border-t border-gray-700 pt-8 text-center">
-            <p class="text-gray-300">© 2023 BLOG-PHP, FOSS.</p>
+            <p class="text-gray-300">2025 BLOG-PHP, FOSS.</p>
         </div>
     </div>
 </footer>
