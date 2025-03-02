@@ -133,7 +133,7 @@
     </div>
 
     <!-- Recent Activity & Charts Section -->
-    <div class="grid grid-cols-1 mb-8">
+    {{-- <div class="grid grid-cols-1 mb-8">
         <!-- Recent Activity -->
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
@@ -141,7 +141,7 @@
             </div>
             <div class="p-6">
                 <div class="space-y-6" id="recent-activity">
-                    {{-- <!-- Activity Item 1 -->
+                    <!-- Activity Item 1 -->
                     <div class="flex items-start">
                         <div class="flex-shrink-0">
                             <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=John+Doe"
@@ -213,7 +213,7 @@
                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 mt-2">New
                                 Category</span>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
 
                 <!-- View All Link -->
@@ -226,7 +226,7 @@
             </div>
         </div>
 
-        {{-- <!-- Latest Records Table -->
+        <!-- Latest Records Table -->
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Latest Records</h3>
@@ -254,8 +254,8 @@
                     </tbody>
                 </table>
             </div>
-        </div> --}}
-    </div>
+        </div>
+    </div> --}}
 
 
     {{-- <script>
@@ -338,8 +338,8 @@
                         toastr.error(response.message, "{{__('language.message_fail')}}", {
                             closeButton: true,
                             progressBar: true,
-                            timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                            positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
+                            timeOut: 3000,
+                            positionClass: 'toast-top-right',
                         });
                     }
                 },
@@ -347,8 +347,8 @@
                     toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
                         closeButton: true,
                         progressBar: true,
-                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
+                        timeOut: 3000,
+                        positionClass: 'toast-top-right',
                     });
                 }
             });
@@ -367,8 +367,8 @@
                         toastr.error(response.message, "{{__('language.message_fail')}}", {
                             closeButton: true,
                             progressBar: true,
-                            timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                            positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
+                            timeOut: 3000,
+                            positionClass: 'toast-top-right',
                         });
                     }
                 },
@@ -376,8 +376,8 @@
                     toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
                         closeButton: true,
                         progressBar: true,
-                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
+                        timeOut: 3000,
+                        positionClass: 'toast-top-right',
                     });
                 }
             });
@@ -394,8 +394,8 @@
                         toastr.error(response.message, "{{__('language.message_fail')}}", {
                             closeButton: true,
                             progressBar: true,
-                            timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                            positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
+                            timeOut: 3000,
+                            positionClass: 'toast-top-right',
                         });
                     }
                 },
@@ -403,8 +403,8 @@
                     toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
                         closeButton: true,
                         progressBar: true,
-                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
+                        timeOut: 3000,
+                        positionClass: 'toast-top-right',
                     });
                 }
             });
@@ -423,7 +423,7 @@
                         toastr.error(response.message, "{{__('language.message_fail')}}", {
                             closeButton: true,
                             progressBar: true,
-                            timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
+                            timeOut: 3000,
                             positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
                         });
                     }
@@ -526,17 +526,12 @@
                         //     // Add your analytics update logic here
                         //     console.log('Updating analytics chart:', period);
                         // };
-
-
-
-
-
                     } else {
                         toastr.error(response.message, "{{__('language.message_fail')}}", {
                             closeButton: true,
                             progressBar: true,
-                            timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                            positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
+                            timeOut: 3000,
+                            positionClass: 'toast-top-right',
                         });
                     }
                 },
@@ -544,62 +539,8 @@
                     toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
                         closeButton: true,
                         progressBar: true,
-                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                    });
-                }
-            });
-            $.ajax({
-                url: "{{ route('dashboard.getRecentActivity') }}",
-                type: 'GET',
-                data: {
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function(response) {
-                    if (response.status == '200') {
-                        inner = ``;
-                        var keys = response.array_notification_types;
-                        var translatedMessages = keys.map(key => language[key]);
-                        response.last_notification.forEach(element => {
-                            var message = translatedMessages[element.noti_type_code]
-                            if (element.noti_type_code == 0) {
-                                message += ` "${element.content}"`;
-                            }
-                            inner += `
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-10 w-10 rounded-full" src="${element.user.profile_picture ?? '/default_avatar.jpg'}" alt="${element.user.full_name}">
-                                    </div>
-                                    <div class="ml-4 flex-1">
-                                        <div class="flex items-center justify-between">
-                                            <p class="text-sm font-medium text-gray-900 dark:text-white">${element.user.full_name}</p>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400">${element.created_at}</p>
-                                        </div>
-                                        <p class="text-sm text-gray-600 dark:text-gray-300">${message}</p>
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 mt-2">
-                                            ${element.noti_type_name}
-                                        </span>
-                                    </div>
-                                </div>
-                            `
-                        });
-                        document.getElementById('recent-activity').innerHTML = inner;
-                    } else {
-                        toastr.error(response.message, "{{__('language.message_fail')}}", {
-                            closeButton: true,
-                            progressBar: true,
-                            timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                            positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
-                        closeButton: true,
-                        progressBar: true,
-                        timeOut: 3000,  // Thời gian hiển thị thông báo (3 giây)
-                        positionClass: 'toast-top-right',  // Vị trí thông báo ở góc trên bên phải
+                        timeOut: 3000,
+                        positionClass: 'toast-top-right',
                     });
                 }
             });

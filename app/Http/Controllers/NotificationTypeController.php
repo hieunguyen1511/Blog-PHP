@@ -18,18 +18,12 @@ class NotificationTypeController extends Controller
     public function index() {
         return view('notificationType.index');
     }
-    public function getData() {
-        return response()->json([
-            'status' => '200',
-            'arrayNotificationTypes' => NotificationType::getArrayNotificationTypes(),
-        ]);
-    }
+
     public function getAll(){
         $notificationTypes = NotificationType::all();
         return response()->json([
             'status' => '200',
             'notificationTypes' => $notificationTypes,
-            'arrayNotificationTypes' => NotificationType::getArrayNotificationTypes(),
         ]);
     }
 
@@ -45,8 +39,8 @@ class NotificationTypeController extends Controller
     public function create(Request $request)
     {
         $notificationType = new NotificationType();
-        $notificationType->name = $request->name;
-        $notificationType->code = $request->code;
+        $notificationType->tag = $request->tag;
+        $notificationType->message = $request->message;
         try {
             $notificationType->save();
             return response()->json([
@@ -54,7 +48,6 @@ class NotificationTypeController extends Controller
                 'message' => __('language.created_item_success')
             ]);
         } catch (\Exception $e) {
-            // Xử lý lỗi nếu có
             return response()->json([
                 'status' => '500',
                 'message' => __('language.create_item_fail')
@@ -63,7 +56,7 @@ class NotificationTypeController extends Controller
     }
 
     public function update(Request $request) {
-        $notificationType = NotificationType::find($request->id);  // Lấy category theo ID
+        $notificationType = NotificationType::find($request->id); 
     
         if (!$notificationType) {
             return response()->json([
@@ -72,8 +65,8 @@ class NotificationTypeController extends Controller
             ], 400);
         }
     
-        $notificationType->name = $request->name; 
-        $notificationType->code = $request->code; 
+        $notificationType->tag = $request->tag;
+        $notificationType->message = $request->message;
     
         
         try {

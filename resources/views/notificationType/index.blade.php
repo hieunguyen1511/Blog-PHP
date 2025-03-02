@@ -19,8 +19,8 @@
             <tr class="bg-gray-100 border-b">
                 <th class="p-2"><input type="checkbox" id="selectAll" class="w-4 h-4"></th>
                 <th class="p-2">ID</th>
-                <th class="p-2">{{__('language.title_name_notification_type')}}</th>
-                <th class="p-2">{{__('language.title_code_notification_type')}}</th>
+                <th class="p-2">{{__('language.title_tag_notification_type')}}</th>
+                <th class="p-2">{{__('language.title_message_notification_type')}}</th>
                 <th class="p-2">{{__('language.title_action')}}</th>
             </tr>
         </thead>
@@ -34,18 +34,19 @@
         <form id="addNotificationTypeForm">
             @csrf
             <div class="mb-4">
-                <label for="addNotificationTypeName" class="block text-sm font-medium text-gray-700">
-                    {{ __('language.title_name_notification_type') }}
+                <label for="addTagNotificationType" class="block text-sm font-medium text-gray-700">
+                    {{ __('language.title_tag_notification_type') }}
                 </label>
-                <input type="text" id="addNotificationTypeName" name="addNotificationTypeName" class="w-full mt-1 p-2 border rounded" 
-                    placeholder="{{ __('language.placeholder_name_notification_type') }}">
+                <input type="text" id="addTagNotificationType" name="addTagNotificationType" class="w-full mt-1 p-2 border rounded" 
+                    placeholder="{{ __('language.placeholder_tag_notification_type') }}">
             </div>
+            
             <div class="mb-4">
-                <label for="addNotificationTypeCode" class="block text-sm font-medium text-gray-700">
-                    {{ __('language.title_code_notification_type') }}
+                <label for="addMessageNotificationType" class="block text-sm font-medium text-gray-700">
+                    {{ __('language.title_message_notification_type') }}
                 </label>
-                <select id="addNotificationTypeCode" name="addNotificationTypeCode" class="w-full mt-1 p-2 border rounded">
-                </select>
+                <input type="text" id="addMessageNotificationType" name="addMessageNotificationType" class="w-full mt-1 p-2 border rounded" 
+                    placeholder="{{ __('language.placeholder_message_notification_type') }}">
             </div>
 
             <div class="flex justify-end space-x-2">
@@ -63,18 +64,19 @@
             @csrf
             <input type="hidden" id="editNotificationTypeId">
             <div class="mb-4">
-                <label for="editNotificationTypeName" class="block text-sm font-medium text-gray-700">
-                    {{ __('language.title_name_notification_type') }}
+                <label for="editTagNotificationType" class="block text-sm font-medium text-gray-700">
+                    {{ __('language.title_tag_notification_type') }}
                 </label>
-                <input type="text" id="editNotificationTypeName" name="editNotificationTypeName" class="w-full mt-1 p-2 border rounded" 
-                    placeholder="{{ __('language.placeholder_name_notification_type') }}">
+                <input type="text" id="editTagNotificationType" name="editTagNotificationType" class="w-full mt-1 p-2 border rounded" 
+                    placeholder="{{ __('language.placeholder_tag_notification_type') }}">
             </div>
+            
             <div class="mb-4">
-                <label for="editNotificationTypeCode" class="block text-sm font-medium text-gray-700">
-                    {{ __('language.title_code_notification_type') }}
+                <label for="editMessageNotificationType" class="block text-sm font-medium text-gray-700">
+                    {{ __('language.title_message_notification_type') }}
                 </label>
-                <select id="editNotificationTypeCode" name="editNotificationTypeCode" class="w-full mt-1 p-2 border rounded">
-                </select>
+                <input type="text" id="editMessageNotificationType" name="editMessageNotificationType" class="w-full mt-1 p-2 border rounded" 
+                    placeholder="{{ __('language.placeholder_message_notification_type') }}">
             </div>
 
             <div class="flex justify-end space-x-2">
@@ -95,10 +97,7 @@
             serverSide: false,
             ajax: {
                 url: "{{ route('notificationType.getAll') }}",
-                dataSrc: function(response) {
-                    $('#notificationTypeTable').data('arrayNotificationTypes', response.arrayNotificationTypes);
-                    return response.notificationTypes; // Hiển thị dữ liệu notificationTypes
-                }
+                dataSrc: 'notificationTypes',
             },
             columns: [
                 { 
@@ -110,13 +109,8 @@
                     }
                 },
                 { data: 'id', name: 'id' },
-                { data: 'name', name: 'name'},
-                { data: 'code', name: 'code', 
-                    render: function(data, type, row) {
-                        let arrayNotificationTypes = $('#notificationTypeTable').data('arrayNotificationTypes') || {};
-                        return arrayNotificationTypes[data] ? language[arrayNotificationTypes[data]] : __('language.unknown_error');
-                    }
-                },
+                { data: 'tag', name: 'tag'},
+                { data: 'message', name: 'message'},
                 { 
                     data: null,
                     name: 'action',
@@ -149,39 +143,6 @@
             }
         });
 
-        $.ajax({
-            url: "{{ route('notificationType.getData') }}",
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}",
-            },
-            success: function(response) {
-                if (response.status === '200') {
-                    let addNotificationTypeSelectCodes = $('#addNotificationTypeCode');
-                    let editNotificationTypeSelectCodes = $('#editNotificationTypeCode');
-                    for (var i = 0; i < response.arrayNotificationTypes.length; i++) {
-                        addNotificationTypeSelectCodes.append(`<option value="${i}">${language[response.arrayNotificationTypes[i]]}</option>`);
-                        editNotificationTypeSelectCodes.append(`<option value="${i}">${language[response.arrayNotificationTypes[i]]}</option>`);
-                    }
-                } else {
-                    toastr.error(response.message, "{{__('language.message_fail')}}", {
-                        closeButton: true,
-                        progressBar: true,
-                        timeOut: 3000,
-                        positionClass: 'toast-top-right', 
-                    });
-                }
-            },
-            error: function(xhr) {
-                toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
-                    closeButton: true,
-                    progressBar: true,
-                    timeOut: 3000, 
-                    positionClass: 'toast-top-right', 
-                });
-            }
-            });
-
         $('#openAddModal').on('click', function() {
             $('#addNotificationTypeModal').removeClass('hidden');
         });
@@ -191,11 +152,20 @@
         
         $('#addNotificationTypeForm').on('submit', function(e) {
             e.preventDefault();
-            let name = $('#addNotificationTypeName').val();
-            let code = $('#addNotificationTypeCode').val();
+            let tag = $('#addTagNotificationType').val();
+            let message = $('#addMessageNotificationType').val();
             
-            if (name === "") {
-                toastr.warning("{{__('language.error_notification_name_type')}}", "{{__('language.message_warning')}}", {
+            if (tag === "") {
+                toastr.warning("{{__('language.error_tag_notification_type')}}", "{{__('language.message_warning')}}", {
+                    closeButton: true,
+                    progressBar: true,
+                    timeOut: 3000, 
+                    positionClass: 'toast-top-right', 
+                });
+                return;
+            }
+            if (message === "") {
+                toastr.warning("{{__('language.error_message_notification_type')}}", "{{__('language.message_warning')}}", {
                     closeButton: true,
                     progressBar: true,
                     timeOut: 3000, 
@@ -209,14 +179,14 @@
                 type: 'POST',
                 data: {
                     _token: "{{ csrf_token() }}",
-                    name: name,
-                    code: code,
+                    tag: tag,
+                    message: message,
                 },
                 success: function(response) {
                     if (response.status == '200') {
                         $('#addNotificationTypeModal').addClass('hidden');
-                        $('#addNotificationTypeName').val(''); 
-                        $('#addNotificationTypeCode').val(0); 
+                        $('#addTagNotificationType').val(''); 
+                        $('#addMessageNotificationType').val(''); 
                         table.ajax.reload(function() {
                             toastr.success(response.message, "{{__('language.message_success')}}", {
                                 closeButton: true,
@@ -250,10 +220,10 @@
             e.preventDefault();
 
             let notificationTypeId = $("#editNotificationTypeId").val();
-            let name = $('#editNotificationTypeName').val();
-            let code = $('#editNotificationTypeCode').val();
-            if (name === "") {
-                toastr.warning("{{__('language.error_notification_name_type')}}", "{{__('language.message_warning')}}", {
+            let tag = $('#editTagNotificationType').val();
+            let message = $('#editMessageNotificationType').val();
+            if (tag === "") {
+                toastr.warning("{{__('language.error_tag_notification_type')}}", "{{__('language.message_warning')}}", {
                     closeButton: true,
                     progressBar: true,
                     timeOut: 3000, 
@@ -261,15 +231,23 @@
                 });
                 return;
             }
-
+            if (message === "") {
+                toastr.warning("{{__('language.error_message_notification_type')}}", "{{__('language.message_warning')}}", {
+                    closeButton: true,
+                    progressBar: true,
+                    timeOut: 3000, 
+                    positionClass: 'toast-top-right',
+                });
+                return;
+            }
             $.ajax({
                 
                 url: `{{ route('notificationType.update', ':id') }}`.replace(':id', notificationTypeId),
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
-                    name: name,
-                    code: code,
+                    tag: tag,
+                    message: message,
                 },
                 success: function(response) {
                     if (response.status === '200') {
@@ -436,8 +414,8 @@
             success: function(response) {
                 if (response.status === '200') {
                     $("#editNotificationTypeId").val(response.notificationType.id);
-                    $("#editNotificationTypeName").val(response.notificationType.name);
-                    $("#editNotificationTypeCode").val(response.notificationType.code);
+                    $("#editTagNotificationType").val(response.notificationType.tag);
+                    $("#editMessageNotificationType").val(response.notificationType.message);
                     $("#editNotificationTypeModal").removeClass("hidden");
                 } else {
                     toastr.error("{{ __('language.error_fetching_data') }}", "{{__('language.message_fail')}}", {

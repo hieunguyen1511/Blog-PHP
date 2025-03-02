@@ -129,11 +129,12 @@ return [
     'btn_add_notification_type' => 'Add notification type',
     'title_add_notification_type' => 'Add new notification type',
     'title_edit_notification_type' => 'Edit notification type',
-    'title_name_notification_type' => 'Name notification type',
-    'placeholder_name_notification_type' => 'Enter notification type name',
-    'title_code_notification_type' => 'Code notification type',
-    'error_notification_name_type' => 'Please enter notification type name',
-
+    'title_tag_notification_type' => 'Name tag notification type',
+    'placeholder_tag_notification_type' => 'Enter name tag notification type',
+    'title_message_notification_type' => 'Message notification type',
+    'placeholder_message_notification_type' => 'Enter message notification type',
+    'error_tag_notification_type' => 'Please enter name tag notification type',
+    'error_message_notification_type' => 'Please enter message notification type',
 
     'title_create_at' => 'Create at',
     

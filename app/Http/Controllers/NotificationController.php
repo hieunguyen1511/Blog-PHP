@@ -72,7 +72,7 @@ class NotificationController extends Controller
     }
 
     public function update(Request $request) {
-        $notification = Notification::find($request->id);  // Lấy category theo ID
+        $notification = Notification::find($request->id);
     
         if (!$notification) {
             return response()->json([
@@ -87,7 +87,6 @@ class NotificationController extends Controller
     
         
         try {
-            $notification->save();  // Lưu thay đổi
             return response()->json([
                 'status' => '200',
                 'message' => __('language.updated_item_success')  // Thành công

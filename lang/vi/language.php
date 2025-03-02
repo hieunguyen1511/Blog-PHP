@@ -118,10 +118,12 @@ return [
     'btn_add_notification_type' => 'Thêm loại thông báo',
     'title_add_notification_type' => 'Thêm mới loại thông báo',
     'title_edit_notification_type' => 'Cập nhật loại thông báo',
-    'title_name_notification_type' => 'Tên loại thông báo',
-    'placeholder_name_notification_type' => 'Điền tên loại thông báo',
-    'title_code_notification_type' => 'Mã loại thông báo',
-    'error_notification_name_type' => 'Vui lòng điền tên loại thông báo',
+    'title_tag_notification_type' => 'Tên loại thông báo',
+    'placeholder_tag_notification_type' => 'Điền tên nhãn thông báo',
+    'title_message_notification_type' => 'Nội dung thông báo',
+    'placeholder_message_notification_type' => 'Điền nội dung thông báo',
+    'error_tag_notification_type' => 'Vui lòng điền tên nhãn thông báo',
+    'error_message_notification_type' => 'Vui lòng điền nội dung thông báo',
 
     'title_create_at' => 'Ngày tạo',
 

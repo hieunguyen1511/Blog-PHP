@@ -10,8 +10,4 @@ class NotificationType extends Model
     //
     protected $table = 'notificationtype';
     use HasFactory;
-    
-    public static function getArrayNotificationTypes() {
-        return ['published_a_new_post', 'commented_on', 'updated_their_profile_information'];
-    }
 }

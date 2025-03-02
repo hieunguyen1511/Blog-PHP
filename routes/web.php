@@ -55,7 +55,16 @@ Route::middleware(localization::class)->group(function(){
     Route::get('/post', [PostController::class, 'index']) -> name('post');
     
     Route::prefix('/admin') -> group(function() {
-        
+        //Page Dashboard
+        Route::get('', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/dashboard/get-total-users', [DashboardController::class, 'getTotalUsers'])->name('dashboard.getTotalUsers');
+        Route::get('/dashboard/get-total-posts', [DashboardController::class, 'getTotalPosts'])->name('dashboard.getTotalPosts');
+        Route::get('/dashboard/get-total-views', [DashboardController::class, 'getTotalViews'])->name('dashboard.getTotalViews');
+    
+        Route::get('/dashboard/get-total-comments', [DashboardController::class, 'getTotalComments'])->name('dashboard.getTotalComments');
+        Route::get('/dashboard/get-published-posts-statistics', [DashboardController::class, 'getPublishedPostsStatistics'])->name('dashboard.getPublishedPostsStatistics');
+        Route::get('/dashboard/get-recent-activity', [DashboardController::class, 'getRecentActivity'])->name('dashboard.getRecentActivity');
+    
         // page Category admin
         Route::get('/category', [CategoryController::class, 'index'])->name('category.indexAdmin');
         Route::get('/category/data', [CategoryController::class, 'getAll']) -> name('category.getAll');
@@ -84,16 +93,6 @@ Route::middleware(localization::class)->group(function(){
         Route::get('/setting', [SettingController::class, 'setting'])->name('setting.index');
         Route::post('/setting/update', [SettingController::class, 'update'])->name('setting.update');
 
-        //Page Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-        Route::get('/dashboard/get-total-users', [DashboardController::class, 'getTotalUsers'])->name('dashboard.getTotalUsers');
-        Route::get('/dashboard/get-total-posts', [DashboardController::class, 'getTotalPosts'])->name('dashboard.getTotalPosts');
-        Route::get('/dashboard/get-total-views', [DashboardController::class, 'getTotalViews'])->name('dashboard.getTotalViews');
-    
-        Route::get('/dashboard/get-total-comments', [DashboardController::class, 'getTotalComments'])->name('dashboard.getTotalComments');
-        Route::get('/dashboard/get-published-posts-statistics', [DashboardController::class, 'getPublishedPostsStatistics'])->name('dashboard.getPublishedPostsStatistics');
-        Route::get('/dashboard/get-recent-activity', [DashboardController::class, 'getRecentActivity'])->name('dashboard.getRecentActivity');
-    
         //Page Notification
         Route::get('/notification', [NotificationController::class, 'index'])->name('notification.index');
         Route::get('/notification/data', [NotificationController::class, 'getAll']) -> name('notification.getAll');
@@ -112,7 +111,6 @@ Route::middleware(localization::class)->group(function(){
         Route::post('/notification-type/delete-items', [NotificationTypeController::class, 'deleteItems'])->name('notificationType.deleteItems');
         Route::get('/notification-type/{id}', [NotificationTypeController::class, 'get'])->name('notificationType.get');
         Route::post('/notification-type/{id}/update', [NotificationTypeController::class, 'update'])->name('notificationType.update');
-        Route::post('/notification-type/get-data', [NotificationTypeController::class, 'getData'])->name('notificationType.getData');
         
     });
     
