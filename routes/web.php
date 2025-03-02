@@ -54,6 +54,14 @@ Route::middleware(localization::class)->group(function(){
         
         Route::get('/create-post', [UserController::class, 'create_post'])->name('create_post');
         Route::post('/create-post', [UserController::class, 'create_post_submit'])->name('create_post_submit');
+        
+        Route::get('/edit-post/{id}', [UserController::class, 'edit_post'])->name('edit_post');        
+        
+        Route::post('/edit-post/{id}', [UserController::class, 'edit_post_submit'])->name('edit_post_submit');
+
+        Route::post('/delete-post', [UserController::class, 'delete_post'])->name('delete_post');
+
+
         //User setting
         Route::get('/user/settings', [UserController::class, 'setting'])->name('setting');
         
@@ -64,6 +72,9 @@ Route::middleware(localization::class)->group(function(){
         Route::get('/user/settings/change-password', [UserController::class, 'change_password'])->name('change_password');
         Route::post('/user/settings/change-password', [UserController::class, 'change_password_submit'])->name('change_password_submit');
         Route::get('/user/settings/media-resource', [UserController::class, 'media_resource'])->name('media_resource');
+        Route::get('/user/settings/my-post', [UserController::class, 'my_post'])->name('my_post');
+
+
 
 
         //Route api
@@ -131,7 +142,7 @@ Route::middleware(localization::class)->group(function(){
 Route::get('/test5',function(){ return view('userprofile');});
 Route::get('/test6',function(){ return view('layouts.post_1');});
 Route::get('/lfm',function(){ return view('testlfm');});
-
+Route::get('/test7',function(){ return view('postManagement');});
 
 //api
 Route::get('/api/search/{key}', [HomeController::class, 'search']);

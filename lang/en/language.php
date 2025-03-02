@@ -126,5 +126,43 @@ return [
     'setting_media_resource' => 'Media Resource',
 
 
+    // setting my post
+    'setting_my_post' => 'My Post',
+    'setting_my_post_empty' => 'No posts yet',
+    'setting_my_post_create' => 'Create Post',
+    'setting_my_post_filter' => 'Filter',
+    'setting_my_post_filter_apply' => 'Apply Filter',
+    'setting_my_post_filter_all' => 'All',
+    'setting_my_post_sort_by' => 'Sort by',
+    'setting_my_post_title' => 'Title',
+    'setting_my_post_category' => 'Category',
+    'setting_my_post_date' => 'Date',
+    'setting_my_post_update' => 'Update',
+    'setting_my_post_action' => 'Action',
+    'setting_my_post_views' => 'Views',
+    'setting_my_post_like' => 'Likes',
+    'setting_my_post_total_posts' => 'Total Posts',
+    'setting_my_post_total_views' => 'Total Views',
+    'setting_my_post_total_likes' => 'Total Likes',
+    'setting_my_post_alert_delete' => 'Are you sure you want to delete this post?',
+    'setting_my_post_alert_delete_title' => 'Delete Post',
+    'setting_my_post_alert_delete_confirm' => 'Confirm',
+    'setting_my_post_alert_delete_cancel' => 'Cancel',
+    'setting_my_post_alert_delete_success' => 'Post deleted successfully',
+
+
+    // setting edit post
+    'setting_edit_post_save_changes' => 'Save Changes',
+    'setting_edit_post_alert_success' => 'Post updated successfully',
+
+    // create post
+    'create_post_title' => 'Title',
+    'create_post_title_placeholder' => 'Type your title...',
+    'create_post_category' => 'Category',
+    'create_post_description' => 'Description',
+    'create_post_description_placeholder' => 'Type your description...',
+    'create_post_content' => 'Content',
+    'create_post_button' => 'Create Post',
+
 
 ];

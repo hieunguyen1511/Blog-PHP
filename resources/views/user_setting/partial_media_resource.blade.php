@@ -7,7 +7,6 @@
         {{ __('language.setting_media_resource') }}
     </h1>
     <iframe src="/laravel-filemanager?type=image" class="w-full h-dvh">
-
     </iframe>
 </div>
    

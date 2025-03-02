@@ -33,8 +33,8 @@
                 </div>
 
                 <!-- Post Content -->
-                <div class="p-6 prose max-w-none">
-                    <?php echo htmlspecialchars_decode(stripslashes($post->content));  ?>
+                <div class="p-6 overflow-hidden break-words max-w-full">
+                    <?php echo htmlspecialchars_decode(($post->content));  ?>
                 </div>
 
                 <!-- Post Footer -->

@@ -12,11 +12,11 @@
                     <form action="{{route('create_post_submit')}}" method="POST">
                         @csrf
                         <div class="mb-4">
-                            <label for="content" class="block text-xl font-medium text-gray-700">Title</label>
-                            <input type="text" id="title" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type your title" required />
+                            <label for="content" class="block text-xl font-medium text-gray-700">{{__('language.create_post_title')}}</label>
+                            <input placeholder="{{__('language.create_post_title_placeholder')}}" type="text" id="title" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
                         <div class="mb-4">
-                            <label for="content" class="block text-xl font-medium text-gray-700">Category</label>
+                            <label for="content" class="block text-xl font-medium text-gray-700">{{__('language.create_post_category')}}</label>
                             <select name="category" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 @foreach ($categories as $item )
                                     <option value="{{$item->id}}">{{$item->name}}</option>
@@ -24,15 +24,15 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="content" class="block text-xl font-medium text-gray-700">Description</label>
-                            <textarea type="text" id="description" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type your description" required></textarea>
+                            <label for="content" class="block text-xl font-medium text-gray-700">{{__('language.create_post_description')}}</label>
+                            <textarea placeholder="{{__('language.create_post_description_placeholder')}}" type="text" id="description" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type your description" required></textarea>
                         </div>
                         <div class="mb-4">
-                            <label for="content" class="block text-xl font-medium text-gray-700">Content</label>
+                            <label for="content" class="block text-xl font-medium text-gray-700">{{__('language.create_post_content')}}</label>
                             <textarea id="editor" name="content" class="w-full h-full"></textarea>
                         </div>
                         <div class="mb-4">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create Post</button>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{{__('language.create_post_button')}}</button>
                         </div>
                     </form>
                 </div>
