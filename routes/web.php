@@ -63,6 +63,8 @@ Route::middleware(localization::class)->group(function(){
         
         Route::get('/user/settings/change-password', [UserController::class, 'change_password'])->name('change_password');
         Route::post('/user/settings/change-password', [UserController::class, 'change_password_submit'])->name('change_password_submit');
+        Route::get('/user/settings/media-resource', [UserController::class, 'media_resource'])->name('media_resource');
+
 
         //Route api
         Route::get('/user/edit-profile', [UserController::class, 'partial_edit_profile'])->name('partial_edit_profile');

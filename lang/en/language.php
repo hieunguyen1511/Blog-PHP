@@ -122,6 +122,9 @@ return [
     'setting_change_password_alert_confirm_password' => 'Password does not match',
     'setting_change_password_success_noti' => 'Password changed successfully, please login again',
 
+    // setting media resource
+    'setting_media_resource' => 'Media Resource',
+
 
 
 ];

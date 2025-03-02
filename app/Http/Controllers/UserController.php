@@ -150,6 +150,12 @@ class UserController extends Controller{
         }
     }
 
+    public function media_resource(){
+        return view('user_setting.setting',[
+            'section' => 'partial_media_resource',
+        ]);
+    }
+
 
 }
 ?>

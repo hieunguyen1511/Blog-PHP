@@ -40,9 +40,8 @@
                         </a>
 
                         <a href="{{ route('change_password') }}"
-                        class="{{ request()->routeIs('change_password') ? 'bg-orange-50 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }} flex items-center px-3 py-2 rounded-md hover:bg-orange-50 text-gray-700  transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            class="{{ request()->routeIs('change_password') ? 'bg-orange-50 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }} flex items-center px-3 py-2 rounded-md hover:bg-orange-50 text-gray-700  transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z">
                                 </path>
@@ -170,12 +169,48 @@
                         </a>
                         <a href="/questions/unanswered"
                             class="flex items-center px-3 py-2 rounded-md hover:bg-purple-50 text-gray-700 hover:text-purple-600 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                </path>
+                            <svg class="w-5 h-5 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M16 18H8l2.5-6 2 4 1.5-2 2 4Zm-1-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 18h8l-2-4-1.5 2-2-4L8 18Zm7-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
                             </svg>
-                            <span class="text-sm">Unanswered</span>
+
+                            <span class="text-sm">Media Resource</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Media Resource Section -->
+                <div class="bg-white shadow-sm overflow-hidden border border-gray-100">
+                    <div class="p-4 bg-gradient-to-r from-purple-50 to-white border-b border-gray-100">
+                        <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-purple-500" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M16 18H8l2.5-6 2 4 1.5-2 2 4Zm-1-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 18h8l-2-4-1.5 2-2-4L8 18Zm7-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+                            </svg>
+                            {{ __('language.setting_media_resource') }}
+                        </h3>
+                    </div>
+                    <div class="p-2">
+                        <a href="{{route('media_resource')}}"
+                            class="{{ request()->routeIs('media_resource') ? 'bg-purple-50 text-purple-600' : 'text-gray-700 hover:bg-orange-50 hover:text-purple-600' }} flex items-center px-3 py-2 rounded-md hover:bg-purple-50 text-gray-700  transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M16 18H8l2.5-6 2 4 1.5-2 2 4Zm-1-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 18h8l-2-4-1.5 2-2-4L8 18Zm7-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+                            </svg>
+
+                            <span class="text-sm">Media Resource</span>
                         </a>
                     </div>
                 </div>
@@ -223,7 +258,8 @@
                                         <div class="text-sm text-gray-500">Posts</div>
                                     </div>
                                     <div class="flex-1">
-                                        <div class="text-2xl font-bold text-gray-900">{{ $user->posts->sum('view_count') }}
+                                        <div class="text-2xl font-bold text-gray-900">
+                                            {{ $user->posts->sum('view_count') }}
                                         </div>
                                         <div class="text-sm text-gray-500">Views</div>
                                     </div>
