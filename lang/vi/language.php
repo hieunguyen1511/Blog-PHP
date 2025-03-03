@@ -176,5 +176,5 @@ return [
 
     'admin_panel' => 'Bảng quản trị',
     'title_admin_page' => 'Hệ thống quản lý Blog',
-    'view_all_activity' => 'Xem tất cả hoạt động',
+    'view_more' => 'Xem thêm',
 ];

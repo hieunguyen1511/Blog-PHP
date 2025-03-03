@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Notification;
 use App\Models\NotificationType;
 use App\Models\Post;
+use App\Models\SeenNotification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -17,15 +18,38 @@ class NotificationController extends Controller
     public function index() {
         return view('notification.index');
     }
+
+    public static function getUnSeenNotiCount() {
+        $user_id = session('userid');
+        $unread_count = Notification::whereNotIn('id', function($query) use ($user_id) {
+            $query->select('noti_id')
+                ->from('seen_notification')
+                ->where('user_id', $user_id);
+        })->count();
+        return $unread_count;
+    }
+
+    public function getUnreadCount()
+    {
+        return response()->json(['unread_count' => NotificationController::getUnSeenNotiCount()]);
+    }
+
     
     public function getNewest(){
+        $limit = 5;// Giới hạn lấy 5 thông báo gần nhất
         $notifications = Notification::with('user') // Giả sử có quan hệ user
         ->latest()
-        ->take(5) // Giới hạn lấy 5 thông báo gần nhất
+        ->take($limit) 
         ->get();
+
+        $count = Notification::count();
+
         return response()->json([
             'status' => '200',
             'notifications' => $notifications->map(function ($noti) {
+                $seen = SeenNotification::where('user_id', session('userid'))
+                                        -> where('noti_id', $noti->id)
+                                        ->exists();
                 return [
                     'id' => $noti->id,
                     'user' => [
@@ -34,12 +58,54 @@ class NotificationController extends Controller
                         'profile_picture' => $noti->user->profile_picture ?? asset('default_avatar.jpg'),
                     ],
                     'content' => $noti->content,
+                    'direct_url' => $noti->direct_url,
                     'noti_type' => $noti->notificationType,
+                    'seen' => $seen,
                     'created_at' => $noti->created_at->diffForHumans(),
                 ];
-            })
+            }),
+            'unread_count' => NotificationController::getUnSeenNotiCount(),
+            'has_more' => $notifications->count() < $count // Kiểm tra có còn dữ liệu không
         ]);
     }
+
+    public function getLoadMore(Request $request)
+    {
+        $limit = 5;// Giới hạn lấy 5 thông báo gần nhất
+        $offset = $request->input('offset', 0); // Vị trí bắt đầu lấy dữ liệu
+
+        $notifications = Notification::with('user')
+            ->latest()
+            ->skip($offset)
+            ->take($limit)
+            ->get();
+        
+        $count = Notification::count();
+
+        return response()->json([
+            'status' => '200',
+            'notifications' => $notifications->map(function ($noti) {
+                $seen = SeenNotification::where('user_id', session('userid'))
+                                        -> where('noti_id', $noti->id)
+                                        ->exists();
+                return [
+                    'id' => $noti->id,
+                    'user' => [
+                        'id' => $noti->user->id ?? null,
+                        'full_name' => $noti->user->full_name ?? __('language.error_unknow'),
+                        'profile_picture' => $noti->user->profile_picture ?? asset('default_avatar.jpg'),
+                    ],
+                    'content' => $noti->content,
+                    'direct_url' => $noti->direct_url,
+                    'noti_type' => $noti->notificationType,
+                    'seen' => $seen,
+                    'created_at' => $noti->created_at->diffForHumans(),
+                ];
+            }),
+            'has_more' => $offset + $notifications->count() < $count // Kiểm tra có còn dữ liệu không
+        ]);
+    }
+
 
     public function getData() {
         try {

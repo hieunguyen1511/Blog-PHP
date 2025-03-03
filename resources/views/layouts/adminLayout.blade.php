@@ -190,7 +190,7 @@
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                                 </svg>
-                                <span class="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
+                                <span id="notification-dot" class="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full hidden"></span>
                             </button>
                             
                             <!-- Notifications Dropdown -->
@@ -200,15 +200,15 @@
                                 </div>
                                 <div class="max-h-64 overflow-y-auto">
                                     <div data-id="${id}" class="flex px-4 py-3 hover:bg-gray-50 transition-colors duration-200">
-                                        <img class="h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User+1" alt="User 1">
+                                        {{-- <img class="h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User+1" alt="User 1">
                                         <div class="ml-3">
                                             <p class="text-sm font-medium text-gray-900">New user a</p>
                                             <p class="text-xs text-gray-500">2 minutes ago</p>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
-                                <a href="{{route('notification.index')}}" class="block text-center text-sm text-blue-600 font-medium px-4 py-2 border-t border-gray-100 hover:text-blue-700">
-                                    {{__('language.view_all_activity')}}
+                                <a id="load-more-notifications" href="javascript:void(0)" class="block text-center text-sm text-blue-600 font-medium px-4 py-2 border-t border-gray-100 hover:text-blue-700">
+                                    {{__('language.view_more')}}
                                 </a>
                             </div>
                         </div>
@@ -272,26 +272,92 @@
     </div>
 
     <script>
-        $(document).ready(function() {
+        var count_noti = 0;
+        let offset = 5; // Số thông báo đã tải ban đầu
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notifications-dropdown');
+            const isHidden = dropdown.classList.contains('hidden');
+            dropdown.classList.toggle('hidden');
+            if (isHidden) {
+                $.ajax({
+                    url: "{{ route('notification.getNewest') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                    },
+                    success: function(response) {
+                        if (response.status === '200') {
+                            let dropdown = $('#notifications-dropdown .max-h-64');
+                            dropdown.empty();
+                            count_noti = response.unread_count;
+                            if (count_noti === 0) {
+                                if (!$('#notification-dot').hasClass('hidden'))
+                                    $('#notification-dot').addClass('hidden');
+                            }
+                            else {
+                                $('#notification-dot').removeClass('hidden');
+                            }
+                            response.notifications.reverse().forEach(notification => {
+                                let seenClass = notification.seen ? 'bg-gray-200 text-gray-600' : 'bg-white text-gray-900 font-bold';
+
+                                let html = `
+                                    <a href="${notification.direct_url || ''}" data-id="${notification.id}" 
+                                        class="notification-item flex px-4 py-3 hover:bg-gray-50 transition-colors duration-200 cursor-pointer ${seenClass}">
+                                        
+                                        <img class="h-8 w-8 rounded-full object-cover" src="${notification.user.profile_picture || 'default_avatar.jpg'}" alt="${notification.user.full_name}">
+                                        
+                                        <div class="ml-3">
+                                            <p class="text-sm font-medium">${notification.noti_type.message}</p>
+                                            <p class="text-xs">${notification.created_at}</p>
+                                        </div>
+                                    </a>
+                                `;
+                                dropdown.append(html);
+                            });
+
+                            if (response.has_more) {
+                                $("#load-more-notifications").show();
+                            }
+                            else {
+                                $("#load-more-notifications").hide();
+                            }
+                            if (response.notifications.length === 0) {
+                                dropdown.append(`<p class="text-center py-2 text-gray-500">No new notifications</p>`);
+                            }
+                        }
+                    },
+                    error: function(xhr) {
+                        toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
+                            closeButton: true,
+                            progressBar: true,
+                            timeOut: 3000, 
+                            positionClass: 'toast-top-right',
+                        });
+                    }
+                });
+            }
+            // Close profile dropdown if open
+            document.getElementById('profile-dropdown').classList.add('hidden');
+        }
+        $(document).on("click", "#load-more-notifications", function() {
             $.ajax({
-                url: "{{ route('notification.getNewest') }}",
+                url: "{{ route('notification.getLoadMore') }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
+                    offset: offset,
                 },
                 success: function(response) {
                     if (response.status === '200') {
                         let dropdown = $('#notifications-dropdown .max-h-64');
-                        dropdown.empty();
-
-                        response.notifications.forEach(notification => {
-                            let seenClass = notification.seen ? 'bg-gray-100 text-gray-500' : 'bg-white text-gray-900 font-bold';
-
+                        response.notifications.reverse().forEach(notification => {
+                            let seenClass = notification.seen ? 'bg-gray-200 text-gray-600' : 'bg-white text-gray-900 font-bold';
+                            
                             let html = `
                                 <a href="${notification.direct_url || ''}" data-id="${notification.id}" 
                                     class="notification-item flex px-4 py-3 hover:bg-gray-50 transition-colors duration-200 cursor-pointer ${seenClass}">
                                     
-                                    <img class="h-8 w-8 rounded-full object-cover" src="${notification.user.avatar || 'default_avatar.jpg'}" alt="${notification.user.full_name}">
+                                    <img class="h-8 w-8 rounded-full object-cover" src="${notification.user.profile_picture || 'default_avatar.jpg'}" alt="${notification.user.full_name}">
                                     
                                     <div class="ml-3">
                                         <p class="text-sm font-medium">${notification.noti_type.message}</p>
@@ -301,26 +367,47 @@
                             `;
                             dropdown.append(html);
                         });
-
-                        if (response.notifications.length === 0) {
-                            dropdown.append(`<p class="text-center py-2 text-gray-500">No new notifications</p>`);
+                        
+                            
+                        if (response.has_more) {
+                            $("#load-more-notifications").show();
                         }
+                        else {
+                            $("#load-more-notifications").hide();
+                        }
+                    }
+                    
+                },
+                error: function(xhr) {
+                    console.error("Lỗi khi tải thông báo:", xhr.responseText);
+                }
+            });
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url: "{{ route('notification.getUnreadCount') }}",
+                type: "post",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    count_noti = response.unread_count;
+                    if (count_noti > 0) {
+                        $('#notification-dot').removeClass('hidden');
+                    } else {
+                        $('#notification-dot').addClass('hidden');
                     }
                 },
                 error: function(xhr) {
-                    toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
-                        closeButton: true,
-                        progressBar: true,
-                        timeOut: 3000, 
-                        positionClass: 'toast-top-right',
-                    });
+                    console.error("Error fetching notifications:", xhr.responseText);
                 }
             });
 
         });
+
         $(document).on('click', '.notification-item', function(e) {
             e.preventDefault();
-
+            let $this = $(this);
             let noti_id = $(this).data('id');
             let directUrl = $(this).attr('href');
             let user_id = "{{ session('userid') }}";
@@ -334,10 +421,16 @@
                     noti_id: noti_id,
                 },
                 success: function(response) {
-                    if (response.status === 200) {
-
+                    if (response.status === '200') {
                         if (directUrl) {
                             window.location.href = directUrl;
+                        }
+                        else {
+                            count_noti--;
+                            if (count_noti === 0 && !$('#notification-dot').hasClass('hidden')) {
+                                $('#notification-dot').addClass('hidden');
+                            }
+                            $this.removeClass('bg-white text-gray-900 font-bold').addClass('bg-gray-200 text-gray-600');
                         }
                     }
                 },
@@ -407,15 +500,6 @@
             
             // Prevent body scroll when sidebar is open
             document.body.classList.toggle('overflow-hidden');
-        }
-
-        function toggleNotifications() {
-            const dropdown = document.getElementById('notifications-dropdown');
-            dropdown.classList.toggle('hidden');
-            
-            // Close profile dropdown if open
-            document.getElementById('profile-dropdown').classList.add('hidden');
-            
         }
 
         function toggleProfileMenu() {

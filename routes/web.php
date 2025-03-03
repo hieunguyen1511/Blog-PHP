@@ -104,7 +104,8 @@ Route::middleware(localization::class)->group(function(){
         Route::post('/notification/{id}/update', [NotificationController::class, 'update'])->name('notification.update');
         Route::post('/notification/get-data', [NotificationController::class, 'getData'])->name('notification.getData');
         Route::post('/notification/get-newest', [NotificationController::class, 'getNewest'])->name('notification.getNewest');
-
+        Route::post('/notification/get-unread-count', [NotificationController::class, 'getUnreadCount'])->name('notification.getUnreadCount');
+        Route::post('/notification/get-load-more', [NotificationController::class, 'getLoadMore'])->name('notification.getLoadMore');
 
         //Page Notification Type
         Route::get('/notification-type', [NotificationTypeController::class, 'index'])->name('notificationType.index');
@@ -121,6 +122,7 @@ Route::middleware(localization::class)->group(function(){
         //Page Profile
         Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
         Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+        
 
     });
 

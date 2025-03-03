@@ -190,6 +190,6 @@ return [
     'title_admin_page' => 'Blog Management Dashboard',
 
     'title_notifications' => 'Notifications',
-    'view_all_activity' => 'View all activity',
+    'view_more' => 'View more',
 
 ];
