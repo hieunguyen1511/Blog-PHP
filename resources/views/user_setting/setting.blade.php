@@ -15,7 +15,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
-                            User Management
+                            {{__('language.setting_user_management_label')}}
                         </h3>
                     </div>
                     <div class="p-2">
@@ -28,7 +28,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
-                            <span class="text-sm">Settings</span>
+                            <span class="text-sm">{{__('language.setting_settings')}}</span>
                         </a>
                         <a href="{{ route('edit_profile') }}"
                             class="{{ request()->routeIs('edit_profile') ? 'bg-orange-50 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }} flex items-center px-3 py-2 rounded-md hover:bg-orange-50 text-gray-700  transition-colors duration-200">
@@ -36,7 +36,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
-                            <span class="text-sm">Edit Profile</span>
+                            <span class="text-sm">{{__('language.setting_edit_profile')}}</span>
                         </a>
 
                         <a href="{{ route('change_password') }}"
@@ -46,7 +46,7 @@
                                     d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z">
                                 </path>
                             </svg>
-                            <span class="text-sm">Change Password</span>
+                            <span class="text-sm">{{__('language.setting_change_password')}}</span>
                         </a>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                                     d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
                                 </path>
                             </svg>
-                            Post Management
+                            {{__('language.setting_post_management_label')}}
                         </h3>
                     </div>
                     <div class="p-2">
@@ -71,7 +71,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
                                 </path>
                             </svg>
-                            <span class="text-sm">Create New Post</span>
+                            <span class="text-sm">{{__('language.setting_create_post')}}</span>
                         </a>
                         <a href="{{route('my_post')}}"
                             class="{{ request()->routeIs('my_post') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }} flex items-center px-3 py-2 rounded-md hover:bg-blue-50  transition-colors duration-200">
@@ -80,16 +80,15 @@
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
                                 </path>
                             </svg>
-                            <span class="text-sm">My Posts</span>
+                            <span class="text-sm">{{__('language.setting_my_post')}}</span>
                         </a>
                         <a href="/posts/drafts"
                             class="flex items-center px-3 py-2 rounded-md hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                </path>
-                            </svg>
-                            <span class="text-sm">Drafts</span>
+                            <svg class="w-5 h-5 mr-3 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19v0A1.5 1.5 0 0 0 7 17.5V11Zm6.5-1h4.915c.286 0 .372.014.626.15.254.135.472.332.637.572a1.874 1.874 0 0 1 .215 1.673l-2.098 6.4C17.538 19.52 17.368 20 16.12 20c-2.303 0-4.79-.943-6.67-1.475"/>
+                              </svg>
+                              
+                            <span class="text-sm">{{__('language.setting_favorite_post')}}</span>
                         </a>
                     </div>
                 </div>

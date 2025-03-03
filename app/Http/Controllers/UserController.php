@@ -250,4 +250,13 @@ class UserController extends Controller
             ]
         );
     }
+
+    public function favorite_post(){
+        return view('user_setting.setting', [
+            'section' => 'partial_favorite_post',
+        ]);
+    }
+
+
+
 }

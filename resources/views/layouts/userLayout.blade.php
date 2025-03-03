@@ -138,6 +138,7 @@
             }
         });
 
+
         const profileButton = document.getElementById('profile-button');
         const profilePopup = document.getElementById('profile-popup');
 

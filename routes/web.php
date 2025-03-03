@@ -82,13 +82,13 @@ Route::middleware(localization::class)->group(function(){
 
         Route::post('post/comment', [HomeController::class, 'post_comment'])->name('post_comment');
 
-        Route::get('/post/{post_id}/like', [HomeController::class, 'like_post'])->name('post_like');
+        //Route::get('/post/{post_id}/like', [HomeController::class, 'like_post'])->name('post_like');
 
         Route::get('/api/my_post/{query}', [UserController::class, 'api_my_post'])->name('api_my_post');
 
 
     });
-    
+    Route::get('/post/{post_id}/like', [HomeController::class, 'like_post'])->name('post_like');
   
     
     Route::get('/post', [PostController::class, 'index'])->name('post');

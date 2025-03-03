@@ -97,6 +97,21 @@ return [
     'detail_post_load_more' => 'Load more comments',
     'detail_post_submit_comment' => 'Submit Comment',
     'detail_post_comment_placeholder' => 'Write a comment...',
+    'detail_post_alert_like' => 'Please login to like this post',
+    'detail_post_alert_comment' => 'Please login to comment this post',
+
+
+    // setting
+    'setting_user_management_label' => 'User Management',
+    'setting_settings' => 'Settings',
+    'setting_edit_profile' => 'Edit Profile',
+    'setting_change_password' => 'Change Password',
+    'setting_post_management_label' => 'Post Management',
+    'setting_my_post' => 'My Posts',
+    'setting_create_post' => 'Create Post',
+    'setting_favorite_post' => 'Favorite Posts',
+
+    'setting_media_resource_label' => 'Media Resource',
 
 
     // setting edit profile
