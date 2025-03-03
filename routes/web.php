@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Session;
 Route::middleware(localization::class)->group(function(){
     Route::get('/', function () {
         return view('home');
-    });
+    }) -> name('home');
     
     Route::get('/about', function () {
         return view('about');
@@ -123,6 +123,13 @@ Route::middleware(localization::class)->group(function(){
         Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
     });
+
+    Route::get('/logout', function () {
+        session()->forget('userid');
+        session()->forget('user');
+        session()->forget('previous_url');
+        return redirect()->route('home');
+    })->name('logout');
     
     Route::get('/lang/{language}', function () {
         $language = request()->language;

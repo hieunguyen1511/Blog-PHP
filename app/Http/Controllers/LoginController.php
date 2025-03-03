@@ -42,11 +42,11 @@ class LoginController extends Controller{
                 ];
                 $request->session()->put('userid', $data->id);
                 $request->session()->put('user', $user);
-                if (session('previous_url') || $request -> role == User::$role_user) {
-                    return redirect()->to(session('previous_url'));
+                if (!session('previous_url') || $request -> role == User::$role_admin) {
+                    return redirect()->route('dashboard.index');
                 }
                 else {
-                    return redirect()->route('dashboard.index');
+                    return redirect()->to(session('previous_url'));
                 }
             } else {
                 return redirect()->back()->with('errorLogin1', __('language.error_login'))->withInput($request->except('password'));
