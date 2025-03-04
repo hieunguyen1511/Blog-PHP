@@ -43,6 +43,20 @@ return [
     
     'error_login' => 'Username or password is incorrect',
 
+    // Detail Post 
+    'detail_post_about_author' => 'About Author',
+    'detail_post_view_profile' => 'View Profile',
+    'detail_post_posts' => 'Posts',
+    'detail_post_like' => 'likes',
+    'detail_post_comment' => 'comments',
+    'detail_post_view' => 'views',
+    'detail_post_related_post' => 'Related Post',
+    'detail_post_load_more' => 'Load more comments',
+    'detail_post_submit_comment' => 'Submit Comment',
+    'detail_post_comment_placeholder' => 'Write a comment...',
+    'detail_post_alert_like' => 'Please login to like this post',
+    'detail_post_alert_comment' => 'Please login to comment this post',
+
 
     // page Category index
     'title_category_index' => 'Category list',
@@ -54,14 +68,11 @@ return [
     'error_category_name' => 'Please enter category name',
 
     // page Post index
-    'title_post_index' => 'Post list',
+    'title_post_index' => 'Post List',
     'title_post' => 'Title',
-    'title_user_id_post' => 'User id',
-    'title_category_id_post' => 'Category id',
     'title_description_post' => 'Description',
     'title_content_post' => 'Content',
-    'title_like_post' => 'Like',
-    'title_view_post' => 'View',
+    'title_edit_post' => 'Edit Post',
 
     //page user index
     'title_user_index' => 'User list',
@@ -114,31 +125,11 @@ return [
     'count_published_posts' => 'Count Published Posts',
     'latest_posts' => 'Lastest Posts',
 
-    //page Notification admin
-    'title_notification_index' => 'Notification list',
-    'title_edit_notification' => 'Edit notification',
-    'title_user_notification' => 'User',
-    'title_content_notification' => 'Content notification',
-    'placeholder_content_notification' => 'Enter content notification',
-    'title_notification_type' => 'Notification type',
-    'error_content_notification' => 'Please enter content notification',
-    
-    //page Notification type admin
-    'title_notification_type_index' => 'Notification type list',
-    'btn_add_notification_type' => 'Add notification type',
-    'title_add_notification_type' => 'Add new notification type',
-    'title_edit_notification_type' => 'Edit notification type',
-    'title_tag_notification_type' => 'Name tag notification type',
-    'placeholder_tag_notification_type' => 'Enter name tag notification type',
-    'title_message_notification_type' => 'Message notification type',
-    'placeholder_message_notification_type' => 'Enter message notification type',
-    'error_tag_notification_type' => 'Please enter name tag notification type',
-    'error_message_notification_type' => 'Please enter message notification type',
-
     'title_create_at' => 'Create at',
     
     'error_change_language' => 'Error change language',
 
+    'title_user' => 'User',
     'change_picture' => 'Change image',
     'created_item_success' => 'Item created successfully',
     'create_item_fail' => 'Failed to create item! Please try again.',

@@ -47,7 +47,7 @@
     </div>
 </div>
 
-  <!-- Modal để sửa danh mục -->
+<!-- Modal để sửa danh mục -->
 <!-- Edit Category Modal -->
 <div id="editCategoryModal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50">
     <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">

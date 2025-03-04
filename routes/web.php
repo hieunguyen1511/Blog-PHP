@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
@@ -22,13 +23,20 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 Route::middleware(localization::class)->group(function(){
-    Route::get('/', function () {
-        return view('home');
-    }) -> name('home');
+    Route::get('/', [HomeController::class, 'index']);
+
+    // page Home
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    
     
     Route::get('/about', function () {
         return view('about');
     });
+
+    Route::get('/test', function () {
+        return view('test');
+    });
+    
     
     // page Register
     Route::get('/register', [RegisterController::class, 'register']) -> name('register');
@@ -39,22 +47,75 @@ Route::middleware(localization::class)->group(function(){
     Route::get('/login', [LoginController::class, 'login']) -> name('login');
     Route::post('/login', [LoginController::class, 'loginUser']) -> name('loginUser');
     
-    
-    // page Home
-    Route::get('/home', function () {
-        return view('home');
-    });
 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware'], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
     });
     
-    Route::get('/create-post', [UserController::class, 'create_post']) ->middleware(checkLogin::class) -> name('create_post');
+    Route::middleware(checkLogin::class)->group(function(){
+        Route::get('/create-post', [UserController::class, 'create_post'])->name('create_post');
+        Route::post('/create-post', [UserController::class, 'create_post_submit'])->name('create_post_submit');
+        
+        Route::get('/edit-post/{id}', [UserController::class, 'edit_post'])->name('edit_post');        
+        
+        Route::post('/edit-post/{id}', [UserController::class, 'edit_post_submit'])->name('edit_post_submit');
+
+        Route::post('/delete-post', [UserController::class, 'delete_post'])->name('delete_post');
+
+
+        //User setting
+        Route::get('/user/settings', [UserController::class, 'setting'])->name('setting');
+        
+        //Route web
+        Route::get('/user/settings/edit-profile', [UserController::class, 'edit_profile'])->name('edit_profile');
+        Route::post('/user/settings/edit-profile', [UserController::class, 'edit_profile_submit'])->name('edit_profile_submit');
+        
+        Route::get('/user/settings/change-password', [UserController::class, 'change_password'])->name('change_password');
+        Route::post('/user/settings/change-password', [UserController::class, 'change_password_submit'])->name('change_password_submit');
+        Route::get('/user/settings/media-resource', [UserController::class, 'media_resource'])->name('media_resource');
+        Route::get('/user/settings/my-post', [UserController::class, 'my_post'])->name('my_post');
+        Route::post('/user/settings/my-post', [UserController::class, 'my_post'])->name('my_post_submit');
+
+
+
+        //Route api
+        Route::get('/user/edit-profile', [UserController::class, 'partial_edit_profile'])->name('partial_edit_profile');
+
+        Route::post('post/comment', [HomeController::class, 'post_comment'])->name('post_comment');
+
+        //Route::get('/post/{post_id}/like', [HomeController::class, 'like_post'])->name('post_like');
+
+        Route::get('/api/my_post/{query}', [UserController::class, 'api_my_post'])->name('api_my_post');
+
+
+    });
+    Route::get('/post/{post_id}/like', [HomeController::class, 'like_post'])->name('post_like');
     
-    Route::post('/create-post', [UserController::class, 'create_post_submit']) -> name('create_post_submit');
+    Route::get('/post', [PostController::class, 'index'])->name('post');
+
     
     
-    Route::get('/post', [PostController::class, 'index']) -> name('post');
+    
+    // post by category
+    Route::get('/category/{link}', [HomeController::class, 'post_category']) -> name('category.post');
+    
+    Route::get('/lang/{language}', function () {
+        $language = request()->language;
+        Session::put('language', $language);
+        return redirect()->back();
+    });
+
+
+    //Post link
+    Route::get('/post/{link}', [HomeController::class, 'post'])->name('post-detail');
+
+
+    //search key
+    Route::post('/search', [HomeController::class, 'search_post'])->name('search');
+
+
+    //user-profile
+    Route::get('/user/{username}',[HomeController::class,'get_profile'])-> name('get-profile');
     
     Route::middleware(checkLogin::class) -> prefix('/admin') -> group(function() {
         //Page Dashboard
@@ -82,6 +143,9 @@ Route::middleware(localization::class)->group(function(){
         Route::get('/post/data', [PostController::class, 'getAll']) -> name('post.getAll');
         Route::delete('/post/{id}/delete', [PostController::class, 'delete'])->name('post.delete');
         Route::post('/post/delete-items', [PostController::class, 'deleteItems'])->name('post.deleteItems');
+        Route::get('/post/{id}', [PostController::class, 'get'])->name('post.get');
+        Route::post('/post/get-load-more-comments', [PostController::class, 'getLoadMoreComments'])->name('post.getLoadMoreComments');
+        Route::delete('/post/{id}/delete-comment', [PostController::class, 'deleteComment'])->name('post.deleteComment');
         
         //page User admin
         Route::get('/user', [UserController::class, 'indexAdmin'])->name('user.indexAdmin');
@@ -117,3 +181,7 @@ Route::middleware(localization::class)->group(function(){
     }) -> name('change-language');
 
 });
+
+
+//api
+Route::get('/api/search/{key}', [HomeController::class, 'search']);

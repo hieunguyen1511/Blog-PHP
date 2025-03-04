@@ -110,9 +110,7 @@
     </div>
 
     <!-- Charts Section -->
-    <div class="grid grid-cols-1 mb-8">
-        
-
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <!-- Published Posts Statistics -->
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
@@ -130,19 +128,16 @@
                 <canvas id="postsChart"></canvas>
             </div>
         </div>
-    </div>
-
-    <!-- Recent Activity & Charts Section -->
-    <div class="grid grid-cols-1 mb-8">
+    
         <!-- Recent Activity -->
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white">{{__('language.latest_posts')}}</h3>
             </div>
             <div class="p-6">
-                <div class="space-y-6" id="lastest-posts">
-                    <!-- Activity Item 1 -->
-                    <div class="flex items-start">
+                <div class="space-y-6 h-96 overflow-y-auto" id="lastest-posts">
+                    <!-- Bài viết -->
+                    {{-- <div class="flex items-start">
                         <!-- Avatar -->
                         <div class="flex-shrink-0">
                             <a href="#" class="h-10 w-10">
@@ -154,104 +149,32 @@
                         <div class="ml-4 flex-1">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <a href="#" class="text-sm font-medium text-gray-900 dark:text-white">
-                                        John Doe
-                                    </a>
-                                    <a href="#" class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800">
-                                        New Post
-                                    </a>
+                                    <a href="#" class="text-sm font-medium text-gray-900 dark:text-white">John Doe</a>
+                                    <a href="#" class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800">New Post</a>
                                 </div>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">5 min ago</p>
                             </div>
-                    
-                            <!-- Tiêu đề bài viết -->
                             <a href="#" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mt-1">
                                 Published a new post: "Getting Started with Laravel"
                             </a>
-                    
-                            <!-- Nội dung rút gọn -->
-                            <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">
-                                Description
-                            </p>
-                    
-                            <!-- Thông tin like, comment, view -->
+                            <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">Description</p>
                             <div class="flex items-center text-gray-500 dark:text-gray-400 text-xs mt-2 space-x-6">
                                 <div class="flex items-center space-x-1">
                                     <i class="fas fa-heart text-red-500"></i>
                                     <span>120 Likes</span>
                                 </div>
-                    
                                 <div class="flex items-center space-x-1">
                                     <i class="fas fa-comment text-blue-500"></i>
                                     <span>45 Comments</span>
                                 </div>
-                    
                                 <div class="flex items-center space-x-1">
                                     <i class="fas fa-eye text-green-500"></i>
                                     <span>2.5K Views</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    
-
-                    <!-- Activity Item 2 -->
-                    {{-- <div class="flex items-start">
-                        <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=Sarah+Smith"
-                                alt="Sarah Smith">
-                        </div>
-                        <div class="ml-4 flex-1">
-                            <div class="flex items-center justify-between">
-                                <p class="text-sm font-medium text-gray-900 dark:text-white">Sarah Smith</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">15 min ago</p>
-                            </div>
-                            <p class="text-sm text-gray-600 dark:text-gray-300">Commented on "Vue.js Best Practices"
-                            </p>
-                            <span
-                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 mt-2">Comment</span>
-                        </div>
-                    </div>
-
-                    <!-- Activity Item 3 -->
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=Mike+Johnson"
-                                alt="Mike Johnson">
-                        </div>
-                        <div class="ml-4 flex-1">
-                            <div class="flex items-center justify-between">
-                                <p class="text-sm font-medium text-gray-900 dark:text-white">Mike Johnson</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">1 hour ago</p>
-                            </div>
-                            <p class="text-sm text-gray-600 dark:text-gray-300">Updated their profile information</p>
-                            <span
-                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 mt-2">Profile
-                                Update</span>
-                        </div>
-                    </div>
-
-                    <!-- Activity Item 4 -->
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=Emily+Brown"
-                                alt="Emily Brown">
-                        </div>
-                        <div class="ml-4 flex-1">
-                            <div class="flex items-center justify-between">
-                                <p class="text-sm font-medium text-gray-900 dark:text-white">Emily Brown</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">2 hours ago</p>
-                            </div>
-                            <p class="text-sm text-gray-600 dark:text-gray-300">Created a new category: "Web
-                                Development"</p>
-                            <span
-                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 mt-2">New
-                                Category</span>
-                        </div>
                     </div> --}}
                 </div>
-
                 <div id="load-more-posts" class="mt-6 text-center">
                     <a href="javascript:void(0)"
                         class="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
@@ -260,37 +183,8 @@
                 </div>
             </div>
         </div>
-
-        <!-- Latest Records Table -->
-        {{-- <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
-            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Latest Records</h3>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
-                        <tr>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                Name</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                Status</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                Date</th>
-                            <th
-                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                        <!-- Table rows go here -->
-                    </tbody>
-                </table>
-            </div>
-        </div> --}}
     </div>
+    
 
 
     {{-- <script>
@@ -356,7 +250,7 @@
 
     <!-- Add before closing body tag -->
     <script>
-        let offsetPost = 2; // Số thông báo đã tải ban đầu
+        let offsetPost = 4; // Số thông báo đã tải ban đầu
         document.addEventListener('DOMContentLoaded', function() {
             let language = @json(__('language'));
 
@@ -371,12 +265,15 @@
                         let lastest_posts = $('#lastest-posts');
                         lastest_posts.empty();
                         response.lastest_posts.reverse().forEach(post => {
-
+                            var profile = "{{ route('get-profile', ['username' => ':username']) }}".replace(':username', post.user.username);
+                            let post_detail = "{{ route('post-detail', ['link' => ':link']) }}".replace(':link', post.link);
+                            let category = "{{ route('category.post', ['link' => ':link']) }}".replace(':link', post.category.link)
+                            
                             let html = `
                                 <div class="flex items-start">
                                     <!-- Avatar -->
                                     <div class="flex-shrink-0">
-                                        <a href="#" class="h-10 w-10">
+                                        <a href="${profile}" class="h-10 w-10">
                                             <img class="h-10 w-10 rounded-full" src="${post.user.profile_picture || 'default_avatar.jpg'}" 
                                             alt="${post.user.full_name}">
                                         </a>
@@ -386,17 +283,17 @@
                                     <div class="ml-4 flex-1">
                                         <div class="flex items-center justify-between">
                                             <div class="flex items-center">
-                                                <a href="#" class="text-sm font-medium text-gray-900 dark:text-white">
+                                                <a href="${profile}" class="text-sm font-medium text-gray-900 dark:text-white">
                                                     ${post.user.full_name}
                                                 </a>
-                                                <a href="#" class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800">
+                                                <a href="${category}" class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800">
                                                     ${post.category.name}
                                                 </a>
                                             </div>
                                             <p class="text-sm text-gray-500 dark:text-gray-400">${post.created_at}</p>
                                         </div>
                                 
-                                        <a href="${post.link}" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mt-1">
+                                        <a href="${post_detail}" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mt-1">
                                             Published a new post: "${post.title}"
                                         </a>
                                 
@@ -406,18 +303,18 @@
                                         
                                         <div class="flex items-center text-gray-500 dark:text-gray-400 text-xs mt-2 space-x-6">
                                             <div class="flex items-center space-x-1">
-                                                <i class="fas fa-heart text-red-500"></i>
-                                                <span>${formatViews(post.like_count)} Likes</span>
+                                                <i class="fas fa-thumbs-up mr-2 text-blue-600"></i>
+                                                <span>${formatNumber(post.like_count)} Likes</span>
                                             </div>
                                 
                                             <div class="flex items-center space-x-1">
                                                 <i class="fas fa-comment text-blue-500"></i>
-                                                <span>${formatViews(post.comment_count)} Comments</span>
+                                                <span>${formatNumber(post.comment_count)} Comments</span>
                                             </div>
                                 
                                             <div class="flex items-center space-x-1">
                                                 <i class="fas fa-eye text-green-500"></i>
-                                                <span>${formatViews(post.view_count)} Views</span>
+                                                <span>${formatNumber(post.view_count)} Views</span>
                                             </div>
                                         </div>
                                     </div>
@@ -499,17 +396,17 @@
                                             <div class="flex items-center text-gray-500 dark:text-gray-400 text-xs mt-2 space-x-6">
                                                 <div class="flex items-center space-x-1">
                                                     <i class="fas fa-heart text-red-500"></i>
-                                                    <span>${formatViews(post.like_count)} Likes</span>
+                                                    <span>${formatNumber(post.like_count)} {{__('language.detail_post_like')}}</span>
                                                 </div>
                                     
                                                 <div class="flex items-center space-x-1">
                                                     <i class="fas fa-comment text-blue-500"></i>
-                                                    <span>${formatViews(post.comment_count)} Comments</span>
+                                                    <span>${formatNumber(post.comment_count)} {{__('language.detail_post_comment')}}</span>
                                                 </div>
                                     
                                                 <div class="flex items-center space-x-1">
                                                     <i class="fas fa-eye text-green-500"></i>
-                                                    <span>${formatViews(post.view_count)} Views</span>
+                                                    <span>${formatNumber(post.view_count)} {{__('language.detail_post_view')}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -541,7 +438,7 @@
                 },
                 success: function(response) {
                     if (response.status == '200') {
-                        document.getElementById('total-users').innerHTML = formatViews(response.total);
+                        document.getElementById('total-users').innerHTML = formatNumber(response.total);
                         document.getElementById('percent-increase-users').innerHTML = response.percent_increase;
                     } else {
                         toastr.error(response.message, "{{__('language.message_fail')}}", {
@@ -570,7 +467,7 @@
                 },
                 success: function(response) {
                     if (response.status == '200') {
-                        document.getElementById('total-posts').innerHTML = formatViews(response.total);
+                        document.getElementById('total-posts').innerHTML = formatNumber(response.total);
                         document.getElementById('percent-increase-posts').innerHTML = response.percent_increase;
                     } else {
                         toastr.error(response.message, "{{__('language.message_fail')}}", {
@@ -598,7 +495,7 @@
                 },
                 success: function(response) {
                     if (response.status == '200') {
-                        document.getElementById('total-views').innerHTML = formatViews(response.total);
+                        document.getElementById('total-views').innerHTML = formatNumber(response.total);
                     } else {
                         toastr.error(response.message, "{{__('language.message_fail')}}", {
                             closeButton: true,
@@ -626,8 +523,8 @@
                 },
                 success: function(response) {
                     if (response.status == '200') {
-                        document.getElementById('total-comments').innerHTML = formatViews(response.total);
-                        document.getElementById('percent-increase-comments').innerHTML = formatViews(response.percent_increase);
+                        document.getElementById('total-comments').innerHTML = formatNumber(response.total);
+                        document.getElementById('percent-increase-comments').innerHTML = formatNumber(response.percent_increase);
                     } else {
                         toastr.error(response.message, "{{__('language.message_fail')}}", {
                             closeButton: true,
@@ -754,16 +651,6 @@
                 }
             });
         });
-        function formatViews(num) {
-            if (num >= 1_000_000_000) {
-                return (num / 1_000_000_000).toFixed(1) + 'B'; // Tỷ
-            } else if (num >= 1_000_000) {
-                return (num / 1_000_000).toFixed(1) + 'M'; // Triệu
-            } else if (num >= 1_000) {
-                return (num / 1_000).toFixed(1) + 'K'; // Nghìn
-            }
-            return num; // Giữ nguyên nếu nhỏ hơn 1000
-        }
 
 
     </script>

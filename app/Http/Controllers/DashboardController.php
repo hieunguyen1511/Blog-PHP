@@ -147,7 +147,7 @@ class DashboardController extends Controller
     }
 
     public function getLastestPost() {
-        $limit = 2;
+        $limit = 4;
         $lastest_posts = Post::with('user', 'category') -> latest()->take($limit)->get();
         $count = Post::count();
         return response()->json([
@@ -172,7 +172,7 @@ class DashboardController extends Controller
 
     public function getLoadMorePost (Request $request)
     {
-        $limit = 2;
+        $limit = 4;
         $offset = $request->input('offset', 0); // Vị trí bắt đầu lấy dữ liệu
 
         $lastest_posts = Post::with('user', 'category')
