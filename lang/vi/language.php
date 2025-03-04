@@ -101,6 +101,7 @@ return [
     'Sun' => 'CN',
     'published_posts' => 'Các bài đăng',
     'count_published_posts' => 'Số bài đăng',
+    'latest_posts' => 'Bài đăng mới nhất',
 
     //page Notification admin
     'title_notification_index' => 'Danh sách thông báo',

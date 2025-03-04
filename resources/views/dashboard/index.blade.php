@@ -133,35 +133,71 @@
     </div>
 
     <!-- Recent Activity & Charts Section -->
-    {{-- <div class="grid grid-cols-1 mb-8">
+    <div class="grid grid-cols-1 mb-8">
         <!-- Recent Activity -->
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">{{__('language.recent_activity')}}</h3>
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">{{__('language.latest_posts')}}</h3>
             </div>
             <div class="p-6">
-                <div class="space-y-6" id="recent-activity">
+                <div class="space-y-6" id="lastest-posts">
                     <!-- Activity Item 1 -->
                     <div class="flex items-start">
+                        <!-- Avatar -->
                         <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=John+Doe"
-                                alt="John Doe">
+                            <a href="#" class="h-10 w-10">
+                                <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=John+Doe" alt="John Doe">
+                            </a>
                         </div>
+                    
+                        <!-- Nội dung bài post -->
                         <div class="ml-4 flex-1">
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-medium text-gray-900 dark:text-white">John Doe</p>
+                                <div class="flex items-center">
+                                    <a href="#" class="text-sm font-medium text-gray-900 dark:text-white">
+                                        John Doe
+                                    </a>
+                                    <a href="#" class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800">
+                                        New Post
+                                    </a>
+                                </div>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">5 min ago</p>
                             </div>
-                            <p class="text-sm text-gray-600 dark:text-gray-300">Published a new post: "Getting Started
-                                with Laravel"</p>
-                            <span
-                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 mt-2">New
-                                Post</span>
+                    
+                            <!-- Tiêu đề bài viết -->
+                            <a href="#" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mt-1">
+                                Published a new post: "Getting Started with Laravel"
+                            </a>
+                    
+                            <!-- Nội dung rút gọn -->
+                            <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">
+                                Description
+                            </p>
+                    
+                            <!-- Thông tin like, comment, view -->
+                            <div class="flex items-center text-gray-500 dark:text-gray-400 text-xs mt-2 space-x-6">
+                                <div class="flex items-center space-x-1">
+                                    <i class="fas fa-heart text-red-500"></i>
+                                    <span>120 Likes</span>
+                                </div>
+                    
+                                <div class="flex items-center space-x-1">
+                                    <i class="fas fa-comment text-blue-500"></i>
+                                    <span>45 Comments</span>
+                                </div>
+                    
+                                <div class="flex items-center space-x-1">
+                                    <i class="fas fa-eye text-green-500"></i>
+                                    <span>2.5K Views</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
+                    
 
                     <!-- Activity Item 2 -->
-                    <div class="flex items-start">
+                    {{-- <div class="flex items-start">
                         <div class="flex-shrink-0">
                             <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=Sarah+Smith"
                                 alt="Sarah Smith">
@@ -213,21 +249,20 @@
                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 mt-2">New
                                 Category</span>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
-                <!-- View All Link -->
-                <div class="mt-6 text-center">
-                    <a href="{{ route('notification.index') }}"
+                <div id="load-more-posts" class="mt-6 text-center">
+                    <a href="javascript:void(0)"
                         class="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
-                        {{__('language.view_all_activity')}} →
+                        {{__('language.view_more')}} →
                     </a>
                 </div>
             </div>
         </div>
 
         <!-- Latest Records Table -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
+        {{-- <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Latest Records</h3>
             </div>
@@ -254,8 +289,8 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div> --}}
+        </div> --}}
+    </div>
 
 
     {{-- <script>
@@ -321,9 +356,183 @@
 
     <!-- Add before closing body tag -->
     <script>
+        let offsetPost = 2; // Số thông báo đã tải ban đầu
         document.addEventListener('DOMContentLoaded', function() {
-
             let language = @json(__('language'));
+
+            $.ajax({
+                url: "{{ route('dashboard.getLastestPost') }}",
+                type: 'GET',
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.status == '200') {
+                        let lastest_posts = $('#lastest-posts');
+                        lastest_posts.empty();
+                        response.lastest_posts.reverse().forEach(post => {
+
+                            let html = `
+                                <div class="flex items-start">
+                                    <!-- Avatar -->
+                                    <div class="flex-shrink-0">
+                                        <a href="#" class="h-10 w-10">
+                                            <img class="h-10 w-10 rounded-full" src="${post.user.profile_picture || 'default_avatar.jpg'}" 
+                                            alt="${post.user.full_name}">
+                                        </a>
+                                    </div>
+                                
+                                    <!-- Nội dung bài post -->
+                                    <div class="ml-4 flex-1">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center">
+                                                <a href="#" class="text-sm font-medium text-gray-900 dark:text-white">
+                                                    ${post.user.full_name}
+                                                </a>
+                                                <a href="#" class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800">
+                                                    ${post.category.name}
+                                                </a>
+                                            </div>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">${post.created_at}</p>
+                                        </div>
+                                
+                                        <a href="${post.link}" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mt-1">
+                                            Published a new post: "${post.title}"
+                                        </a>
+                                
+                                        <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">
+                                            ${truncateText(post.description, 100)}
+                                        </p>
+                                        
+                                        <div class="flex items-center text-gray-500 dark:text-gray-400 text-xs mt-2 space-x-6">
+                                            <div class="flex items-center space-x-1">
+                                                <i class="fas fa-heart text-red-500"></i>
+                                                <span>${formatViews(post.like_count)} Likes</span>
+                                            </div>
+                                
+                                            <div class="flex items-center space-x-1">
+                                                <i class="fas fa-comment text-blue-500"></i>
+                                                <span>${formatViews(post.comment_count)} Comments</span>
+                                            </div>
+                                
+                                            <div class="flex items-center space-x-1">
+                                                <i class="fas fa-eye text-green-500"></i>
+                                                <span>${formatViews(post.view_count)} Views</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            lastest_posts.append(html);
+                        });
+
+                        if (response.has_more) {
+                            $("#load-more-posts").show();
+                        }
+                        else {
+                            $("#load-more-posts").hide();
+                        }
+
+                    } else {
+                        toastr.error(response.message, "{{__('language.message_fail')}}", {
+                            closeButton: true,
+                            progressBar: true,
+                            timeOut: 3000,
+                            positionClass: 'toast-top-right',
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    toastr.error(xhr.responseJSON?.message || "{{__('language.unknown_error')}}", "{{__('language.message_fail')}}", {
+                        closeButton: true,
+                        progressBar: true,
+                        timeOut: 3000,
+                        positionClass: 'toast-top-right',
+                    });
+                }
+            });
+            $(document).on("click", "#load-more-posts", function() {
+                $.ajax({
+                    url: "{{ route('dashboard.getLoadMorePost') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        offset: offsetPost,
+                    },
+                    success: function(response) {
+                        if (response.status === '200') {
+                            let lastest_posts = $('#lastest-posts');
+                            response.lastest_posts.reverse().forEach(post => {
+
+                                let html = `
+                                    <div class="flex items-start">
+                                        <!-- Avatar -->
+                                        <div class="flex-shrink-0">
+                                            <a href="#" class="h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="${post.user.profile_picture || 'default_avatar.jpg'}" 
+                                                alt="${post.user.full_name}">
+                                            </a>
+                                        </div>
+                                    
+                                        <!-- Nội dung bài post -->
+                                        <div class="ml-4 flex-1">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center">
+                                                    <a href="#" class="text-sm font-medium text-gray-900 dark:text-white">
+                                                        ${post.user.full_name}
+                                                    </a>
+                                                    <a href="#" class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800">
+                                                        ${post.category.name}
+                                                    </a>
+                                                </div>
+                                                <p class="text-sm text-gray-500 dark:text-gray-400">${post.created_at}</p>
+                                            </div>
+                                    
+                                            <a href="${post.link}" class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mt-1">
+                                                Published a new post: "${post.title}"
+                                            </a>
+                                    
+                                            <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">
+                                                ${truncateText(post.description, 100)}
+                                            </p>
+                                            
+                                            <div class="flex items-center text-gray-500 dark:text-gray-400 text-xs mt-2 space-x-6">
+                                                <div class="flex items-center space-x-1">
+                                                    <i class="fas fa-heart text-red-500"></i>
+                                                    <span>${formatViews(post.like_count)} Likes</span>
+                                                </div>
+                                    
+                                                <div class="flex items-center space-x-1">
+                                                    <i class="fas fa-comment text-blue-500"></i>
+                                                    <span>${formatViews(post.comment_count)} Comments</span>
+                                                </div>
+                                    
+                                                <div class="flex items-center space-x-1">
+                                                    <i class="fas fa-eye text-green-500"></i>
+                                                    <span>${formatViews(post.view_count)} Views</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                lastest_posts.append(html);
+                            });
+
+                            if (response.has_more) {
+                                $("#load-more-posts").show();
+                            }
+                            else {
+                                $("#load-more-posts").hide();
+                            }
+                        }
+                        
+                    },
+                    error: function(xhr) {
+                        console.error("Lỗi khi tải thông báo:", xhr.responseText);
+                    }
+                });
+            });
+
             $.ajax({
                 url: "{{ route('dashboard.getTotalUsers') }}",
                 type: 'GET',
@@ -332,7 +541,7 @@
                 },
                 success: function(response) {
                     if (response.status == '200') {
-                        document.getElementById('total-users').innerHTML = response.total;
+                        document.getElementById('total-users').innerHTML = formatViews(response.total);
                         document.getElementById('percent-increase-users').innerHTML = response.percent_increase;
                     } else {
                         toastr.error(response.message, "{{__('language.message_fail')}}", {
@@ -361,7 +570,7 @@
                 },
                 success: function(response) {
                     if (response.status == '200') {
-                        document.getElementById('total-posts').innerHTML = response.total;
+                        document.getElementById('total-posts').innerHTML = formatViews(response.total);
                         document.getElementById('percent-increase-posts').innerHTML = response.percent_increase;
                     } else {
                         toastr.error(response.message, "{{__('language.message_fail')}}", {

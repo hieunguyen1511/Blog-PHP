@@ -146,22 +146,59 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function getRecentActivity() {
-        $last_notification = Notification::with('user', 'notificationType') -> latest()->take(4)->get();
+    public function getLastestPost() {
+        $limit = 2;
+        $lastest_posts = Post::with('user', 'category') -> latest()->take($limit)->get();
+        $count = Post::count();
         return response()->json([
             'status' => '200',
-            'array_notification_types' => NotificationType::getArrayNotificationTypes(),
-            'last_notification' => $last_notification->map(function ($noti) {
+            'lastest_posts' => $lastest_posts->map(function ($post) {
                 return [
-                    'id' => $noti->id,
-                    'content' => $noti->content,
-                    'description' => $noti->description,
-                    'user' => $noti->user,
-                    'created_at' => $noti->created_at->diffForHumans(),
-                    'noti_type_name' => $noti->notificationType ? $noti -> notificationType->name : 'Unknow',
-                    'noti_type_code' => $noti->notificationType->code,
+                    'id' => $post->id,
+                    'link' => $post->link,
+                    'user' => $post->user,
+                    'category' => $post->category,
+                    'title' => $post->title,
+                    'description' => $post->description,
+                    'like_count' => $post->like_count,
+                    'view_count' => $post->view_count,
+                    'comment_count' => $post->comments()->count(),
+                    'created_at' => $post->created_at->diffForHumans(),
                 ];
-            })
+            }),
+            'has_more' => $lastest_posts->count() < $count, // Kiểm tra có còn dữ liệu không
+        ]);
+    }
+
+    public function getLoadMorePost (Request $request)
+    {
+        $limit = 2;
+        $offset = $request->input('offset', 0); // Vị trí bắt đầu lấy dữ liệu
+
+        $lastest_posts = Post::with('user', 'category')
+            ->latest()
+            ->skip($offset)
+            ->take($limit)
+            ->get();
+        
+        $count = Post::count();
+        return response()->json([
+            'status' => '200',
+            'lastest_posts' => $lastest_posts->map(function ($post) {
+                return [
+                    'id' => $post->id,
+                    'link' => $post->link,
+                    'user' => $post->user,
+                    'category' => $post->category,
+                    'title' => $post->title,
+                    'description' => $post->description,
+                    'like_count' => $post->like_count,
+                    'view_count' => $post->view_count,
+                    'comment_count' => $post->comments()->count(),
+                    'created_at' => $post->created_at->diffForHumans(),
+                ];
+            }),
+            'has_more' => $offset + $lastest_posts->count() < $count // Kiểm tra có còn dữ liệu không
         ]);
     }
 }

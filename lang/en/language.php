@@ -112,6 +112,7 @@ return [
     'Sun' => 'Sun',
     'published_posts' => 'Published Posts',
     'count_published_posts' => 'Count Published Posts',
+    'latest_posts' => 'Lastest Posts',
 
     //page Notification admin
     'title_notification_index' => 'Notification list',

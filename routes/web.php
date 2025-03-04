@@ -65,7 +65,8 @@ Route::middleware(localization::class)->group(function(){
     
         Route::get('/dashboard/get-total-comments', [DashboardController::class, 'getTotalComments'])->name('dashboard.getTotalComments');
         Route::get('/dashboard/get-published-posts-statistics', [DashboardController::class, 'getPublishedPostsStatistics'])->name('dashboard.getPublishedPostsStatistics');
-        Route::get('/dashboard/get-recent-activity', [DashboardController::class, 'getRecentActivity'])->name('dashboard.getRecentActivity');
+        Route::get('/dashboard/get-lastest-posts', [DashboardController::class, 'getLastestPost'])->name('dashboard.getLastestPost');
+        Route::post('/dashboard/get-load-more-post', [DashboardController::class, 'getLoadMorePost'])->name('dashboard.getLoadMorePost');
     
         // page Category admin
         Route::get('/category', [CategoryController::class, 'index'])->name('category.indexAdmin');
