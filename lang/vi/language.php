@@ -31,6 +31,28 @@ return [
     'error_user_email' => 'Tên người dùng hoặc email đã tồn tại',
     'success_register' => 'Đăng ký tài khoản thành công',
 
+    //page Login
+    'title_login' => 'Đăng nhập tài khoản Blog',
+    'placeholder_username_email' => 'Tên người dùng hoặc email',
+    'btn_login' => 'Đăng nhập',
+    'title_login_with' => 'Hoặc đăng nhập với',
+    'forgot_password' => 'Quên mật khẩu?',
+    'create_account' => 'Tạo tài khoản',
+
+    // Detail Post 
+    'detail_post_about_author' => 'About Author',
+    'detail_post_view_profile' => 'View Profile',
+    'detail_post_posts' => 'Posts',
+    'detail_post_like' => 'lượt thích',
+    'detail_post_comment' => 'bình luận',
+    'detail_post_view' => 'lượt xem',
+    'detail_post_related_post' => 'Related Post',
+    'detail_post_load_more' => 'Load more comments',
+    'detail_post_submit_comment' => 'Submit Comment',
+    'detail_post_comment_placeholder' => 'Write a comment...',
+    'detail_post_alert_like' => 'Please login to like this post',
+    'detail_post_alert_comment' => 'Please login to comment this post',
+
     // page Category index
     'title_category_index' => 'Danh sách danh mục',
     'btn_add_category' => 'Thêm danh mục',
@@ -42,15 +64,11 @@ return [
 
 
     // page Post index
-    'title_post_index' => 'Danh sách post',
+    'title_post_index' => 'Danh sách bài đăng',
     'title_post' => 'Tiêu đề',
-    'title_user_id_post' => 'ID người dùng',
-    'title_category_id_post' => 'ID danh mục',
     'title_description_post' => 'Mô tả',
     'title_content_post' => 'Nội dung',
-    'title_like_post' => 'Lượt like',
-    'title_view_post' => 'Lượt xem',
-
+    'title_edit_post' => 'Cập nhật bài đăng',
     
     //page user index
     'title_user_index' => 'Danh sách người dùng',
@@ -103,31 +121,11 @@ return [
     'count_published_posts' => 'Số bài đăng',
     'latest_posts' => 'Bài đăng mới nhất',
 
-    // //page Notification admin
-    // 'title_notification_index' => 'Danh sách thông báo',
-    // 'title_edit_notification' => 'Cập nhật thông báo',
-    // 'title_user_notification' => 'Người dùng',
-    // 'title_content_notification' => 'Nội dung thông báo',
-    // 'placeholder_content_notification' => 'Điền nội dung thông báo',
-    // 'title_notification_type' => 'Loại thông báo',
-    // 'error_content_notification' => 'Vui lòng điền nội dung thông báo',
-    
-    // //page Notification type admin
-    // 'title_notification_type_index' => 'Danh sách loại thông báo',
-    // 'btn_add_notification_type' => 'Thêm loại thông báo',
-    // 'title_add_notification_type' => 'Thêm mới loại thông báo',
-    // 'title_edit_notification_type' => 'Cập nhật loại thông báo',
-    // 'title_tag_notification_type' => 'Tên loại thông báo',
-    // 'placeholder_tag_notification_type' => 'Điền tên nhãn thông báo',
-    // 'title_message_notification_type' => 'Nội dung thông báo',
-    // 'placeholder_message_notification_type' => 'Điền nội dung thông báo',
-    // 'error_tag_notification_type' => 'Vui lòng điền tên nhãn thông báo',
-    // 'error_message_notification_type' => 'Vui lòng điền nội dung thông báo',
-
     'title_create_at' => 'Ngày tạo',
 
     'error_change_language' => 'Lỗi khi thay đổi ngôn ngữ',
 
+    'title_user' => 'User',
     'change_picture' => 'Thay đổi ảnh',
     'created_item_success' => 'Thêm mới item thành công',
     'create_item_fail' => 'Thêm mới item thất bại! Vui lòng thử lại.',

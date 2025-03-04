@@ -8,10 +8,12 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    //trang chủ cho quản trị (bảng dữ liệu)
     public function index() {
         return view('category.index');
     }
 
+    //API lấy bảng dữ liệu
     public function getAll(){
         $categories = Category::all();
         return response()->json([
@@ -21,6 +23,7 @@ class CategoryController extends Controller
         );
     }
 
+    //API lấy dữ liệu cụ thể
     public function get($id){
         $category = Category::find($id);
         return response()->json([
@@ -30,7 +33,7 @@ class CategoryController extends Controller
         );
     }
 
-
+    //Tạo mới dữ liệu
     public function create(Request $request)
     {
         $category = new Category();
@@ -52,8 +55,9 @@ class CategoryController extends Controller
     }
 
 
+    //Cập nhật dữ liệu
     public function update(Request $request) {
-        $category = Category::find($request->id);  // Lấy category theo ID
+        $category = Category::find($request->id);
     
         if (!$category) {
             return response()->json([
@@ -62,14 +66,13 @@ class CategoryController extends Controller
             ], 400);
         }
     
-        $category->name = $request->name;  // Cập nhật tên mới
-    
+        $category->name = $request->name;
         
         try {
-            $category->save();  // Lưu thay đổi
+            $category->save();
             return response()->json([
                 'status' => '200',
-                'message' => __('language.updated_item_success')  // Thành công
+                'message' => __('language.updated_item_success')
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -79,6 +82,7 @@ class CategoryController extends Controller
         }
     }
     
+    //Xóa 1 dòng dữ liệu
     public function delete(Request $request)
     {
         $category = Category::find($request->id);
@@ -104,7 +108,7 @@ class CategoryController extends Controller
         }
     }
 
-
+    //Xóa nhiều dòng dữ liệu
     public function deleteItems(Request $request)
     {
         if (!isset($request->ids) || count($request->ids) === 0) {

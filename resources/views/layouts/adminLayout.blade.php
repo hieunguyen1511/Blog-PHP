@@ -277,7 +277,7 @@
                             li.addEventListener("click", () => {
                                 item.click();
                                 searchResults.classList.add("hidden");
-                                searchInput.value = ""; // Xóa nội dung tìm kiếm sau khi chọn
+                                searchInput.value = "";
                             });
 
                             searchResults.appendChild(li);
@@ -321,14 +321,14 @@
 
         // Close dropdowns when clicking outside
         document.addEventListener('click', function(event) {
-            const notificationsButton = document.querySelector('[onclick="toggleNotifications()"]');
+            // const notificationsButton = document.querySelector('[onclick="toggleNotifications()"]');
             const profileButton = document.querySelector('[onclick="toggleProfileMenu()"]');
-            const notificationsDropdown = document.getElementById('notifications-dropdown');
+            // const notificationsDropdown = document.getElementById('notifications-dropdown');
             const profileDropdown = document.getElementById('profile-dropdown');
 
-            if (!notificationsButton.contains(event.target) && !notificationsDropdown.contains(event.target)) {
-                notificationsDropdown.classList.add('hidden');
-            }
+            // if (!notificationsButton.contains(event.target) && !notificationsDropdown.contains(event.target)) {
+            //     notificationsDropdown.classList.add('hidden');
+            // }
 
             if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
                 profileDropdown.classList.add('hidden');
@@ -409,6 +409,17 @@
         function truncateText(text, maxLength = 100) {
             if (!text) return ''; // Nếu không có dữ liệu, trả về rỗng
             return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        }
+        
+        function formatNumber(num) {
+            if (num >= 1_000_000_000) {
+                return (num / 1_000_000_000).toFixed(1) + 'B'; // Tỷ
+            } else if (num >= 1_000_000) {
+                return (num / 1_000_000).toFixed(1) + 'M'; // Triệu
+            } else if (num >= 1_000) {
+                return (num / 1_000).toFixed(1) + 'K'; // Nghìn
+            }
+            return num; // Giữ nguyên nếu nhỏ hơn 1000
         }
     </script>
 </body>

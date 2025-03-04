@@ -15,6 +15,7 @@ class UserController extends Controller{
         return view('info');
     }
     
+    //trang chủ cho quản trị (bảng dữ liệu)
     public function indexAdmin(){
         return view('user.index');
     }
@@ -22,6 +23,7 @@ class UserController extends Controller{
     public function create_post(){
         return view('create_post');
     }
+
     public function create_post_submit(Request $request){
         $request->validate([
             'title' => 'required',
@@ -47,7 +49,7 @@ class UserController extends Controller{
         return redirect()->route('post', ['link' => $link]);
     }
 
-
+    //API lấy bảng dữ liệu
     public function getAll(){
         $users = User::all();
         return response()->json([
@@ -57,6 +59,7 @@ class UserController extends Controller{
         );
     }
 
+    //API lấy dữ liệu cụ thể
     public function get(Request $request){
         $user = User::find($request->id);
         return response()->json([
@@ -66,6 +69,7 @@ class UserController extends Controller{
         );
     }
 
+    //Cập nhật dữ liệu
     public function update(Request $request){
         
         $request->validate([
@@ -99,7 +103,7 @@ class UserController extends Controller{
             $user->save();
             return response()->json([
                 'status' => '200',
-                'message' => __('language.updated_item_success')  // Thành công
+                'message' => __('language.updated_item_success')
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -109,6 +113,7 @@ class UserController extends Controller{
         }
     }
 
+    //Xóa 1 dòng dữ liệu
     public function delete(Request $request)
     {
         $user = User::find($request->id);
@@ -134,7 +139,7 @@ class UserController extends Controller{
         }
     }
 
-
+    //Xóa nhiều dòng dữ liệu
     public function deleteItems(Request $request)
     {
         if (!isset($request->ids) || count($request->ids) === 0) {

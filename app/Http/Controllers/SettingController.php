@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
+    //Trang chủ cài đặt cho quản trị
     public function setting() {
         $setting = Setting::first();
         if (!$setting) {
@@ -23,6 +24,7 @@ class SettingController extends Controller
         return view('setting.index')->with('email', $setting -> email)->with('hadPassword', $setting -> password != null);
     }
 
+    //Cập nhật dữ liệu
     public function update(Request $request)
     {
         $setting = Setting::first();
