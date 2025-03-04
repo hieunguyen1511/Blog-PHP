@@ -29,106 +29,107 @@
                 </div>
             @endif
         </div>
-        
-        <div class="space-y-4">
-            <div class="relative group flex flex-col items-start">
+
+        <div class="space-y-6 max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+            <!-- Ảnh đại diện -->
+            <div class="relative flex flex-col items-center">
                 <div class="relative w-28 h-28">
                     <img src="{{ $user->profile_picture ?? asset('default_avatar.jpg') }}" 
                         id="editProfilePic" 
                         alt="Profile Picture" 
                         class="w-full h-full rounded-full border-2 border-gray-300 object-cover cursor-pointer">
-                    
                     <input type="file" id="fileInputProfilePic" name="profile_picture" accept="image/*" class="hidden">
-                    
                     <div id="profilePicOverlay" 
                         class="absolute inset-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer rounded-full">
                         <span class="text-white text-sm font-semibold">{{ __('language.change_picture') }}</span>
                     </div>
                 </div>
             </div>
-            
-    
-            <div class="relative group flex flex-col items-start">
-                <div class="relative w-full max-w-xl">
-                    <img src="{{ $user->cover_photo ?? asset('default_cover_photo.jpg') }}"
-                        id="editCoverPhoto" 
-                        alt="Cover Photo" 
-                        class="w-full h-40 border-2 border-gray-300 object-cover cursor-pointer rounded-lg bg-gray-100">
-                    <input type="file" id="fileInputCoverPhoto" name="cover_photo" accept="image/*" class="hidden">
-                    <div id="coverPhotoOverlay" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer rounded-lg">
-                        <span class="text-white text-sm font-semibold">{{ __('language.change_picture') }}</span>
-                    </div>
+        
+            <!-- Ảnh bìa -->
+            <div class="relative">
+                <img src="{{ $user->cover_photo ?? asset('default_cover_photo.jpg') }}"
+                    id="editCoverPhoto" 
+                    alt="Cover Photo" 
+                    class="w-full h-40 rounded-lg border-2 border-gray-300 object-cover cursor-pointer">
+                <input type="file" id="fileInputCoverPhoto" name="cover_photo" accept="image/*" class="hidden">
+                <div id="coverPhotoOverlay" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer rounded-lg">
+                    <span class="text-white text-sm font-semibold">{{ __('language.change_picture') }}</span>
                 </div>
             </div>
-            
         
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">{{ __('language.title_email_user') }}</label>
-                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required class="block w-full p-2 border border-gray-300 rounded-md" placeholder="{{__('language.placeholder_email')}}">
-                <p class="italic text-red-600 text-sm" id="alert-email"></p>
+            <!-- Thông tin cá nhân -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('language.title_email_user') }}</label>
+                    <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required class="block w-full p-2 border border-gray-300 rounded-md">
+                    <p class="italic text-red-600 text-sm" id="alert-email"></p>
+                </div>
+        
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('language.title_full_name_user') }}</label>
+                    <input type="text" id="full_name" name="full_name" value="{{ old('full_name', $user->full_name) }}" required class="block w-full p-2 border border-gray-300 rounded-md">
+                </div>
             </div>
         
+            <!-- Ngày sinh -->
             <div>
-                <label for="full_name" class="block text-sm font-medium text-gray-700">{{ __('language.title_full_name_user') }}</label>
-                <input type="text" id="full_name" name="full_name" value="{{ old('full_name', $user->full_name) }}" required class="block w-full p-2 border border-gray-300 rounded-md" placeholder="{{__('language.placeholder_fullname_user')}}">
-            </div>
-            <div class="mb-4 relative">
-                <label for="date" class="block text-sm font-medium text-gray-700">
-                    {{ __('language.title_date_user') }}
-                </label>
+                <label class="block text-sm font-medium text-gray-700">{{ __('language.title_date_user') }}</label>
                 <div class="relative">
-                    <input type="text" id="date" name="date" value="{{ old('date', $user->date) }}" onfocus="console.log(this.value)"
-                        class="w-full p-3 pr-10 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
-                        placeholder="{{ __('language.placeholder_date_user') }}">
-                    
+                    <input type="text" id="date" name="date" value="{{ old('date', $user->date) }}"
+                        class="w-full p-3 pr-10 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400">
                     <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer text-lg" id="openCalendar">📅</span>
                 </div>
             </div>
         
+            <!-- Số điện thoại -->
             <div>
-                <label for="phone" class="block text-sm font-medium text-gray-700">{{ __('language.title_phone_user') }}</label>
-                <input type="tel" pattern="[0-9]{10}" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" class="w-full p-3 border rounded" placeholder="{{ __('language.placeholder_phone_user') }}">
+                <label class="block text-sm font-medium text-gray-700">{{ __('language.title_phone_user') }}</label>
+                <input type="tel" pattern="[0-9]{10}" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" class="w-full p-3 border border-gray-300 rounded-md">
             </div>
-            
+        
+            <!-- Tiểu sử -->
             <div>
-                <label for="bio" class="block text-sm font-medium text-gray-700">
-                    {{ __('language.title_bio_user') }}
-                </label>
-                <textarea id="bio" name="bio" rows="4"
-                    class="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
-                    placeholder="{{ __('language.placeholder_bio_user') }}">{{ old('bio', $user->bio) }}</textarea>
+                <label class="block text-sm font-medium text-gray-700">{{ __('language.title_bio_user') }}</label>
+                <textarea id="bio" name="bio" rows="4" class="block w-full p-3 border border-gray-300 rounded-lg">{{ old('bio', $user->bio) }}</textarea>
             </div>
-            
-            
-            <div class="relative">
-                <label for="old-password" class="block text-sm font-medium text-gray-700">{{ __('language.title_old_password') }}</label>
-                <div class="flex items-center border border-gray-300 rounded-md">
-                    <input type="password" id="old-password" name="old-password" class="block w-full p-2 border border-gray-300 rounded-md pr-10" placeholder="{{__('language.placeholder_repassword')}}">
-                    <i id="toggle-old-password" class="fa fa-eye absolute right-3 cursor-pointer"></i>
+        
+            <!-- Mật khẩu -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="relative">
+                    <label class="block text-sm font-medium text-gray-700">{{ __('language.title_old_password') }}</label>
+                    <div class="flex items-center border border-gray-300 rounded-md">
+                        <input type="password" id="old-password" name="old-password" class="block w-full p-2 rounded-md pr-10">
+                        <i id="toggle-old-password" class="fa fa-eye absolute right-3 cursor-pointer"></i>
+                    </div>
+                </div>
+        
+                <div class="relative">
+                    <label class="block text-sm font-medium text-gray-700">{{ __('language.title_new_password_user') }}</label>
+                    <div class="flex items-center border border-gray-300 rounded-md">
+                        <input type="password" id="new-password" name="new-password" class="block w-full p-2 pr-10 rounded-md">
+                        <i id="toggle-new-password" class="fa fa-eye absolute right-3 cursor-pointer"></i>
+                    </div>
+                    <p class="italic text-red-600 text-sm" id="alert-new-password"></p>
                 </div>
             </div>
-
-            <div class="relative">
-                <label for="new-password" class="block text-sm font-medium text-gray-700">{{ __('language.title_new_password_user') }}</label>
-                <div class="flex items-center border border-gray-300 rounded-md">
-                    <input type="password" id="new-password" name="new-password" class="block w-full p-2 pr-10 rounded-md outline-none" placeholder="{{__('language.placeholder_new_password_user')}}">
-                    <i id="toggle-new-password" class="fa fa-eye absolute right-3 cursor-pointer"></i>
-                </div>
-                <p class="italic text-red-600 text-sm" id="alert-new-password"></p>
-            </div>
-            
         
             <div class="relative">
-                <label for="re-new-password" class="block text-sm font-medium text-gray-700">{{ __('language.title_re_new_password') }}</label>
+                <label class="block text-sm font-medium text-gray-700">{{ __('language.title_re_new_password') }}</label>
                 <div class="flex items-center border border-gray-300 rounded-md">
-                    <input type="password" id="re-new-password" name="re-new-password" class="block w-full p-2 border border-gray-300 rounded-md pr-10" placeholder="{{__('language.placeholder_repassword')}}">
+                    <input type="password" id="re-new-password" name="re-new-password" class="block w-full p-2 rounded-md pr-10">
                     <i id="toggle-re-new-password" class="fa fa-eye absolute right-3 cursor-pointer"></i>
                 </div>
                 <p class="italic text-red-600 text-sm" id="alert-re-new-password"></p>
             </div>
+        
+            <!-- Nút lưu -->
+            <div class="flex justify-center">
+                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">{{ __('language.btn_update') }}</button>
+            </div>
         </div>
         
-        <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 text-lg rounded-lg hover:bg-blue-600">{{ __('language.btn_update') }}</button>
+        
     </form>
     
 </div>
