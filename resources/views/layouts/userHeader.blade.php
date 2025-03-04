@@ -117,7 +117,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                             </svg>
-                            @if ($noti_comment->count()>0 || $noti_like->count()>0)
+                            @if ($noti_comment->count() > 0 || $noti_like->count() > 0)
                                 <span
                                     class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
                             @else
@@ -132,35 +132,53 @@
                                 <h3 class="text-lg font-semibold px-4 py-2 border-b">
                                     {{ __('language.header_notifications') }}</h3>
                                 <div class="max-h-64 overflow-y-auto">
-                                    <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
-                                        {{ __('language.header_notifications_comment') }}</h3>
-                                    @foreach ($noti_comment as $item)
-                                        <a href="#" onclick="document.getElementById('cmt_post_id_{{$item->post->id}}').submit()"
-                                            class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
-                                            <p class="text-sm font-medium text-gray-900">{{$item->user->full_name.' '.__('language.header_notifications_content_comment').' "'.$item->post->title.'"'}}</p>
-                                            <p class="text-xs text-gray-500">{{$item->created_at->diffForHumans()}}</p>
-                                            <form id="cmt_post_id_{{$item->post->id}}" hidden action="{{ route('process_noti_comment') }}" method="POST">
-                                                @csrf
-                                                <input hidden type="text" id="cmt_id" name="cmt_id" value="{{$item->id}}">
-                    
-                                            </form>
-                                        </a>
-                                    @endforeach
+                                    @if ($noti_comment->count() > 0 || $noti_like->count() > 0)
+                                        <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
+                                            {{ __('language.header_notifications_comment') }}</h3>
+                                        @foreach ($noti_comment as $item)
+                                            <a href="#"
+                                                onclick="document.getElementById('cmt_post_id_{{ $item->post->id }}').submit()"
+                                                class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
+                                                <p class="text-sm font-medium text-gray-900">
+                                                    {{ $item->user->full_name . ' ' . __('language.header_notifications_content_comment') . ' "' . $item->post->title . '"' }}
+                                                </p>
+                                                <p class="text-xs text-gray-500">
+                                                    {{ $item->created_at->diffForHumans() }}</p>
+                                                <form id="cmt_post_id_{{ $item->post->id }}" hidden
+                                                    action="{{ route('process_noti_comment') }}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" id="cmt_id" name="cmt_id"
+                                                        value="{{ $item->id }}">
 
-                                    <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
-                                        {{ __('language.header_notifications_like') }}</h3>
-                                    @foreach ($noti_like as $item)
-                                    <a href="#" onclick="document.getElementById('like_post_id_{{$item->post->id}}').submit()"
-                                        class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
-                                        <p class="text-sm font-medium text-gray-900">{{$item->user->full_name.' '.__('language.header_notifications_content_like').' "'.$item->post->title.'"'}}</p>
-                                        <p class="text-xs text-gray-500">{{$item->created_at->diffForHumans()}}</p>
-                                        <form id="like_post_id_{{$item->post->id}}" hidden action="{{ route('process_noti_like') }}" method="POST">
-                                            @csrf
-                                            <input hidden type="text" id="like_id" name="like_id" value="{{$item->id}}">
-                                            
-                                        </form>
-                                    </a>
-                                    @endforeach
+                                                </form>
+                                            </a>
+                                        @endforeach
+
+                                        <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
+                                            {{ __('language.header_notifications_like') }}</h3>
+                                        @foreach ($noti_like as $item)
+                                            <a href="#"
+                                                onclick="document.getElementById('like_post_id_{{ $item->post->id }}').submit()"
+                                                class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
+                                                <p class="text-sm font-medium text-gray-900">
+                                                    {{ $item->user->full_name . ' ' . __('language.header_notifications_content_like') . ' "' . $item->post->title . '"' }}
+                                                </p>
+                                                <p class="text-xs text-gray-500">
+                                                    {{ $item->created_at->diffForHumans() }}</p>
+                                                <form id="like_post_id_{{ $item->post->id }}" hidden
+                                                    action="{{ route('process_noti_like') }}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" id="like_id" name="like_id"
+                                                        value="{{ $item->id }}">
+
+                                                </form>
+                                            </a>
+                                        @endforeach
+                                    @else
+                                    <h3 class="px-4 py-2 text-xs flex justify-center font-semibold text-gray-500 uppercase">
+                                        {{ __('language.header_notifications_empty') }}</h3>
+                                    @endif
+
 
                                 </div>
                                 <a href="/notifications"
@@ -408,6 +426,4 @@
         let words = text.split(' ');
         return words.length > wordLimit ? words.slice(0, wordLimit).join(' ') + '...' : text;
     }
-
-
 </script>
