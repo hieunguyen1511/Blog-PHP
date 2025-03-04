@@ -150,7 +150,6 @@ class PostController extends Controller{
         }
         
     }
-
     //Xóa 1 dòng dữ liệu bình luận
     public function deleteComment(Request $request)
     {

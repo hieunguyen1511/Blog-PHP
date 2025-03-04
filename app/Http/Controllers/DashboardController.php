@@ -175,7 +175,6 @@ class DashboardController extends Controller
     {
         $limit = 4;
         $offset = $request->input('offset', 0);
-
         $lastest_posts = Post::with('user', 'category')
             ->latest()
             ->skip($offset)
