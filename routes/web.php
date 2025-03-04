@@ -96,30 +96,6 @@ Route::middleware(localization::class)->group(function(){
         Route::get('/setting', [SettingController::class, 'setting'])->name('setting.index');
         Route::post('/setting/update', [SettingController::class, 'update'])->name('setting.update');
 
-        //Page Notification
-        Route::get('/notification', [NotificationController::class, 'index'])->name('notification.index');
-        Route::get('/notification/data', [NotificationController::class, 'getAll']) -> name('notification.getAll');
-        Route::delete('/notification/{id}/delete', [NotificationController::class, 'delete'])->name('notification.delete');
-        Route::post('/notification/delete-items', [NotificationController::class, 'deleteItems'])->name('notification.deleteItems');
-        Route::get('/notification/{id}', [NotificationController::class, 'get'])->name('notification.get');
-        Route::post('/notification/{id}/update', [NotificationController::class, 'update'])->name('notification.update');
-        Route::post('/notification/get-data', [NotificationController::class, 'getData'])->name('notification.getData');
-        Route::post('/notification/get-newest', [NotificationController::class, 'getNewest'])->name('notification.getNewest');
-        Route::post('/notification/get-unread-count', [NotificationController::class, 'getUnreadCount'])->name('notification.getUnreadCount');
-        Route::post('/notification/get-load-more', [NotificationController::class, 'getLoadMore'])->name('notification.getLoadMore');
-
-        //Page Notification Type
-        Route::get('/notification-type', [NotificationTypeController::class, 'index'])->name('notificationType.index');
-        Route::get('/notification-type/data', [NotificationTypeController::class, 'getAll']) -> name('notificationType.getAll');
-        Route::post('/notification-type/create', [NotificationTypeController::class, 'create'])->name('notificationType.create');
-        Route::delete('/notification-type/{id}/delete', [NotificationTypeController::class, 'delete'])->name('notificationType.delete');
-        Route::post('/notification-type/delete-items', [NotificationTypeController::class, 'deleteItems'])->name('notificationType.deleteItems');
-        Route::get('/notification-type/{id}', [NotificationTypeController::class, 'get'])->name('notificationType.get');
-        Route::post('/notification-type/{id}/update', [NotificationTypeController::class, 'update'])->name('notificationType.update');
-        
-        //Seen Notification
-        Route::post('/seen-notification/create', [SeenNotificationController::class, 'create'])->name('seenNotification.create');
-    
         //Page Profile
         Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
         Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');

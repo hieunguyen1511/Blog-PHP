@@ -103,26 +103,26 @@ return [
     'count_published_posts' => 'Số bài đăng',
     'latest_posts' => 'Bài đăng mới nhất',
 
-    //page Notification admin
-    'title_notification_index' => 'Danh sách thông báo',
-    'title_edit_notification' => 'Cập nhật thông báo',
-    'title_user_notification' => 'Người dùng',
-    'title_content_notification' => 'Nội dung thông báo',
-    'placeholder_content_notification' => 'Điền nội dung thông báo',
-    'title_notification_type' => 'Loại thông báo',
-    'error_content_notification' => 'Vui lòng điền nội dung thông báo',
+    // //page Notification admin
+    // 'title_notification_index' => 'Danh sách thông báo',
+    // 'title_edit_notification' => 'Cập nhật thông báo',
+    // 'title_user_notification' => 'Người dùng',
+    // 'title_content_notification' => 'Nội dung thông báo',
+    // 'placeholder_content_notification' => 'Điền nội dung thông báo',
+    // 'title_notification_type' => 'Loại thông báo',
+    // 'error_content_notification' => 'Vui lòng điền nội dung thông báo',
     
-    //page Notification type admin
-    'title_notification_type_index' => 'Danh sách loại thông báo',
-    'btn_add_notification_type' => 'Thêm loại thông báo',
-    'title_add_notification_type' => 'Thêm mới loại thông báo',
-    'title_edit_notification_type' => 'Cập nhật loại thông báo',
-    'title_tag_notification_type' => 'Tên loại thông báo',
-    'placeholder_tag_notification_type' => 'Điền tên nhãn thông báo',
-    'title_message_notification_type' => 'Nội dung thông báo',
-    'placeholder_message_notification_type' => 'Điền nội dung thông báo',
-    'error_tag_notification_type' => 'Vui lòng điền tên nhãn thông báo',
-    'error_message_notification_type' => 'Vui lòng điền nội dung thông báo',
+    // //page Notification type admin
+    // 'title_notification_type_index' => 'Danh sách loại thông báo',
+    // 'btn_add_notification_type' => 'Thêm loại thông báo',
+    // 'title_add_notification_type' => 'Thêm mới loại thông báo',
+    // 'title_edit_notification_type' => 'Cập nhật loại thông báo',
+    // 'title_tag_notification_type' => 'Tên loại thông báo',
+    // 'placeholder_tag_notification_type' => 'Điền tên nhãn thông báo',
+    // 'title_message_notification_type' => 'Nội dung thông báo',
+    // 'placeholder_message_notification_type' => 'Điền nội dung thông báo',
+    // 'error_tag_notification_type' => 'Vui lòng điền tên nhãn thông báo',
+    // 'error_message_notification_type' => 'Vui lòng điền nội dung thông báo',
 
     'title_create_at' => 'Ngày tạo',
 
