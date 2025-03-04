@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers;
+use App\Models\Comment;
 use App\Models\Post;
+use App\Models\PostLikes;
 use App\Models\User;
 use DateTime;
 use Illuminate\Support\Carbon;
@@ -257,6 +259,29 @@ class UserController extends Controller
         ]);
     }
 
+
+    public function post_notification()
+    {
+        return view('user_setting.setting', [
+            'section' => 'partial_post_noti',
+        ]);
+    }
+
+
+    public function process_noti_comment(Request $request){
+        $comment = Comment::find($request->cmt_id);
+        $comment->is_seen = 1;
+        $comment->save();
+        return redirect()->route('post-detail', ['link' => $comment->post->link]);
+
+    }
+
+    public function process_noti_like(Request $request){
+        $likePost = PostLikes::find($request->like_id);
+        $likePost->is_seen = 1;
+        $likePost->save();
+        return redirect()->route('post-detail', ['link' => $likePost->post->link]);
+    }
 
 
 }

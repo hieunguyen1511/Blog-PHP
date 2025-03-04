@@ -61,6 +61,11 @@ return [
     'header_notifications' => 'Notifications',
     'header_notifications_empty' => 'No notifications',
     'header_notifications_all' => 'View all',
+    'header_notifications_comment' => 'Commented on your post',
+    'header_notifications_like' => 'Liked your post',
+
+    'header_notifications_content_comment' => 'has commented on your post',
+    'header_notifications_content_like' => 'has liked your post',
 
     'header_related_post' => 'Related Post',
     'header_related_category' => 'Related Category',
@@ -110,7 +115,7 @@ return [
     'setting_my_post' => 'My Posts',
     'setting_create_post' => 'Create Post',
     'setting_favorite_post' => 'Favorite Posts',
-
+    
     'setting_media_resource_label' => 'Media Resource',
 
 
@@ -140,6 +145,10 @@ return [
     // setting media resource
     'setting_media_resource' => 'Media Resource',
 
+
+
+    // setting post notification
+    'setting_post_notification' => 'Post Notification',
 
     // setting my post
     'setting_my_post' => 'My Post',

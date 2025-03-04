@@ -44,12 +44,13 @@
             <div class="flex items-center space-x-4">
                 <!-- Search Field (hidden on mobile) -->
                 <div class="hidden md:block relative">
-                    <form method="post" action="{{route('search')}}">
+                    <form method="post" action="{{ route('search') }}">
                         @csrf
-                        <input type="text" name="search" id="search-input" placeholder="{{ __('language.header_Placeholder_search') }}"
-                        class="w-96 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="search" id="search-input"
+                            placeholder="{{ __('language.header_Placeholder_search') }}"
+                            class="w-96 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     </form>
-                    
+
 
                     <!-- Search Results Dropdown -->
                     <div id="search-results"
@@ -57,7 +58,8 @@
                         <div class="py-2">
                             <!-- Posts Section -->
                             <div id="related-posts" class="border-b border-gray-100">
-                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">{{__('language.header_related_post')}}</h3>
+                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
+                                    {{ __('language.header_related_post') }}</h3>
                                 <div class="max-h-48 overflow-y-auto" id="posts-container">
                                     <!-- Posts will be dynamically inserted here -->
                                 </div>
@@ -65,7 +67,8 @@
 
                             <!-- Categories Section -->
                             <div id="related-categories">
-                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">{{__('language.header_related_category')}}
+                                <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
+                                    {{ __('language.header_related_category') }}
                                 </h3>
                                 <div class="max-h-32 overflow-y-auto" id="categories-container">
                                     <!-- Categories will be dynamically inserted here -->
@@ -78,7 +81,7 @@
                 <!-- Language Switcher -->
                 <div class="hidden md:block">
                     <select onchange="window.location.href=this.value"
-                        class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        class="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                         <option value="{{ url('/lang/en') }}" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>
                             English</option>
                         <option value="{{ url('/lang/vi') }}" {{ app()->getLocale() == 'vi' ? 'selected' : '' }}>Tiếng
@@ -104,16 +107,22 @@
                     ?>
                     <div class="relative inline-block">
                         <!-- Notification Icon -->
+
                         <button
                             class="relative p-1 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             id="notification-button">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
+
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                             </svg>
-                            <span
-                                class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
+                            @if ($noti_comment->count()>0 || $noti_like->count()>0)
+                                <span
+                                    class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
+                            @else
+                            @endif
+
                         </button>
 
                         <!-- Notification Popup -->
@@ -123,16 +132,36 @@
                                 <h3 class="text-lg font-semibold px-4 py-2 border-b">
                                     {{ __('language.header_notifications') }}</h3>
                                 <div class="max-h-64 overflow-y-auto">
-                                    <a href="#"
+                                    <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
+                                        {{ __('language.header_notifications_comment') }}</h3>
+                                    @foreach ($noti_comment as $item)
+                                        <a href="#" onclick="document.getElementById('cmt_post_id_{{$item->post->id}}').submit()"
+                                            class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
+                                            <p class="text-sm font-medium text-gray-900">{{$item->user->full_name.' '.__('language.header_notifications_content_comment').' "'.$item->post->title.'"'}}</p>
+                                            <p class="text-xs text-gray-500">{{$item->created_at->diffForHumans()}}</p>
+                                            <form id="cmt_post_id_{{$item->post->id}}" hidden action="{{ route('process_noti_comment') }}" method="POST">
+                                                @csrf
+                                                <input hidden type="text" id="cmt_id" name="cmt_id" value="{{$item->id}}">
+                    
+                                            </form>
+                                        </a>
+                                    @endforeach
+
+                                    <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
+                                        {{ __('language.header_notifications_like') }}</h3>
+                                    @foreach ($noti_like as $item)
+                                    <a href="#" onclick="document.getElementById('like_post_id_{{$item->post->id}}').submit()"
                                         class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
-                                        <p class="text-sm font-medium text-gray-900">New comment on your post</p>
-                                        <p class="text-xs text-gray-500">1 hour ago</p>
+                                        <p class="text-sm font-medium text-gray-900">{{$item->user->full_name.' '.__('language.header_notifications_content_like').' "'.$item->post->title.'"'}}</p>
+                                        <p class="text-xs text-gray-500">{{$item->created_at->diffForHumans()}}</p>
+                                        <form id="like_post_id_{{$item->post->id}}" hidden action="{{ route('process_noti_like') }}" method="POST">
+                                            @csrf
+                                            <input hidden type="text" id="like_id" name="like_id" value="{{$item->id}}">
+                                            
+                                        </form>
                                     </a>
-                                    <a href="#"
-                                        class="block px-4 py-3 hover:bg-gray-100 transition ease-in-out duration-150">
-                                        <p class="text-sm font-medium text-gray-900">You have a new follower</p>
-                                        <p class="text-xs text-gray-500">3 hours ago</p>
-                                    </a>
+                                    @endforeach
+
                                 </div>
                                 <a href="/notifications"
                                     class="block bg-gray-50 text-sm font-medium text-center text-blue-600 py-2">{{ __('language.header_notifications_all') }}</a>
@@ -156,15 +185,15 @@
                                     <div class="py-1">
                                         <a href="{{ route('create_post') }}"
                                             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-                                            <svg class="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
+                                            <svg class="w-5 h-5 mr-3 text-gray-500" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                                                 </path>
                                             </svg>
                                             {{ __('language.header_user_new_post') }}
                                         </a>
-                                        <a href="{{route('get-profile',['username'=>$user->username])}}"
+                                        <a href="{{ route('get-profile', ['username' => $user->username]) }}"
                                             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
                                             <svg class="w-5 h-5 mr-3 text-gray-500" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">
@@ -174,7 +203,7 @@
                                             </svg>
                                             {{ __('language.header_user_profile') }}
                                         </a>
-                                        <a href="{{route('setting')}}"
+                                        <a href="{{ route('setting') }}"
                                             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
                                             <svg class="w-5 h-5 mr-3 text-gray-500" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">
@@ -216,7 +245,6 @@
                             </div>
                         </div>
                     </div>
-                   
                 @endif
 
 
@@ -345,14 +373,16 @@
                     method: 'GET',
                     success: function(response) {
                         if (response.status === '200') {
-                            document.getElementById('mobile-posts-container').innerHTML = response
+                            document.getElementById('mobile-posts-container').innerHTML =
+                                response
                                 .posts.map(
                                     post => ` <a href="/post/${post.link}" class="block px-4 py-2 hover:bg-blue-50">
                                                 <div class="text-sm font-medium text-gray-900">${post.title}</div>
                                                 <div class="text-xs text-gray-500">${truncateText(post.description,20)}</div>
                                             </a>`
                                 ).join('');
-                            document.getElementById('mobile-categories-container').innerHTML =
+                            document.getElementById('mobile-categories-container')
+                                .innerHTML =
                                 response.categories.map(
                                     category => `
                                                 <a href="/category/${category.name}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">
@@ -378,4 +408,6 @@
         let words = text.split(' ');
         return words.length > wordLimit ? words.slice(0, wordLimit).join(' ') + '...' : text;
     }
+
+
 </script>

@@ -12,7 +12,6 @@ use App\Models\PostLikes;
 
 class HomeController extends Controller
 {
-
     public function index()
     {
         $posts = Post::with('user')->with('category')->paginate(1);
@@ -93,10 +92,13 @@ class HomeController extends Controller
                 $is_like = true;
             }
         }
-
+        $post_likes = PostLikes::where('user_id', $post->user_id)->get();
+        $total_likes = count($post_likes);
 
         $related_posts = Post::with('user')->with('category')->with('comments')->where('category_id', $post->category_id)->where('id', '!=', $post->id)->orderBy('view_count', 'desc')->take(5)->get();
-        return view('post', ['post' => $post, 'comments' => $comments, 'related_posts' => $related_posts, 'is_like' => $is_like]);
+        return view('post', ['post' => $post, 'comments' => $comments, 
+                            'related_posts' => $related_posts, 'is_like' => $is_like,
+                            'total_likes' => $total_likes]);
     }
 
     public function post_comment(Request $request)
