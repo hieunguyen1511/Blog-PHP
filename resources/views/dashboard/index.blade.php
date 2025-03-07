@@ -304,17 +304,17 @@
                                         <div class="flex items-center text-gray-500 dark:text-gray-400 text-xs mt-2 space-x-6">
                                             <div class="flex items-center space-x-1">
                                                 <i class="fas fa-thumbs-up mr-2 text-blue-600"></i>
-                                                <span>${formatNumber(post.like_count)} Likes</span>
+                                                <span>${formatNumber(post.like_count)} {{__('language.detail_post_like')}}</span>
                                             </div>
                                 
                                             <div class="flex items-center space-x-1">
                                                 <i class="fas fa-comment text-blue-500"></i>
-                                                <span>${formatNumber(post.comment_count)} Comments</span>
+                                                <span>${formatNumber(post.comment_count)} {{__('language.detail_post_comment')}}</span>
                                             </div>
                                 
                                             <div class="flex items-center space-x-1">
                                                 <i class="fas fa-eye text-green-500"></i>
-                                                <span>${formatNumber(post.view_count)} Views</span>
+                                                <span>${formatNumber(post.view_count)} {{__('language.detail_post_view')}}</span>
                                             </div>
                                         </div>
                                     </div>
