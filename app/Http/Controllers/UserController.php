@@ -260,10 +260,27 @@ class UserController extends Controller
     }
 
 
-    public function post_notification()
+    public function post_notification(Request $request)
     {
+        $noti_comments_seen = Comment::with('post')->with('user')->whereHas('post', function ($query) {
+            $query->where('user_id', session('userid'));
+        })->paginate(25);
+        $noti_likes_seen = PostLikes::with('post')->with('user')->whereHas('post', function ($query) {
+            $query->where('user_id', session('userid'));
+        })->paginate(25);
+     
+        if($request->ajax()){
+            return response()->json([
+                'status' => '200',
+                'noti_comments_seen' => $noti_comments_seen,
+                'noti_likes_seen' => $noti_likes_seen
+            ]);
+        }
+
         return view('user_setting.setting', [
             'section' => 'partial_post_noti',
+            'noti_comments_seen' => $noti_comments_seen,
+            'noti_likes_seen' => $noti_likes_seen
         ]);
     }
 

@@ -79,11 +79,6 @@ Route::middleware(localization::class)->group(function () {
         return view('about');
     });
 
-    Route::get('/test', function () {
-        return view('test');
-    });
-
-
     // page Register
     Route::get('/register', [RegisterController::class, 'register'])->name('register');
     Route::post('/register', [RegisterController::class, 'registerUser'])->name('registerUser');
@@ -117,34 +112,13 @@ Route::middleware(localization::class)->group(function () {
 
 
 
-    Route::get('/test2', function () {
-        return view('test2');
-    });
-
-
-    Route::get('/test3', function () {
-        return view('test3');
-    });
-
+   
     // change language
     Route::get('/lang/{language}', function () {
         $language = request()->language;
         Session::put('language', $language);
         return redirect()->back();
     });
-});
-
-Route::get('/test5', function () {
-    return view('userprofile');
-});
-Route::get('/test6', function () {
-    return view('layouts.post_1');
-});
-Route::get('/lfm', function () {
-    return view('testlfm');
-});
-Route::get('/test7', function () {
-    return view('postManagement');
 });
 //api
 Route::get('/api/search/{key}', [HomeController::class, 'search']);

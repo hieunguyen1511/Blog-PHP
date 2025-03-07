@@ -181,7 +181,7 @@
 
 
                                 </div>
-                                <a href="/notifications"
+                                <a href="{{route('post_notification')}}"
                                     class="block bg-gray-50 text-sm font-medium text-center text-blue-600 py-2">{{ __('language.header_notifications_all') }}</a>
                             </div>
                         </div>

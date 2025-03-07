@@ -149,6 +149,7 @@ return [
 
     // setting post notification
     'setting_post_notification' => 'Post Notification',
+    'setting_post_notification_load' => 'Load more notifications',
 
     // setting my post
     'setting_my_post' => 'My Post',
