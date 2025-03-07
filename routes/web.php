@@ -115,7 +115,7 @@ Route::middleware(localization::class)->group(function(){
 
 
     //user-profile
-    Route::get('/user/{username}',[HomeController::class,'get_profile'])-> name('get-profile');
+    Route::get('/user/v/{username}',[HomeController::class,'get_profile'])-> name('get-profile');
     
     Route::middleware(checkLogin::class) -> prefix('/admin') -> group(function() {
         //Page Dashboard
