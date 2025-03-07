@@ -7,7 +7,7 @@
     <!-- Nhóm 1: Cài đặt tài khoản -->
     <form id="settingsForm" action="{{ route('setting.update') }}" method="post" class="space-y-4">
         @csrf
-        <h3 class="text-xl font-medium mb-2">{{__('language.title_authentication_user_setting')}}</h3>
+        <h3 class="text-sm font-medium mb-2">{{__('language.title_authentication_user_setting')}}</h3>
         <div class="flex items-center justify-center">
             @if (session('errorSetting'))
                 <div id="toast-danger" class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-800 bg-red-100 rounded-lg shadow-sm" role="alert">
