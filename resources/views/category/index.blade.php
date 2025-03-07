@@ -35,20 +35,33 @@
 </div>
 
 <!-- Modal để thêm danh mục -->
-<div id="addCategoryModal" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white rounded-lg shadow-xl p-6 w-96">
-        <h2 class="text-2xl font-semibold mb-4"> {{__('language.title_add_category') }}</h2>
-        <form id="addCategoryForm">
-            @csrf
-            <div class="mb-4">
-                <label for="addCategoryName" class="block text-sm font-medium text-gray-700">{{__('language.title_name_category')}}</label>
-                <input type="text" id="addCategoryName" name="addCategoryName" class="w-full mt-1 p-2 border rounded" placeholder="{{__('language.placeholder_name_category')}}">
-            </div>
-            <div class="flex justify-end space-x-2">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">{{__('language.btn_create')}}</button>
-                <button type="button" id="closeAddModal" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">{{__('language.btn_cancel')}}</button>
-            </div>
-        </form>
+<div id="addCategoryModal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50">
+    <div class="relative bg-white rounded-lg shadow-lg w-1/3 max-h-[90vh] overflow-y-auto p-0">
+        <!-- Header cố định khi cuộn -->
+        <div class="sticky top-0 left-0 right-0 bg-white flex justify-between items-center px-6 py-3 border-b shadow-md rounded-t-lg z-50">
+            <h2 class="text-xl font-semibold">{{ __('language.title_add_category') }}</h2>
+            <button type="button" id="closeAddModal" class="text-gray-500 hover:text-gray-700 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="addCategoryForm">
+                @csrf
+                <div class="mb-4">
+                    <label for="addCategoryName" class="block text-sm font-medium text-gray-700">{{__('language.title_name_category')}}</label>
+                    <input type="text" id="addCategoryName" name="addCategoryName" class="w-full mt-1 p-2 border rounded" placeholder="{{__('language.placeholder_name_category')}}">
+                </div>
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button type="submit" class="p-3 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 hover:shadow-xl active:scale-95 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m-8-8h16" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -83,11 +96,6 @@
                     <button type="submit" class="p-3 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 hover:shadow-xl active:scale-95 transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </button>
-                    <button type="button" onclick="closeEditModal()" class="p-3 bg-gray-500 text-white rounded-full shadow-lg hover:bg-gray-600 hover:shadow-xl active:scale-95 transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
