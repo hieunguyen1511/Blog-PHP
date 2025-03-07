@@ -83,10 +83,13 @@
         </div>
 
 
-        <button type="submit" class="bg-blue-500 text-white px-8 py-2 text-lg rounded-lg hover:bg-blue-600">
+        <button type="submit" class="w-full flex items-center justify-center gap-2 py-3 text-lg font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition active:scale-95">
+            <svg class="w-6 h-6 text-white animate-spin hidden" id="loading-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12a11 11 0 1 0 22 0A11 11 0 1 0 1 12"></path>
+            </svg>
+            <i class="fas fa-sync-alt"></i>  <!-- Hoặc có thể dùng fa-save -->
             {{ __('language.btn_update') }}
         </button>
-        
     </form>
 </div>
 
