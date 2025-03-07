@@ -5,8 +5,9 @@
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-semibold">{{ __('language.title_user_index') }}</h2>
         <div class="flex space-x-2">
-            <!-- Nút Xóa danh mục đã chọn -->
-            <button id="deleteSelected" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+            <!-- Nút Xóa người dùng đã chọn -->
+            <button id="deleteSelected" class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white font-medium rounded-lg shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300">
+                <i class="fas fa-trash-alt"></i>
                 {{ __('language.btn_delete_items') }}
             </button>
         </div>
@@ -34,78 +35,92 @@
 <!-- Modal để sửa user -->
 <!-- Edit User Modal -->
 <div id="editUserModal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50">
-    <div class="bg-white p-8 rounded-2xl shadow-xl w-2/3 max-h-[90vh] overflow-y-auto">
-        <h2 class="text-2xl font-bold text-blue-600 mb-6">{{ __('language.title_edit_user') }}</h2>
-        <form id="editUserForm" class="space-y-6">
-            @csrf
-            <input type="hidden" id="editUserId">
+    <div class="relative bg-white rounded-2xl shadow-xl w-2/3 max-h-[90vh] overflow-y-auto p-0">
+        <div class="sticky top-0 left-0 right-0 bg-white flex justify-between items-center px-6 py-3 border-b rounded-t-2xl z-50">
+            <h2 class="text-xl font-bold text-blue-600">{{ __('language.title_edit_user') }}</h2>
+            <button type="button" onclick="closeEditModal()" class="text-gray-500 hover:text-gray-700 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="pt-16 p-8">
+            <form id="editUserForm" class="space-y-6">
+                @csrf
+                <input type="hidden" id="editUserId">
 
-            <!-- Profile & Cover Photo -->
-            <div class="grid grid-cols-2 gap-6">
-                <div class="relative group flex flex-col items-center">
-                    <img id="editProfilePic" alt="Profile Picture" class="w-32 h-32 rounded-full border-4 border-gray-300 object-cover cursor-pointer shadow-md">
-                    <input type="file" id="fileInputProfilePic" accept="image/*" class="hidden">
-                    <div id="profilePicOverlay" class="absolute w-32 h-32 rounded-full bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                        <span class="text-white text-sm font-semibold">{{ __('language.change_picture') }}</span>
+                <!-- Profile & Cover Photo -->
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="relative group flex flex-col items-center">
+                        <img id="editProfilePic" alt="Profile Picture" class="w-32 h-32 rounded-full border-4 border-gray-300 object-cover cursor-pointer shadow-md">
+                        <input type="file" id="fileInputProfilePic" accept="image/*" class="hidden">
+                        <div id="profilePicOverlay" class="absolute w-32 h-32 rounded-full bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                            <span class="text-white text-sm font-semibold">{{ __('language.change_picture') }}</span>
+                        </div>
                     </div>
+                    
+                    <div class="relative group flex flex-col items-center w-full">
+                        <img id="editCoverPhoto" alt="Cover Photo" class="w-full h-40 border-4 border-gray-300 object-cover cursor-pointer rounded-lg bg-gray-100 shadow-md">
+                        <input type="file" id="fileInputCoverPhoto" accept="image/*" class="hidden">
+                        <div id="coverPhotoOverlay" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer rounded-lg">
+                            <span class="text-white text-sm font-semibold">{{ __('language.change_picture') }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Fields -->
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label for="editFullname" class="block text-sm font-semibold text-gray-700">{{ __('language.title_full_name_user') }}</label>
+                        <input type="text" id="editFullname" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="{{ __('language.placeholder_fullname_user') }}">
+                    </div>
+                    <div>
+                        <label for="editDate" class="block text-sm font-semibold text-gray-700">{{ __('language.title_date_user') }}</label>
+                        <div class="relative">
+                            <input type="text" id="editDate" class="w-full p-3 pr-10 border rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="{{ __('language.placeholder_date_user') }}">
+                            <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer text-lg text-gray-500" id="openCalendar">📅</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="editPhone" class="block text-sm font-semibold text-gray-700">{{ __('language.title_phone_user') }}</label>
+                        <input type="tel" pattern="[0-9]{10}" id="editPhone" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="{{ __('language.placeholder_phone_user') }}">
+                    </div>
+                    <div class="relative">
+                        <label for="editNewPassword" class="block text-sm font-semibold text-gray-700">{{ __('language.title_new_password_user') }}</label>
+                        <div class="relative">
+                            <input type="password" id="editNewPassword" class="w-full p-3 pr-10 border rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="{{ __('language.placeholder_new_password_user') }}">
+                            <i class="toggle-password fa fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500"></i>
+                        </div>
+                        <p class="italic text-red-600 text-sm mt-1" id="alert-password"></p>
+                    </div>
+                </div>
+
+                <!-- Display-only Fields -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700">{{ __('language.title_username_user') }}: <span id="editUsername" class="text-blue-600 font-semibold text-sm"></span></label>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700">{{ __('language.title_email_user') }}: <span id="editEmail" class="text-blue-600 font-semibold text-sm"></span></label>
                 </div>
                 
-                <div class="relative group flex flex-col items-center w-full">
-                    <img id="editCoverPhoto" alt="Cover Photo" class="w-full h-40 border-4 border-gray-300 object-cover cursor-pointer rounded-lg bg-gray-100 shadow-md">
-                    <input type="file" id="fileInputCoverPhoto" accept="image/*" class="hidden">
-                    <div id="coverPhotoOverlay" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer rounded-lg">
-                        <span class="text-white text-sm font-semibold">{{ __('language.change_picture') }}</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Input Fields -->
-            <div class="grid grid-cols-2 gap-6">
+                <!-- Bio -->
                 <div>
-                    <label for="editFullname" class="block text-sm font-semibold text-gray-700">{{ __('language.title_full_name_user') }}</label>
-                    <input type="text" id="editFullname" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="{{ __('language.placeholder_fullname_user') }}">
+                    <label for="editBio" class="block text-sm font-semibold text-gray-700">{{ __('language.title_bio_user') }}</label>
+                    <textarea id="editBio" class="w-full p-3 border rounded-lg h-28 resize-none focus:ring-2 focus:ring-blue-400" placeholder="{{ __('language.placeholder_bio_user') }}"></textarea>
                 </div>
-                <div>
-                    <label for="editDate" class="block text-sm font-semibold text-gray-700">{{ __('language.title_date_user') }}</label>
-                    <div class="relative">
-                        <input type="text" id="editDate" class="w-full p-3 pr-10 border rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="{{ __('language.placeholder_date_user') }}">
-                        <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer text-lg text-gray-500" id="openCalendar">📅</span>
-                    </div>
-                </div>
-                <div>
-                    <label for="editPhone" class="block text-sm font-semibold text-gray-700">{{ __('language.title_phone_user') }}</label>
-                    <input type="tel" pattern="[0-9]{10}" id="editPhone" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="{{ __('language.placeholder_phone_user') }}">
-                </div>
-                <div class="relative">
-                    <label for="editNewPassword" class="block text-sm font-semibold text-gray-700">{{ __('language.title_new_password_user') }}</label>
-                    <div class="relative">
-                        <input type="password" id="editNewPassword" class="w-full p-3 pr-10 border rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="{{ __('language.placeholder_new_password_user') }}">
-                        <i class="toggle-password fa fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500"></i>
-                    </div>
-                    <p class="italic text-red-600 text-sm mt-1" id="alert-password"></p>
-                </div>
-            </div>
 
-            <!-- Display-only Fields -->
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">{{ __('language.title_username_user') }}: <span id="editUsername" class="text-blue-600 font-semibold text-sm"></span></label>
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700">{{ __('language.title_email_user') }}: <span id="editEmail" class="text-blue-600 font-semibold text-sm"></span></label>
-            </div>
-            
-            <!-- Bio -->
-            <div>
-                <label for="editBio" class="block text-sm font-semibold text-gray-700">{{ __('language.title_bio_user') }}</label>
-                <textarea id="editBio" class="w-full p-3 border rounded-lg h-28 resize-none focus:ring-2 focus:ring-blue-400" placeholder="{{ __('language.placeholder_bio_user') }}"></textarea>
-            </div>
+                <!-- Buttons -->
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button type="submit" class="p-3 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 hover:shadow-xl active:scale-95 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </button>
 
-            <!-- Buttons -->
-            <div class="flex justify-end space-x-4 mt-6">
-                <button type="submit" class="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition">{{ __('language.btn_edit') }}</button>
-                <button type="button" onclick="closeEditModal()" class="px-6 py-3 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 transition">{{ __('language.btn_cancel') }}</button>
-            </div>
-        </form>
+                </div>
+                
+            </form>
+        </div>
     </div>
 </div>
 
@@ -148,11 +163,9 @@
                     orderable: false,
                     searchable: false,
                     render: function(data, type, row) {
-                        return `<div class="flex space-x-2">
-                            <button onclick="openEditModal(${row.id})" class="px-3 py-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">{{ __('language.btn_edit') }}</button>
-                            <button class="delete-btn px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600" data-id="${row.id}">
-                                {{ __('language.btn_delete') }}
-                            </button>
+                        return `<div class="flex space-x-3">
+                            <i onclick="openEditModal(${row.id})" class="fas fa-edit text-blue-500 text-lg cursor-pointer hover:text-blue-600"></i>
+                            <i class="delete-btn fas fa-trash-alt text-red-500 text-lg cursor-pointer hover:text-red-600" data-id="${row.id}"></i>
                         </div>`;
                     }
                 }

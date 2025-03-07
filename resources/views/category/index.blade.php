@@ -5,14 +5,19 @@
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-semibold">{{ __('language.title_category_index') }}</h2>
         <div class="flex space-x-2">
+
             <!-- Nút Thêm danh mục -->
-            <button id="openAddModal" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-                + {{ __('language.btn_add_category') }}
+            <button id="openAddModal" class="flex items-center gap-2 px-4 py-2 bg-green-500 text-white font-medium rounded-lg shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300">
+                <i class="fas fa-plus"></i>
+                {{ __('language.btn_add_category') }}
             </button>
+            
             <!-- Nút Xóa danh mục đã chọn -->
-            <button id="deleteSelected" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+            <button id="deleteSelected" class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white font-medium rounded-lg shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300">
+                <i class="fas fa-trash-alt"></i>
                 {{ __('language.btn_delete_items') }}
             </button>
+            
         </div>
     </div>
 
@@ -50,22 +55,45 @@
 <!-- Modal để sửa danh mục -->
 <!-- Edit Category Modal -->
 <div id="editCategoryModal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
-        <h2 class="text-xl font-semibold mb-4">{{ __('language.title_edit_category') }}</h2>
-        <form id="editCategoryForm">
-            @csrf
-            <input type="hidden" id="editCategoryId">
-            
-            <div class="mb-4">
-                <label for="editCategoryName" class="block text-sm font-medium text-gray-700">{{ __('language.title_name_category') }}</label>
-                <input type="text" id="editCategoryName" class="w-full p-2 border rounded" placeholder="{{__('language.placeholder_name_category')}}">
-            </div>
+    <div class="relative bg-white rounded-lg shadow-lg w-1/3 max-h-[90vh] overflow-y-auto p-0">
+        
+        <!-- Header cố định khi cuộn -->
+        <div class="sticky top-0 left-0 right-0 bg-white flex justify-between items-center px-6 py-3 border-b shadow-md rounded-t-lg z-50">
+            <h2 class="text-xl font-semibold">{{ __('language.title_edit_category') }}</h2>
+            <button type="button" onclick="closeEditModal()" class="text-gray-500 hover:text-gray-700 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
 
-            <div class="flex justify-end space-x-2">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">{{ __('language.btn_edit') }}</button>
-                <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">{{ __('language.btn_cancel') }}</button>
-            </div>
-        </form>
+        <!-- Nội dung -->
+        <div class="p-6">
+            <form id="editCategoryForm">
+                @csrf
+                <input type="hidden" id="editCategoryId">
+                
+                <div class="mb-4">
+                    <label for="editCategoryName" class="block text-sm font-medium text-gray-700">{{ __('language.title_name_category') }}</label>
+                    <input type="text" id="editCategoryName" class="w-full p-2 border rounded" placeholder="{{__('language.placeholder_name_category')}}">
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button type="submit" class="p-3 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 hover:shadow-xl active:scale-95 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </button>
+                    <button type="button" onclick="closeEditModal()" class="p-3 bg-gray-500 text-white rounded-full shadow-lg hover:bg-gray-600 hover:shadow-xl active:scale-95 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 
@@ -97,11 +125,9 @@
                     orderable: false,
                     searchable: false,
                     render: function(data, type, row) {
-                        return `<div class="flex space-x-2">
-                            <button onclick="openEditModal(${row.id})" class="px-3 py-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">{{ __('language.btn_edit') }}</button>
-                            <button class="delete-btn px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600" data-id="${row.id}">
-                                {{ __('language.btn_delete') }}
-                            </button>
+                        return `<div class="flex space-x-3">
+                            <i onclick="openEditModal(${row.id})" class="fas fa-edit text-blue-500 text-lg cursor-pointer hover:text-blue-600"></i>
+                            <i class="delete-btn fas fa-trash-alt text-red-500 text-lg cursor-pointer hover:text-red-600" data-id="${row.id}"></i>
                         </div>`;
                     }
                 }

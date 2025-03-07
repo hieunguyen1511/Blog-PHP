@@ -5,8 +5,9 @@
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-semibold">{{ __('language.title_post_index') }}</h2>
         <div class="flex space-x-2">
-            <!-- Nút Xóa danh mục đã chọn -->
-            <button id="deleteSelected" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+            <!-- Nút Xóa bài đăng đã chọn -->
+            <button id="deleteSelected" class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white font-medium rounded-lg shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300">
+                <i class="fas fa-trash-alt"></i>
                 {{ __('language.btn_delete_items') }}
             </button>
         </div>
@@ -31,72 +32,82 @@
 </div>
 
 <div id="editPostModal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl max-h-[80vh] overflow-y-auto">
-        <h2 class="text-xl font-semibold mb-4 text-center">{{ __('language.title_edit_post') }}</h2>
+    <div class="relative bg-white rounded-lg shadow-lg w-full max-w-3xl max-h-[80vh] overflow-y-auto p-0">
 
-        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-            <!-- Post Header -->
-            <div class="p-6 border-b border-gray-100">
-                <h1 id="title-post" class="text-2xl font-bold text-gray-900 mb-4"></h1>
-                <div class="flex items-center space-x-4 text-sm text-gray-500">
-                    <div class="flex items-center">
-                        <i class="fas fa-clock mr-2"></i>
-                        <span id="post-create-at"></span>
-                    </div>
-                    <a id="a-user" href="#" class="flex items-center">
-                        <i class="fas fa-user mr-2"></i>
-                        <span id="user-full-name"></span>
-                    </a>
-                </div>
-            </div>
+        <!-- Thanh Header Cố Định -->
+        <div class="sticky top-0 left-0 right-0 bg-white flex justify-between items-center px-6 py-3 border-b shadow-md z-50">
+            <h2 class="text-xl font-semibold text-center flex-1">{{ __('language.title_edit_post') }}</h2>
+            <button type="button" onclick="closeEditModal()" class="text-gray-500 hover:text-gray-700 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
 
-            <!-- Post Content -->
-            <div class="p-6 overflow-hidden break-words max-w-full" id="post-content">
-                {{-- encode html --}}
-            </div>
-
-            <!-- Post Footer -->
-            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-thumbs-up mr-2 text-blue-600"></i>
+        <!-- Nội dung chính -->
+        <div class="p-6">
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <!-- Post Header -->
+                <div class="p-6 border-b border-gray-100">
+                    <h1 id="title-post" class="text-2xl font-bold text-gray-900 mb-4"></h1>
+                    <div class="flex items-center space-x-4 text-sm text-gray-500">
                         <div class="flex items-center">
+                            <i class="fas fa-clock mr-2"></i>
+                            <span id="post-create-at"></span>
+                        </div>
+                        <a id="a-user" href="#" class="flex items-center">
+                            <i class="fas fa-user mr-2"></i>
+                            <span id="user-full-name"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Post Content -->
+                <div class="p-6 overflow-hidden break-words max-w-full" id="post-content">
+                    {{-- encode html --}}
+                </div>
+
+                <!-- Post Footer -->
+                <div class="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-thumbs-up mr-2 text-blue-600"></i>
+                            <div class="flex items-center">
+                                <span class="text-sm text-gray-500">
+                                    <span class="like-count" id="post-like-count"></span> {{ __('language.detail_post_like') }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-eye text-green-500"></i>
                             <span class="text-sm text-gray-500">
-                                <span class="like-count" id="post-like-count"></span> {{ __('language.detail_post_like') }}
+                                <span id="post-view-count"></span> {{ __('language.detail_post_view') }}
                             </span>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-eye text-green-500"></i>
-                        <span class="text-sm text-gray-500">
-                            <span id="post-view-count"></span> {{ __('language.detail_post_view') }}
-                        </span>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="mt-4 bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="p-4 border-b border-gray-100">
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        <span id="post-comment-count"></span> {{ __('language.detail_post_comment') }}
+                    </h2>
+                </div>
+                <div class="p-4">
+                    <div id="load-comment" class="space-y-4">
+                        {{-- Danh sách bình luận --}}
+                    </div>
+                    <div class="text-center mt-4">
+                        <button id="load-more-comments" class="w-full px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-blue-600">
+                            {{ __('language.detail_post_load_more') }}
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Comments Section -->
-        <div class="mt-4 bg-white rounded-lg shadow-sm overflow-hidden">
-            <div class="p-4 border-b border-gray-100">
-                <h2 class="text-lg font-semibold text-gray-900"><span id="post-comment-count"></span> {{ __('language.detail_post_comment') }}</h2>
-            </div>
-            <div class="p-4">
-                <div id="load-comment" class="space-y-4">
-                    {{-- Danh sách bình luận --}}
-                </div>
-                <div class="text-center mt-4">
-                    <button id="load-more-comments" class="w-full px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-blue-600">
-                        {{ __('language.detail_post_load_more') }}
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Close Button -->
-        <div class="text-center mt-4">
-            <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">{{ __('language.btn_cancel') }}</button>
-        </div>
     </div>
 </div>
 
@@ -150,11 +161,9 @@
                     orderable: false,
                     searchable: false,
                     render: function(data, type, row) {
-                        return `<div class="flex space-x-2">
-                            <button onclick="openEditModal(${row.id})" class="px-3 py-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">{{ __('language.btn_detail') }}</button>
-                            <button class="delete-btn px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600" data-id="${row.id}">
-                                {{ __('language.btn_delete') }}
-                            </button>
+                        return `<div class="flex space-x-3">
+                            <i onclick="openEditModal(${row.id})" class="fas fa-edit text-blue-500 text-lg cursor-pointer hover:text-blue-600"></i>
+                            <i class="delete-btn fas fa-trash-alt text-red-500 text-lg cursor-pointer hover:text-red-600" data-id="${row.id}"></i>
                         </div>`;
                     }
                 }
