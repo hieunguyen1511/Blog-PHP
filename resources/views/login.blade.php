@@ -20,10 +20,10 @@
         <div class="flex items-center justify-center">
             @if (session('successCreateAccount'))
                 <div id="toast-success"
-                    class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-500 bg-green-100 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800"
+                    class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-500 bg-green-100 rounded-lg shadow-sm"
                     role="alert">
                     <div
-                        class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                        class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg ">
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
                             <path
@@ -36,10 +36,10 @@
             @endif
             @if (session('change_password_success'))
                 <div id="toast-success"
-                    class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-500 bg-green-100 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800"
+                    class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-500 bg-green-100 rounded-lg shadow-sm"
                     role="alert">
                     <div
-                        class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                        class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg">
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
                             <path
@@ -52,10 +52,10 @@
             @endif
             @if (session('errorLogin1'))
                 <div id="toast-danger"
-                    class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-800 bg-red-100 rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800"
+                    class="flex items-center w-full max-w-xl p-4 mb-4 text-gray-800 bg-red-100 rounded-lg shadow-sm"
                     role="alert">
                     <div
-                        class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                        class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg">
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
                             <path

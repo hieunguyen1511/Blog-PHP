@@ -18,7 +18,7 @@ class HomeController extends Controller
         //take 5 most popular category
         $popular_category = Category::withCount('posts')->orderBy('posts_count', 'desc')->take(5)->get();
         $suggested_post = Post::with('user')->with('category')->orderBy('view_count', 'desc')->take(5)->get();
-        $recommended_users = User::with('posts')->withCount('posts')->orderBy('posts_count', 'desc')->take(5)->get();
+        $recommended_users = User::where('role', '!=', User::$role_admin)-> with('posts')->withCount('posts')->orderBy('posts_count', 'desc')->take(5)->get();
         return view('home', [
             'posts' => $posts,
             'popular_category' => $popular_category,
@@ -34,7 +34,7 @@ class HomeController extends Controller
         $posts = Post::with('user')->with('category')->where('category_id', $category->id)->paginate(10);
         $popular_category = Category::withCount('posts')->orderBy('posts_count', 'desc')->take(5)->get();
         $suggested_post = Post::with('user')->with('category')->orderBy('view_count', 'desc')->take(5)->get();
-        $recommended_users = User::with('posts')->withCount('posts')->orderBy('posts_count', 'desc')->take(5)->get();
+        $recommended_users = User::where('role', '!=', User::$role_admin)-> with('posts')->withCount('posts')->orderBy('posts_count', 'desc')->take(5)->get();
         return view('home', [
             'posts' => $posts,
             'popular_category' => $popular_category,

@@ -2,11 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class checkLogin
+class checkAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,10 +16,12 @@ class checkLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session('userid') == null) {
+        if (session('userid') != null) {
+            $user = User::find(session('userid')); 
+            if ($user -> role != User::$role_admin) {
+                return redirect()->route('home');
+            }
             //session()->forget('previous_url');
-            session()->put('previous_url',url()->current());
-            return redirect()->route('login');
         }
         return $next($request);
     }

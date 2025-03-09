@@ -30,7 +30,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
                             </svg>
-                            <span class="text-sm">Following</span>
+                            <span class="text-sm">{{__('language.home_following')}}</span>
                         </a>
                     </div>
                 </div>
@@ -76,8 +76,8 @@
                                                     class="text-gray-900 hover:text-blue-600">{{ $item->title }}</a>
                                             </h2>
                                             <div class="flex items-center gap-4 mb-4">
-                                                <p class="text-gray-600">Published on
-                                                    {{ $item->created_at->format('Y-m-d') }} by {{ $item->user->full_name }}
+                                                <p class="text-gray-600">{{ __('language.published_on') }}
+                                                    {{ $item->created_at->format('Y-m-d') }} {{ __('language.by') }} {{ $item->user->full_name }}
                                                 </p>
                                                 <span class="text-gray-400">•</span>
                                                 <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"><a
@@ -110,7 +110,7 @@
                                         @foreach ($recommended_users as $item)
                                             <li>
                                                 <a href="{{route('get-profile',['username'=>$item->username])}}" class="flex items-start space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors duration-150" >
-                                                    <img class="h-10 w-10 rounded-full" src="{{ $item->profile_picture }}"
+                                                    <img class="h-10 w-10 rounded-full" src="{{ $item->profile_picture ?? asset('default_avatar.jpg') }}"
                                                         alt="{{ $item->full_name }}">
                                                     <div class="flex-1 min-w-0">
                                                         <p class="text-sm font-medium text-gray-900">{{ $item->full_name }}
@@ -125,7 +125,7 @@
                                                                         d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
                                                                     </path>
                                                                 </svg>
-                                                                {{ $item->posts->count() }} posts
+                                                                {{ $item->posts->count() }} {{ __('language.detail_post_posts') }}
                                                             </span>
                                                             <span class="text-xs text-gray-500 flex items-center">
                                                                 <svg class="w-3 h-3 mr-1" fill="none"
@@ -137,7 +137,7 @@
                                                                         stroke-width="2"
                                                                         d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                                 </svg>
-                                                                {{ $item->posts->sum('view_count') }} views
+                                                                {{ $item->posts->sum('view_count') }} {{ __('language.detail_post_view') }}
                                                             </span>
                                                         </div>
                                                     </div>

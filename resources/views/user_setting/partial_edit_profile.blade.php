@@ -14,7 +14,7 @@
             <div class="col-span-2  h-full flex justify-center">
                 <div class="relative">
                     <img id="profile-img" class="h-64 w-64 rounded-lg object-cover border-4 border-white shadow-lg"
-                        src="{{ $user->profile_picture }}" alt="Current profile photo">
+                        src="{{ $user->profile_picture ?? asset('default_avatar.jpg') }}" alt="Current profile photo">
                     <div class="relative inset-x-0 m-20 mt-10 flex justify-center">
                         <button id="lfm-btn-avatar" type="button"
                             class="px-5 py-3 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md">
@@ -27,7 +27,7 @@
             </div>
             <!-- Cover Photo -->
             <div class="col-span-4 h-full rounded-lg">
-                <img id="cover-img" src="{{ $user->cover_photo }}" alt="Cover photo" class="h-64 object-cover w-full">
+                <img id="cover-img" src="{{ $user->cover_photo ?? asset('default_cover_photo.jpg') }}" alt="Cover photo" class="h-64 object-cover w-full">
                 <div class="relative inset-x-0 m-20 mt-10 flex justify-center">
                     <button id="lfm-btn-cover" type="button"
                         class="px-5 py-3  bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md">

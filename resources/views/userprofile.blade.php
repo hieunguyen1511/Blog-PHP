@@ -6,7 +6,7 @@
     <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
         <div class="relative h-64">
             <div class="w-full h-full overflow-hidden">
-                <img src="{{$user->cover_photo}}" 
+                <img src="{{ $user->cover_photo ?? asset('default_cover_photo.jpg') }}"
                      alt="Cover Photo" 
                      class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -15,7 +15,7 @@
         <div class="px-6 py-4">
             <div class="flex items-start">
                 <div class="relative">
-                    <img class="h-24 w-24 rounded-full border-4 border-white bg-white" src="{{$user->profile_picture}}" alt="Profile">
+                    <img class="h-24 w-24 rounded-full border-4 border-white bg-white" src="{{ $user->profile_picture ?? asset('default_avatar.jpg') }}" alt="Profile">
                 </div>
                 <div class="ml-4">
                     <h1 class="text-2xl font-bold text-gray-900">{{$user->full_name}}</h1>

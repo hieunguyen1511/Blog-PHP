@@ -18,7 +18,7 @@
                     <div class="relative group">
                         <button
                             class="text-gray-500 hover:text-gray-900 flex items-center transition-colors duration-200">
-                            Categories
+                            {{__('language.header_Categories')}}
                             <svg class="w-4 h-4 ml-1 transform group-hover:rotate-180 transition-transform duration-200"
                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -29,7 +29,7 @@
                             class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top scale-95 group-hover:scale-100 z-50">
                             <div class="py-1">
                                 @foreach ($categories as $item)
-                                    <a href="/category/{{ $item->name }}"
+                                    <a href="/category/{{ $item->link }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">
                                         {{ $item->name }}
                                     </a>
@@ -187,7 +187,7 @@
                         </div>
                     </div>
                     <div id="profile-button" class="hidden md:flex items-center space-x-2">
-                        <img class="h-8 w-8 rounded-full" src="{{ $user->profile_picture }}" alt="User avatar" />
+                        <img class="h-8 w-8 rounded-full" src="{{ $user->profile_picture ?? asset('default_avatar.jpg') }}" alt="User avatar" />
                         <div class="relative inline-block">
                             <button class="text-sm font-medium text-gray-700">{{ $user->full_name }}</button>
                             <div class="absolute left-1/2 top-full transform -translate-x-1/2 mt-2 w-56 bg-white rounded-lg shadow-lg overflow-hidden z-20 hidden"

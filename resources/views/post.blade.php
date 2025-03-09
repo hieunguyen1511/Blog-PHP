@@ -67,6 +67,13 @@
                             </button> --}}
                             </div>
                             <div class="flex items-center">
+                                <svg class="flex items-center w-5 h-5 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
                                 <span class="text-sm text-gray-500">{{ $post->view_count }}
                                     {{ __('language.detail_post_view') }}</span>
                             </div>
@@ -108,7 +115,7 @@
                             @foreach ($comments as $item)
                                 <div class="flex space-x-4">
                                     <div class="flex-shrink-0">
-                                        <img class="h-10 w-10 rounded-full" src="{{ $item->user->profile_picture }}"
+                                        <img class="h-10 w-10 rounded-full" src="{{ $item->user->profile_picture ?? asset('default_avatar.jpg') }}"
                                             alt="">
                                     </div>
                                     <div class="flex-1">
@@ -143,7 +150,7 @@
                     </div>
                     <div class="p-6">
                         <div class="flex items-center mb-4">
-                            <img class="h-12 w-12 rounded-full" src="{{ $post->user->profile_picture }}" alt="">
+                            <img class="h-12 w-12 rounded-full" src="{{ $post->user->profile_picture ?? asset('default_avatar.jpg') }}" alt="">
                             <div class="ml-4">
                                 <h3 class="text-lg font-medium text-gray-900">{{ $post->user->full_name }}</h3>
                                 <div class="flex items-center space-x-4 text-sm text-gray-500">
@@ -157,7 +164,9 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
-                                        <span>{{ $post->user->posts->sum('view_count') }} views</span>
+                                        <span>{{ $post->user->posts->sum('view_count') }}
+                                            {{ __('language.detail_post_view') }}
+                                        </span>
                                     </div>
                                     {{-- <span class="text-gray-300">•</span> --}}
                                     <div class="flex items-center">
@@ -201,7 +210,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
-                                        <span>{{ $item->view_count . ' ' . __('language.detail_post_like') }}</span>
+                                        <span>{{ $item->view_count . ' ' . __('language.detail_post_view') }}</span>
                                     </div>
                                     <div class="flex items-center">
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
@@ -247,7 +256,7 @@
                     document.getElementById('load-comment').innerHTML += response.comments.data.map(
                         comment => `<div class="flex space-x-4">
                             <div class="flex-shrink-0">
-                                <img class="h-10 w-10 rounded-full" src="${comment.user.profile_picture}" alt="">
+                                <img class="h-10 w-10 rounded-full" src="${comment.user.profile_picture ? comment.user.profile_picture : '/default_avatar.jpg'}" alt="">
                             </div>
                             <div class="flex-1">
                                 <div class="flex items-center mb-1">

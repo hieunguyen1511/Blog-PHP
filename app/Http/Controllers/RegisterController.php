@@ -28,6 +28,7 @@ class RegisterController extends Controller{
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->role = User::$role_user;
         try {
             $user->save();
             return redirect()->route('login')->with('successCreateAccount', __('language.success_register'));
