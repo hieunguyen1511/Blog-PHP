@@ -217,7 +217,7 @@
                                     d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 18h8l-2-4-1.5 2-2-4L8 18Zm7-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
                             </svg>
 
-                            <span class="text-sm">Media Resource</span>
+                            <span class="text-sm">{{ __('language.setting_media_resource') }}</span>
                         </a>
                     </div>
                 </div>
@@ -235,7 +235,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
-                            User Settings
+                            {{ __('language.user_settings') }}
                         </h1>
                         <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
                             <div class="relative h-64">
@@ -262,19 +262,19 @@
                                 <div class="flex space-x-8">
                                     <div class="flex-1">
                                         <div class="text-2xl font-bold text-gray-900">{{ $user->posts->count() }}</div>
-                                        <div class="text-sm text-gray-500">Posts</div>
+                                        <div class="text-sm text-gray-500">{{__('language.detail_post_posts')}}</div>
                                     </div>
                                     <div class="flex-1">
                                         <div class="text-2xl font-bold text-gray-900">
                                             {{ $user->posts->sum('view_count') }}
                                         </div>
-                                        <div class="text-sm text-gray-500">Views</div>
+                                        <div class="text-sm text-gray-500">{{__('language.detail_post_view')}}</div>
                                     </div>
                                     <div class="flex-1">
                                         <div class="text-2xl font-bold text-gray-900">
                                             {{ $user->posts->sum('like_count') }}
                                         </div>
-                                        <div class="text-sm text-gray-500">Likes</div>
+                                        <div class="text-sm text-gray-500">{{__('language.detail_post_like')}}</div>
                                     </div>
                                 </div>
                             </div>

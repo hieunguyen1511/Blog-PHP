@@ -40,13 +40,37 @@ return [
     'forgot_password' => 'Quên mật khẩu?',
     'create_account' => 'Tạo tài khoản',
 
+    // Header
+    'header_Post' => 'Bài viết',
+    'header_Categories' => 'Chủ đề',
+    'header_Placeholder_search' => 'Tìm kiếm...',
+    'header_login' => 'Đăng nhập',
+    'header_register' => 'Đăng ký',
+
+    'header_user_new_post' => 'Đăng bài',
+    'header_user_profile' => 'Hồ sơ của tôi',
+    'header_user_setting' => 'Cài đặt',
+    'header_user_change_password' => 'Thay đổi mật khẩu',
+    'header_user_logout' => 'Đăng xuất',
+
+    'header_notifications' => 'Thông báo',
+    'header_notifications_empty' => 'Không có thông báo nào',
+    'header_notifications_all' => 'Xem tất cả',
+    'header_notifications_comment' => 'Đã bình luận trên bài viết của bạn',
+    'header_notifications_like' => 'Đã thích bài viết của bạn',
+
+    'header_notifications_content_comment' => 'đã bình luận trên bài viết của bạn',
+    'header_notifications_content_like' => 'đã thích bài viết của bạn',
+
+    'header_related_post' => 'Bài viết liên quan',
+    'header_related_category' => 'Chủ đề liên quan',
 
     // Content home
     'home_pagination_show' => 'Hiển thị',
     'home_pagination_to' => 'đến',
     'home_pagination_of' => 'của',
     'home_pagination_result' => 'kết quả',
-    'home_popular_categories' => 'Danh mục phổ biến',
+    'home_popular_categories' => 'Chủ đề phổ biến',
     'home_suggested_post' => 'Bài viết gợi ý',
     'home_recommend_user' => 'Người dùng được đề xuất',
     'home_following' => 'Đang theo dõi',
@@ -57,19 +81,6 @@ return [
     'profile_likes' => 'Lượt thích',
     'profile_allPosts' => 'Tất cả bài viết',
 
-    // Detail Post
-    'detail_post_about_author' => 'Về tác giả',
-    'detail_post_view_profile' => 'Xem hồ sơ',
-    'detail_post_posts' => 'Bài viết',
-    'detail_post_like' => 'Lượt thích',
-    'detail_post_comment' => 'Bình luận',
-    'detail_post_view' => 'Lượt xem',
-    'detail_post_related_post' => 'Bài viết liên quan',
-    'detail_post_load_more' => 'Tải thêm bình luận',
-    'detail_post_submit_comment' => 'Gửi bình luận',
-    'detail_post_comment_placeholder' => 'Viết bình luận...',
-    'detail_post_alert_like' => 'Vui lòng đăng nhập để thích bài viết này',
-    'detail_post_alert_comment' => 'Vui lòng đăng nhập để bình luận bài viết này',
 
     // setting
     'setting_user_management_label' => 'Quản lý người dùng',
@@ -81,6 +92,7 @@ return [
     'setting_create_post' => 'Tạo bài viết',
     'setting_favorite_post' => 'Bài viết yêu thích',
     'setting_media_resource_label' => 'Tài nguyên đa phương tiện',
+    'user_settings' => 'Cài đặt người dùng',
 
     // setting edit profile
     'setting_edit_profile_change_photo' => 'Thay đổi ảnh',
@@ -93,6 +105,7 @@ return [
     'setting_edit_profile_success_noti' => 'Cập nhật hồ sơ thành công',
 
     // setting change password
+    'setting_change_password' => 'Đổi mật khẩu',
     'setting_change_password_current' => 'Mật khẩu hiện tại',
     'setting_change_password_new' => 'Mật khẩu mới',
     'setting_change_password_confirm' => 'Xác nhận mật khẩu',
@@ -110,6 +123,7 @@ return [
     'setting_post_notification_load' => 'Tải thêm thông báo',
 
     // setting my post
+    'setting_my_post' => 'Bài viết của tôi',
     'setting_my_post_empty' => 'Chưa có bài viết nào',
     'setting_my_post_create' => 'Tạo bài viết',
     'setting_my_post_filter' => 'Lọc',
@@ -117,7 +131,7 @@ return [
     'setting_my_post_filter_all' => 'Tất cả',
     'setting_my_post_sort_by' => 'Sắp xếp theo',
     'setting_my_post_title' => 'Tiêu đề',
-    'setting_my_post_category' => 'Danh mục',
+    'setting_my_post_category' => 'Chủ đề',
     'setting_my_post_date' => 'Ngày',
     'setting_my_post_update' => 'Cập nhật',
     'setting_my_post_action' => 'Hành động',
@@ -140,34 +154,34 @@ return [
     // create post
     'create_post_title' => 'Tiêu đề',
     'create_post_title_placeholder' => 'Nhập tiêu đề của bạn...',
-    'create_post_category' => 'Danh mục',
+    'create_post_category' => 'Chủ đề',
     'create_post_description' => 'Mô tả',
     'create_post_description_placeholder' => 'Nhập mô tả...',
     'create_post_content' => 'Nội dung',
-    'create_post_button' => 'Tạo bài viết',
+    'create_post_button' => 'Đăng bài',
 
-    // Detail Post 
-    'detail_post_about_author' => 'About Author',
-    'detail_post_view_profile' => 'View Profile',
-    'detail_post_posts' => 'Posts',
+    // Detail Post
+    'detail_post_about_author' => 'Về tác giả',
+    'detail_post_view_profile' => 'Xem hồ sơ',
+    'detail_post_posts' => 'bài viết',
     'detail_post_like' => 'lượt thích',
     'detail_post_comment' => 'bình luận',
     'detail_post_view' => 'lượt xem',
-    'detail_post_related_post' => 'Related Post',
-    'detail_post_load_more' => 'Load more comments',
-    'detail_post_submit_comment' => 'Submit Comment',
-    'detail_post_comment_placeholder' => 'Write a comment...',
-    'detail_post_alert_like' => 'Please login to like this post',
-    'detail_post_alert_comment' => 'Please login to comment this post',
+    'detail_post_related_post' => 'Bài viết liên quan',
+    'detail_post_load_more' => 'Tải thêm bình luận',
+    'detail_post_submit_comment' => 'Gửi bình luận',
+    'detail_post_comment_placeholder' => 'Viết bình luận...',
+    'detail_post_alert_like' => 'Vui lòng đăng nhập để thích bài viết này',
+    'detail_post_alert_comment' => 'Vui lòng đăng nhập để bình luận bài viết này',
 
     // page Category index
-    'title_category_index' => 'Danh sách danh mục',
-    'btn_add_category' => 'Thêm danh mục',
-    'title_add_category' => 'Thêm mới danh mục',
-    'title_edit_category' => 'Cập nhật danh mục',
-    'title_name_category' => 'Tên danh mục',
-    'placeholder_name_category' => 'Điền tên danh mục',
-    'error_category_name' => 'Vui lòng điền tên danh mục',
+    'title_category_index' => 'Danh sách chủ đề',
+    'btn_add_category' => 'Thêm chủ đề',
+    'title_add_category' => 'Thêm mới chủ đề',
+    'title_edit_category' => 'Cập nhật chủ đề',
+    'title_name_category' => 'Tên chủ đề',
+    'placeholder_name_category' => 'Điền tên chủ đề',
+    'error_category_name' => 'Vui lòng điền tên chủ đề',
 
 
     // page Post index
@@ -227,11 +241,30 @@ return [
     'published_posts' => 'Các bài đăng',
     'count_published_posts' => 'Số bài đăng',
     'latest_posts' => 'Bài đăng mới nhất',
+    
+    //Profile
+    'title_profile' => 'Hồ sơ cá nhân',
+    'title_re_new_password' => 'Mật khẩu nhập lại',
+    'success_save_profile' => 'Lưu hồ sơ thành công',
+    'fail_save_profile' => 'Lưu hồ sơ thất bại',
+    'title_old_password' => 'Mật khẩu cũ',
+    'error_wrong_password' => 'Sai mật khẩu',
 
+    //Sidebar
+    'sidebar_dashboard' => 'Bảng điều khiển',
+    'sidebar_posts' => 'Bài viết',
+    'sidebar_categories' => 'Chủ đề',
+    'sidebar_users' => 'Người dùng',
+    'sidebar_notifications' => 'Thông báo',
+    'sidebar_notification_types' => 'Loại thông báo',
+    'sidebar_settings' => 'Cài đặt',
+    'admin_panel' => 'Bảng quản trị',
+    'title_admin_page' => 'Hệ thống quản lý Blog',
+    'view_more' => 'Xem thêm',
+
+    
     'title_create_at' => 'Ngày tạo',
-
     'error_change_language' => 'Lỗi khi thay đổi ngôn ngữ',
-
     'title_user' => 'User',
     'change_picture' => 'Thay đổi ảnh',
     'created_item_success' => 'Thêm mới item thành công',
@@ -262,25 +295,7 @@ return [
     'message_info' => 'Thông báo!',
     'error_fetching_data' => 'Lỗi fetch dữ liệu.',
     'error_unknow' => 'Không rõ',
-    
-    //Profile
-    'title_profile' => 'Hồ sơ cá nhân',
-    'title_re_new_password' => 'Mật khẩu nhập lại',
-    'success_save_profile' => 'Lưu hồ sơ thành công',
-    'fail_save_profile' => 'Lưu hồ sơ thất bại',
-    'title_old_password' => 'Mật khẩu cũ',
-    'error_wrong_password' => 'Sai mật khẩu',
-
-    //Sidebar
-    'sidebar_dashboard' => 'Bảng điều khiển',
-    'sidebar_posts' => 'Bài post',
-    'sidebar_categories' => 'Danh mục',
-    'sidebar_users' => 'Người dùng',
-    'sidebar_notifications' => 'Thông báo',
-    'sidebar_notification_types' => 'Loại thông báo',
-    'sidebar_settings' => 'Cài đặt',
-
-    'admin_panel' => 'Bảng quản trị',
-    'title_admin_page' => 'Hệ thống quản lý Blog',
-    'view_more' => 'Xem thêm',
+    'by' => 'bởi',
+    'published_on' => 'Đăng tải vào ngày',
+    'btn_close' => 'Đóng',
 ];

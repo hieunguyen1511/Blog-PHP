@@ -319,6 +319,10 @@
                         $("#old-password").val('');
                         $("#new-password").val('');
                         $("#re-new-password").val('');
+                        if (profile_picture != '') {
+                            document.getElementById('profile_photo-sidebar').src = profile_picture;
+                            document.getElementById('full_name-sidebar').innerText = full_name;
+                        }
                         toastr.success(response.message, "{{ __('language.message_success') }}", {
                             closeButton: true,
                             progressBar: true,

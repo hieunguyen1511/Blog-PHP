@@ -92,13 +92,13 @@ return [
     // Detail Post 
     'detail_post_about_author' => 'About Author',
     'detail_post_view_profile' => 'View Profile',
-    'detail_post_posts' => 'Posts',
+    'detail_post_posts' => 'posts',
     'detail_post_like' => 'likes',
     'detail_post_comment' => 'comments',
     'detail_post_view' => 'views',
     'detail_post_related_post' => 'Related Post',
     'detail_post_load_more' => 'Load more comments',
-    'detail_post_submit_comment' => 'Submit Comment',
+    'detail_post_submit_comment' => 'Submit comment',
     'detail_post_comment_placeholder' => 'Write a comment...',
     'detail_post_alert_like' => 'Please login to like this post',
     'detail_post_alert_comment' => 'Please login to comment this post',
@@ -115,6 +115,7 @@ return [
     'setting_favorite_post' => 'Favorite Posts',
     
     'setting_media_resource_label' => 'Media Resource',
+    'user_settings' => 'User Settings',
 
 
     // setting edit profile
@@ -255,6 +256,28 @@ return [
     'count_published_posts' => 'Count Published Posts',
     'latest_posts' => 'Lastest Posts',
 
+    //Profile
+    'title_profile' => 'Profile',
+    'title_re_new_password' => 'Re new password',
+    'success_save_profile' => 'Profile saved successfully',
+    'fail_save_profile' => 'Profile saved failed',
+    'title_old_password' => 'Old password',
+    'error_wrong_password' => 'Wrong password',
+
+    //Sidebar
+    'sidebar_dashboard' => 'Dashboard',
+    'sidebar_posts' => 'Posts',
+    'sidebar_categories' => 'Categories',
+    'sidebar_users' => 'Users',
+    'sidebar_notifications' => 'Notification',
+    'sidebar_notification_types' => 'Notification Type',
+    'sidebar_settings' => 'Settings',
+    'admin_panel' => 'Admin Panel',
+    'title_admin_page' => 'Blog Management Dashboard',
+    'title_notifications' => 'Notifications',
+    'view_more' => 'View more',
+
+    
     'title_create_at' => 'Create at',
     
     'error_change_language' => 'Error change language',
@@ -290,28 +313,8 @@ return [
     'error_fetching_data' => 'Error fetching data.',
     'error_unknow' => 'Unknow',
 
-
-    //Profile
-    'title_profile' => 'Profile',
-    'title_re_new_password' => 'Re new password',
-    'success_save_profile' => 'Profile saved successfully',
-    'fail_save_profile' => 'Profile saved failed',
-    'title_old_password' => 'Old password',
-    'error_wrong_password' => 'Wrong password',
-
-    //Sidebar
-    'sidebar_dashboard' => 'Dashboard',
-    'sidebar_posts' => 'Posts',
-    'sidebar_categories' => 'Categories',
-    'sidebar_users' => 'Users',
-    'sidebar_notifications' => 'Notification',
-    'sidebar_notification_types' => 'Notification Type',
-    'sidebar_settings' => 'Settings',
-
-    'admin_panel' => 'Admin Panel',
-    'title_admin_page' => 'Blog Management Dashboard',
-
-    'title_notifications' => 'Notifications',
-    'view_more' => 'View more',
+    'by' => 'by',
+    'published_on' => 'Published on',
+    'btn_close' => 'Đóng',
 
 ];

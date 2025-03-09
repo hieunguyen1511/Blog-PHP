@@ -117,7 +117,7 @@
                         <div class="relative max-w-md w-full lg:max-w-lg mx-4">
                             <input type="text" id="searchInput" autocomplete="off"
                                    class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-                                   placeholder="Search...">
+                                   placeholder="{{ __('language.header_Placeholder_search') }}">
                             <div class="absolute left-3 top-2.5 text-gray-400 dark:text-gray-500">
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -197,9 +197,9 @@
                                 <?php
                                     $user = (object) session('user');
                                 ?>
-                                <img class="h-9 w-9 rounded-full object-cover ring-2 ring-blue-500" src=D alt="Admin">
+                                <img id="profile_photo-sidebar" class="h-9 w-9 rounded-full object-cover ring-2 ring-blue-500" src="{{ $user->profile_picture ?? asset('default_avatar.jpg') }}" alt="Admin">
                                 <div class="text-left hidden sm:block">
-                                    <p class="text-sm font-semibold text-blue-100 group-hover:text-blue-700">{{$user->full_name}}</p>
+                                    <p id="full_name-sidebar" class="text-sm font-semibold text-blue-100 group-hover:text-blue-700">{{$user->full_name}}</p>
 
                                     {{-- <p class="text-xs text-gray-500">Super Admin</p> --}}
                                 </div>
@@ -216,7 +216,7 @@
                                         <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                         </svg>
-                                        Profile
+                                        {{ __('language.header_user_profile') }}
                                     </div>
                                 </a>
                                 {{-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
@@ -234,7 +234,7 @@
                                         <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                         </svg>
-                                        Logout
+                                        {{ __('language.header_user_logout') }}
                                     </div>
                                 </a>
                             </div>

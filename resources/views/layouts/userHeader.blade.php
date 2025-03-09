@@ -18,7 +18,7 @@
                     <div class="relative group">
                         <button
                             class="text-gray-500 hover:text-gray-900 flex items-center transition-colors duration-200">
-                            Categories
+                            {{__('language.header_Categories')}}
                             <svg class="w-4 h-4 ml-1 transform group-hover:rotate-180 transition-transform duration-200"
                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

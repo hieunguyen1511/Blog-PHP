@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class ProfileController extends Controller{
     public function index($id) {
@@ -51,6 +52,7 @@ class ProfileController extends Controller{
 
         try {
             $user->update();
+            Session::put("user", $user);
             return response()->json([
                 'status' => '200',
                 'message' => __('language.success_save_profile')
