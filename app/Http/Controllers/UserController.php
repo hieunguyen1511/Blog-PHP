@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -20,6 +18,11 @@ class UserController extends Controller
     public function index()
     {
         return view('info');
+    }
+    
+    //trang chủ cho quản trị (bảng dữ liệu)
+    public function indexAdmin(){
+        return view('user.index');
     }
 
     public function create_post()
@@ -83,59 +86,119 @@ class UserController extends Controller
         return redirect()->route('my_post')->with('delete_post_success', __('language.setting_my_post_alert_delete_success'));
     }
 
-
-
-    public function getAll()
-    {
-        $users = User::all();
-        return response()->json(
-            [
-                'status' => '200',
-                'users' => $users
-            ]
+    //API lấy bảng dữ liệu
+    public function getAll(){
+        $users = User::where('role', '!=', User::$role_admin)->get();
+        return response()->json([
+            'status' => '200',
+            'users' => $users
+        ]
         );
     }
 
-    public function get(Request $request)
-    {
+    //API lấy dữ liệu cụ thể
+    public function get(Request $request){
         $user = User::find($request->id);
-        return response()->json(
-            [
-                'status' => '200',
-                'user' => $user
-            ]
+        return response()->json([
+            'status' => '200',
+            'user' => $user
+        ]
         );
     }
 
-    public function update(Request $request)
-    {
+    //Cập nhật dữ liệu
+    public function update(Request $request){
+        
+        $request->validate([
+            'full_name' => 'required',
+        ]);
+
         $user = User::find($request->id);
-        $user->password = Hash::make($request->password);
-        $user->date = $request->date;
+        if (!$user) {
+            return response()->json([
+                'status' => '400',
+                'message' => __('language.error_no_item_selected')
+            ], 400);
+        }
+        if ($request->new_password != null) {
+            $user->password = Hash::make($request->new_password);
+        }
+        $user -> full_name = $request->full_name;
+        $user->date = $request -> date;
+        
         $user->phone = $request->phone;
         $user->bio = $request->bio;
-        $user->profile_picture = $request->profile_picture;
-        $user->cover_photo = $request->cover_photo;
+        if ($request->profile_picture != null) {
+            $user->profile_picture = $request->profile_picture;
+        }
+        if ($request->cover_photo != null) {
+            $user->cover_photo = $request->cover_photo;
+        }
         $user->full_name = $request->full_name;
-        $user->save();
-        return response()->json(
-            [
+        try {
+            
+            $user->save();
+            return response()->json([
                 'status' => '200',
-                'message' => 'User updated successfully'
-            ]
-        );
+                'message' => __('language.updated_item_success')
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '500',
+                'message' => __($e)
+            ], 500);
+        }
     }
 
+    //Xóa 1 dòng dữ liệu
     public function delete(Request $request)
     {
         $user = User::find($request->id);
-        $user->delete();
-        return response()->json(
-            [
+
+        if (!$user) {
+            return response()->json([
+                'status' => '400',
+                'message' => __('language.error_no_item_selected')
+            ], 400);
+        }
+
+        try {
+            $user->delete();
+            return response()->json([
                 'status' => '200',
-                'message' => 'User deleted successfully'
-            ]
-        );
+                'message' => __('language.deleted_item_success')
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '500',
+                'message' => __('language.delete_item_fail')
+            ], 500);
+        }
+    }
+
+    //Xóa nhiều dòng dữ liệu
+    public function deleteItems(Request $request)
+    {
+        if (!isset($request->ids) || count($request->ids) === 0) {
+            return response()->json([
+                'status' => '400',
+                'message' => __('language.error_no_item_selected')
+            ], 400);
+        }
+
+        try {
+            User::whereIn('id', $request->ids)->delete();
+
+            return response()->json([
+                'status' => '200',
+                'message' => __('language.deleted_items_success')
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => '500',
+                'message' => __('language.delete_items_fail')
+            ], 500);
+        }
     }
 
     public function setting()
@@ -143,9 +206,6 @@ class UserController extends Controller
         $user = User::withCount('posts')->find(session('userid'));
         return view('user_setting.setting', ['user' => $user]);
     }
-
-
-
 
     public function partial_edit_profile()
     {
@@ -300,5 +360,6 @@ class UserController extends Controller
         return redirect()->route('post-detail', ['link' => $likePost->post->link]);
     }
 
-
+    
 }
+?>

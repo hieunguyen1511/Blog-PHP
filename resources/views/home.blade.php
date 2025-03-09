@@ -110,7 +110,7 @@
                                         @foreach ($recommended_users as $item)
                                             <li>
                                                 <a href="{{route('get-profile',['username'=>$item->username])}}" class="flex items-start space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors duration-150" >
-                                                    <img class="h-10 w-10 rounded-full" src="{{ $item->profile_picture }}"
+                                                    <img class="h-10 w-10 rounded-full" src="{{ $user->profile_picture ?? asset('default_avatar.jpg') }}"
                                                         alt="{{ $item->full_name }}">
                                                     <div class="flex-1 min-w-0">
                                                         <p class="text-sm font-medium text-gray-900">{{ $item->full_name }}

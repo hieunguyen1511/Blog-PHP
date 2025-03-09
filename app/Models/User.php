@@ -46,8 +46,8 @@ class User extends Authenticatable
     //         'password' => 'hashed',
     //     ];
     // }
-
-
+    public static $role_admin = 'Admin';
+    public static $role_user = 'User';
     public function posts(){
         return $this->hasMany(Post::class);
     }

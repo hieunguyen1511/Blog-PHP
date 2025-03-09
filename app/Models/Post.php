@@ -23,6 +23,4 @@ class Post extends Model
     public function likes(){
         return $this->hasMany(PostLikes::class, 'post_id');
     }
-
-
 }

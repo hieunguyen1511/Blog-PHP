@@ -1,0 +1,55 @@
+/* Tùy chỉnh thông báo Toastr */
+.toast {
+    border-radius: 8px;  /* Bo góc mềm mại */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Bóng đổ nhẹ */
+    padding: 15px 25px;  /* Tăng độ padding để thông báo có vẻ rộng rãi hơn */
+}
+
+/* Tùy chỉnh thông báo thành công */
+.toast-success {
+    background-color: #4CAF50 !important;  /* Màu nền xanh lá cây */
+    color: white !important;
+    border-left: 5px solid #388E3C;  /* Thêm đường viền trái để nổi bật */
+}
+
+/* Tùy chỉnh thông báo lỗi */
+.toast-error {
+    background-color: #FF5722 !important;  /* Màu nền đỏ */
+    color: white !important;
+    border-left: 5px solid #D32F2F;  /* Thêm đường viền trái để nổi bật */
+}
+
+/* Tùy chỉnh thông báo cảnh báo */
+.toast-warning {
+    background-color: #FF9800 !important;  /* Màu nền cam */
+    color: white !important;
+    border-left: 5px solid #F57C00;  /* Thêm đường viền trái để nổi bật */
+}
+
+/* Tùy chỉnh thông báo thông tin */
+.toast-info {
+    background-color: #2196F3 !important;  /* Màu nền xanh dương */
+    color: white !important;
+    border-left: 5px solid #1976D2;  /* Thêm đường viền trái để nổi bật */
+}
+
+/* Tùy chỉnh icon của Toastr */
+.toast-icon {
+    font-size: 20px;  /* Tăng kích thước icon */
+    margin-right: 10px;  /* Khoảng cách giữa icon và nội dung */
+}
+
+/* Thêm hiệu ứng khi thông báo xuất hiện */
+.toast {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Animation cho hiệu ứng slide */
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

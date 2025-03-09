@@ -30,9 +30,6 @@ class LoginController extends Controller
             ->orWhere('email', $username)
             ->first();
 
-
-
-
         if ($data) {
             if (Hash::check($password, $data->password)) {
                 $user = [
@@ -48,7 +45,12 @@ class LoginController extends Controller
                 ];
                 $request->session()->put('userid', $data->id);
                 $request->session()->put('user', $user);
-                return redirect()->to(session('previous_url'));
+                if (!session('previous_url') || $request -> role == User::$role_admin) {
+                    return redirect()->route('dashboard.index');
+                }
+                else {
+                    return redirect()->to(session('previous_url'));
+                }
             } else {
                 return redirect()->back()->with('errorLogin1', __('language.error_login'))->withInput($request->except('password'));
             }
@@ -56,7 +58,5 @@ class LoginController extends Controller
             return redirect()->back()->with('errorLogin1', __('language.error_login'))->withInput($request->except('password'));
         }
     }
-
-
    
 }
