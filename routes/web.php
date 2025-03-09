@@ -14,6 +14,7 @@ use App\Http\Controllers\SeenNotificationController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\changeLanguage;
+use App\Http\Middleware\checkAdmin;
 use App\Http\Middleware\localization;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\checkLogin;
@@ -118,53 +119,53 @@ Route::middleware(localization::class)->group(function(){
     Route::get('/user/v/{username}',[HomeController::class,'get_profile'])-> name('get-profile');
     
     Route::middleware(checkLogin::class) -> prefix('/admin') -> group(function() {
-        //Page Dashboard
-        Route::get('', [DashboardController::class, 'index'])->name('dashboard.index');
-        Route::get('/dashboard/get-total-users', [DashboardController::class, 'getTotalUsers'])->name('dashboard.getTotalUsers');
-        Route::get('/dashboard/get-total-posts', [DashboardController::class, 'getTotalPosts'])->name('dashboard.getTotalPosts');
-        Route::get('/dashboard/get-total-views', [DashboardController::class, 'getTotalViews'])->name('dashboard.getTotalViews');
-    
-        Route::get('/dashboard/get-total-comments', [DashboardController::class, 'getTotalComments'])->name('dashboard.getTotalComments');
-        Route::get('/dashboard/get-published-posts-statistics', [DashboardController::class, 'getPublishedPostsStatistics'])->name('dashboard.getPublishedPostsStatistics');
-        Route::get('/dashboard/get-lastest-posts', [DashboardController::class, 'getLastestPost'])->name('dashboard.getLastestPost');
-        Route::post('/dashboard/get-load-more-post', [DashboardController::class, 'getLoadMorePost'])->name('dashboard.getLoadMorePost');
-    
-        // page Category admin
-        Route::get('/category', [CategoryController::class, 'index'])->name('category.indexAdmin');
-        Route::get('/category/data', [CategoryController::class, 'getAll']) -> name('category.getAll');
-        Route::post('/category/create', [CategoryController::class, 'create'])->name('category.create');
-        Route::delete('/category/{id}/delete', [CategoryController::class, 'delete'])->name('category.delete');
-        Route::post('/category/delete-items', [CategoryController::class, 'deleteItems'])->name('category.deleteItems');
-        Route::get('/category/{id}', [CategoryController::class, 'get'])->name('category.get');
-        Route::post('/category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
+        Route::middleware(checkAdmin::class) -> group(function() {
+            //Page Dashboard
+            Route::get('', [DashboardController::class, 'index'])->name('dashboard.index');
+            Route::get('/dashboard/get-total-users', [DashboardController::class, 'getTotalUsers'])->name('dashboard.getTotalUsers');
+            Route::get('/dashboard/get-total-posts', [DashboardController::class, 'getTotalPosts'])->name('dashboard.getTotalPosts');
+            Route::get('/dashboard/get-total-views', [DashboardController::class, 'getTotalViews'])->name('dashboard.getTotalViews');
         
-        // page Post admin
-        Route::get('/post', [PostController::class, 'indexAdmin'])->name('post.indexAdmin');
-        Route::get('/post/data', [PostController::class, 'getAll']) -> name('post.getAll');
-        Route::delete('/post/{id}/delete', [PostController::class, 'delete'])->name('post.delete');
-        Route::post('/post/delete-items', [PostController::class, 'deleteItems'])->name('post.deleteItems');
-        Route::get('/post/{id}', [PostController::class, 'get'])->name('post.get');
-        Route::post('/post/get-load-more-comments', [PostController::class, 'getLoadMoreComments'])->name('post.getLoadMoreComments');
-        Route::delete('/post/{id}/delete-comment', [PostController::class, 'deleteComment'])->name('post.deleteComment');
+            Route::get('/dashboard/get-total-comments', [DashboardController::class, 'getTotalComments'])->name('dashboard.getTotalComments');
+            Route::get('/dashboard/get-published-posts-statistics', [DashboardController::class, 'getPublishedPostsStatistics'])->name('dashboard.getPublishedPostsStatistics');
+            Route::get('/dashboard/get-lastest-posts', [DashboardController::class, 'getLastestPost'])->name('dashboard.getLastestPost');
+            Route::post('/dashboard/get-load-more-post', [DashboardController::class, 'getLoadMorePost'])->name('dashboard.getLoadMorePost');
         
-        //page User admin
-        Route::get('/user', [UserController::class, 'indexAdmin'])->name('user.indexAdmin');
-        Route::get('/user/data', [UserController::class, 'getAll']) -> name('user.getAll');
-        Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
-        Route::delete('/user/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
-        Route::post('/user/delete-items', [UserController::class, 'deleteItems'])->name('user.deleteItems');
-        Route::get('/user/{id}', [UserController::class, 'get'])->name('user.get');
-        
-        //Page Setting admin
-        
-        Route::get('/setting', [SettingController::class, 'setting'])->name('setting.index');
-        Route::post('/setting/update', [SettingController::class, 'update'])->name('setting.update');
+            // page Category admin
+            Route::get('/category', [CategoryController::class, 'index'])->name('category.indexAdmin');
+            Route::get('/category/data', [CategoryController::class, 'getAll']) -> name('category.getAll');
+            Route::post('/category/create', [CategoryController::class, 'create'])->name('category.create');
+            Route::delete('/category/{id}/delete', [CategoryController::class, 'delete'])->name('category.delete');
+            Route::post('/category/delete-items', [CategoryController::class, 'deleteItems'])->name('category.deleteItems');
+            Route::get('/category/{id}', [CategoryController::class, 'get'])->name('category.get');
+            Route::post('/category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
+            
+            // page Post admin
+            Route::get('/post', [PostController::class, 'indexAdmin'])->name('post.indexAdmin');
+            Route::get('/post/data', [PostController::class, 'getAll']) -> name('post.getAll');
+            Route::delete('/post/{id}/delete', [PostController::class, 'delete'])->name('post.delete');
+            Route::post('/post/delete-items', [PostController::class, 'deleteItems'])->name('post.deleteItems');
+            Route::get('/post/{id}', [PostController::class, 'get'])->name('post.get');
+            Route::post('/post/get-load-more-comments', [PostController::class, 'getLoadMoreComments'])->name('post.getLoadMoreComments');
+            Route::delete('/post/{id}/delete-comment', [PostController::class, 'deleteComment'])->name('post.deleteComment');
+            
+            //page User admin
+            Route::get('/user', [UserController::class, 'indexAdmin'])->name('user.indexAdmin');
+            Route::get('/user/data', [UserController::class, 'getAll']) -> name('user.getAll');
+            Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+            Route::delete('/user/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
+            Route::post('/user/delete-items', [UserController::class, 'deleteItems'])->name('user.deleteItems');
+            Route::get('/user/{id}', [UserController::class, 'get'])->name('user.get');
+            
+            //Page Setting admin
+            
+            Route::get('/setting', [SettingController::class, 'setting'])->name('setting.index');
+            Route::post('/setting/update', [SettingController::class, 'update'])->name('setting.update');
 
-        //Page Profile
-        Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
-        Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
-        
-
+            //Page Profile
+            Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
+            Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+        });
     });
 
     Route::get('/logout', function () {

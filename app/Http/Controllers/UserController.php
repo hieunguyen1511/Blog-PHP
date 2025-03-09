@@ -51,7 +51,7 @@ class UserController extends Controller{
 
     //API lấy bảng dữ liệu
     public function getAll(){
-        $users = User::all();
+        $users = User::where('role', '!=', User::$role_admin)->get();
         return response()->json([
             'status' => '200',
             'users' => $users
