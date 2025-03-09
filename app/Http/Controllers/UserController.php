@@ -314,8 +314,22 @@ class UserController extends Controller
     }
 
     public function favorite_post(){
+        $user = User::find(session('userid'));
+        $like_posts = PostLikes::with('post')->where('user_id', session('userid'))->paginate(20);
+        $total_category = [];
+        foreach ($like_posts as $item) {
+            $post = Post::with('category')->find($item->post_id);
+            if (!in_array($post->category->id, array_column($total_category, 'id'))) {
+                array_push($total_category, [
+                    'id' => $post->category->id,
+                    'name' => $post->category->name
+                ]);
+            }
+        }
         return view('user_setting.setting', [
             'section' => 'partial_favorite_post',
+            'like_posts' => $like_posts,
+            'total_category' => $total_category
         ]);
     }
 

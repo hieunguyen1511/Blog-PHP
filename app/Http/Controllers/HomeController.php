@@ -62,8 +62,12 @@ class HomeController extends Controller
     public function get_profile($username)
     {
         $user = User::with('posts')->where('username', $username)->first();
-        $posts = Post::where('user_id', $user->id)->paginate(10);
-        return view('userprofile', ['user' => $user, 'posts' => $posts]);
+        $posts = Post::with('likes')->where('user_id', $user->id)->paginate(10);
+        $total_likes = 0;
+        foreach ($posts as $post) {
+            $total_likes += count($post->likes);
+        }
+        return view('userprofile', ['user' => $user, 'posts' => $posts, 'total_likes' => $total_likes]);
     }
 
 

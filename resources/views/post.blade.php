@@ -115,7 +115,8 @@
                             @foreach ($comments as $item)
                                 <div class="flex space-x-4">
                                     <div class="flex-shrink-0">
-                                        <img class="h-10 w-10 rounded-full" src="{{ $item->user->profile_picture ?? asset('default_avatar.jpg') }}"
+                                        <img class="h-10 w-10 rounded-full"
+                                            src="{{ $item->user->profile_picture ?? asset('default_avatar.jpg') }}"
                                             alt="">
                                     </div>
                                     <div class="flex-1">
@@ -150,13 +151,14 @@
                     </div>
                     <div class="p-6">
                         <div class="flex items-center mb-4">
-                            <img class="h-12 w-12 rounded-full" src="{{ $post->user->profile_picture ?? asset('default_avatar.jpg') }}" alt="">
+                            <img class="h-12 w-12 rounded-full"
+                                src="{{ $post->user->profile_picture ?? asset('default_avatar.jpg') }}" alt="">
                             <div class="ml-4">
                                 <h3 class="text-lg font-medium text-gray-900">{{ $post->user->full_name }}</h3>
                                 <div class="flex items-center space-x-4 text-sm text-gray-500">
-                                    <span>{{ $post->user->posts->count() . ' ' . __('language.detail_post_posts') }}</span>
+                                    <span class="w-full">{{ $post->user->posts->count() . ' ' . __('language.detail_post_posts') }}</span>
                                     {{-- <span class="text-gray-300">•</span> --}}
-                                    <div class="flex items-center">
+                                    <div class="w-full flex items-center">
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -164,29 +166,27 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
-                                        <span>{{ $post->user->posts->sum('view_count') }}
-                                            {{ __('language.detail_post_view') }}
+                                        <span class="w-full">
+                                            {{ $post->user->posts->sum('view_count')." ".__('language.detail_post_view') }}
                                         </span>
                                     </div>
                                     {{-- <span class="text-gray-300">•</span> --}}
-                                    <div class="flex items-center">
+                                    <div class="w-full flex items-center">
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                                         </svg>
-                                        <span class="like-count">{{ $total_likes }}
-                                            {{ __('language.detail_post_like') }}</span>
+                                        <span class="like-count w-full">{{ $total_likes." ".__('language.detail_post_like') }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <p class="text-gray-600">{{ $post->user->bio }}</p>
-                        <button
-                            class="mt-4 w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <a
-                                href="{{ route('get-profile', ['username' => $post->user->username]) }}">{{ __('language.detail_post_view_profile') }}</a>
-                        </button>
+                        <a href="{{ route('get-profile', ['username' => $post->user->username]) }}"
+                            class="mt-4 w-full px-4 flex justify-center py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            {{ __('language.detail_post_view_profile') }}
+                        </a>
                     </div>
                 </div>
 

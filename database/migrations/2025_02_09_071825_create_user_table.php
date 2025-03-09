@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('profile_picture')->nullable();
             $table->string('cover_photo')->nullable();
             $table->string('full_name')->nullable();
-            $table->string(column: 'role');
+            $table->string('role');
             $table->timestamps();
         });
     }

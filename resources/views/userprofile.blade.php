@@ -35,7 +35,7 @@
                     <div class="text-sm text-gray-500">{{__('language.profile_views')}}</div>
                 </div>
                 <div class="flex-1">
-                    <div class="text-2xl font-bold text-gray-900">{{$user->posts->sum('like_count')}}</div>
+                    <div class="text-2xl font-bold text-gray-900">{{$total_likes}}</div>
                     <div class="text-sm text-gray-500">{{__('language.profile_likes')}}</div>
                 </div>
             </div>

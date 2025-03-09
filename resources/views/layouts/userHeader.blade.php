@@ -133,8 +133,11 @@
                                     {{ __('language.header_notifications') }}</h3>
                                 <div class="max-h-64 overflow-y-auto">
                                     @if ($noti_comment->count() > 0 || $noti_like->count() > 0)
+                                        @if ($noti_comment->count() > 0)
                                         <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
                                             {{ __('language.header_notifications_comment') }}</h3>
+                                        @endif
+                                       
                                         @foreach ($noti_comment as $item)
                                             <a href="#"
                                                 onclick="document.getElementById('cmt_post_id_{{ $item->post->id }}').submit()"
@@ -153,9 +156,11 @@
                                                 </form>
                                             </a>
                                         @endforeach
-
+                                        @if ($noti_like->count() > 0)
                                         <h3 class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
                                             {{ __('language.header_notifications_like') }}</h3>
+                                        @endif
+                                        
                                         @foreach ($noti_like as $item)
                                             <a href="#"
                                                 onclick="document.getElementById('like_post_id_{{ $item->post->id }}').submit()"
